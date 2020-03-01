@@ -1,0 +1,146 @@
+@import "../../styles/variables";
+
+.Container--Login {
+  background-color: $debug-red;
+  height: 100vh;
+  display: grid;
+  grid-template-columns: 50% 50%;
+  grid-template-rows: 7% 93%;
+}
+
+.border--container {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: flex-end;
+  &--1 {
+    background-color: $color-black;
+    justify-content: flex-end;
+  }
+
+  &--2 {
+    justify-content: flex-start;
+    background-color: $color-light-grey;
+  }
+}
+
+.border--login {
+  content: "";
+  width: 83.8%;
+  height: 1px;
+  background-color: #fff;
+
+  &--1 {
+    grid-area: 1/2/2/3;
+  }
+  &--2 {
+    grid-area: 1/1/2/2;
+    justify-self: flex-end;
+  }
+}
+
+.login {
+  background-color: $color-black;
+  height: 100%;
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+  align-items: flex-start;
+
+  grid-area: 2/1/3/2;
+
+  position: relative;
+  z-index: 10;
+
+  .form {
+    background-color: $color-black;
+    width: 65%;
+    height: 70%;
+    padding: 1rem;
+    color: $color-white;
+    margin-right: 3rem;
+    margin-top: 2rem;
+
+    display: grid;
+    grid-template-rows: 25% repeat(5, 1fr);
+
+    &__greeting {
+      font-size: 5.5rem;
+      grid-row: 1/2;
+      align-self: end;
+    }
+    &__signup {
+      text-align: start;
+      font-size: 1.3rem;
+      grid-row: 2/3;
+
+      a,
+      a:link,
+      a:visited {
+        color: $color-blue;
+        text-decoration: none;
+      }
+    }
+    input {
+      width: 100%;
+      height: 70%;
+      background-color: $color-grey;
+      padding: 1rem;
+      border-radius: 5px;
+      border: none;
+      font-size: 1.2rem;
+      outline: none;
+      &::placeholder {
+        color: $color-white;
+      }
+    }
+    &__username {
+      grid-row: 3/4;
+    }
+    &__password {
+      grid-row: 4/5;
+    }
+    &__forgot {
+      text-align: end;
+      font-size: 1.2rem;
+      grid-row: 5/6;
+      padding-right: 1rem;
+    }
+  }
+}
+
+.btn--login {
+  width: 100%;
+  height: 60%;
+  background-color: $color-blue;
+  color: $color-white;
+  font-size: 1.2rem;
+  border-radius: 5px;
+  border: none;
+  outline: none;
+
+  grid-row: 6/7;
+  align-self: center;
+
+  transition: all 0.5s;
+
+  &:hover {
+    cursor: pointer;
+    color: $color-blue;
+    background-color: $color-white;
+  }
+}
+
+.container--img {
+  background-color: $color-light-grey;
+  width: 150%;
+  transform: translateX(-29.5rem);
+  z-index: 1;
+  position: relative;
+}
+
+.login__img {
+  width: 95%;
+  transform: translateX(-5rem);
+  box-shadow: 11px 10px 22px -3px rgba(0, 0, 0, 0.75);
+}
