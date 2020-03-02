@@ -35,6 +35,10 @@ class Login extends React.Component<Props, LoginPageState> {
   };
 
   render() {
+    if (this.props.error !== "") {
+      console.log("There is an Error!!!!: ", this.props.error);
+    }
+
     return (
       <div className="Container--Login">
         <div className="border--container border--container--1">
@@ -69,6 +73,13 @@ class Login extends React.Component<Props, LoginPageState> {
               className="form__password"
               required={true}
             />
+            {this.props.error !== "" ? (
+              <div className="form__error">
+                <p>{this.props.error}</p>
+              </div>
+            ) : (
+              ""
+            )}
             <p className="form__forgot">Forgot Password?</p>
             <button onClick={this.handleSubmit} className="btn--login">
               Sign In
@@ -84,7 +95,7 @@ class Login extends React.Component<Props, LoginPageState> {
 }
 
 interface LinkStateProps {
-  user: User;
+  error: string;
 }
 
 interface LinkDispatchProps {
@@ -95,7 +106,7 @@ const mapStateToProps = (
   state: AppState,
   ownProps: LoginPageProps
 ): LinkStateProps => ({
-  user: state.AuthenticationReducer
+  error: state.ErrorReducer
 });
 
 const mapDispatchToProps = (

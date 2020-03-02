@@ -3,9 +3,11 @@ import thunk, { ThunkMiddleware } from "redux-thunk";
 import { AppActions } from "../../types/Actions";
 
 import { AuthenticationReducer } from "../reducers/Authentication";
+import { ErrorReducer } from "../reducers/Errors";
 
 export const rootReducer = combineReducers({
-  AuthenticationReducer
+  AuthenticationReducer,
+  ErrorReducer
 });
 
 const composeEnhanger =

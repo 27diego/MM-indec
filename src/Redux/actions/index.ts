@@ -12,10 +12,14 @@ export const signIn = (username: string, password: string) => {
     })
       .then(res => res.json())
       .then(data => {
-        dispatch({ type: "SIGN_IN", payload: data });
+        console.log(data);
 
-        if (data != null) {
+        if (data != null && typeof data === "object") {
+          dispatch({ type: "SIGN_IN", payload: data });
+          dispatch({ type: "ERROR", payload: "" });
           history.push("/Dashboard");
+        } else {
+          dispatch({ type: "ERROR", payload: data });
         }
       })
       .catch(err => console.log(err));
