@@ -6,7 +6,6 @@ import mountain from "../../images/longTrees.jpg";
 import { connect } from "react-redux";
 import { signIn } from "../../Redux/actions/index";
 import { AppActions } from "../../types/Actions";
-import { User } from "../../types/User";
 import { AppState } from "../../Redux/Store/configureStore";
 import { ThunkDispatch } from "redux-thunk";
 import { bindActionCreators } from "redux";
@@ -51,7 +50,7 @@ class Login extends React.Component<Props, LoginPageState> {
           <div className="form">
             <div className="form__greeting">SOP Index.</div>
             <p className="form__signup">
-              Dont have an account? <a>Sign Up</a>
+              Dont have an account? <a href="/Dashboard">Sign Up</a>
             </p>
             <input
               value={this.state.username}
