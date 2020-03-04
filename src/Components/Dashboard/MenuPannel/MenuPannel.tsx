@@ -1,28 +1,80 @@
 import React, { Component } from "react";
 import "./MenuPannel.scss";
 
-class MenuPannel extends Component {
+interface MenuPannelProps {}
+interface MenuPannelState {
+  label: string;
+  menu: boolean;
+}
+
+type Props = MenuPannelProps;
+
+class MenuPannel extends Component<Props, MenuPannelState> {
   state = {
-    label: ""
+    label: "",
+    menu: false
+  };
+
+  setLabel = (label: string): void => {
+    this.setState({ label });
+  };
+
+  resetLabel = (): void => {
+    this.setState({ label: "" });
   };
 
   render() {
     return (
       <div className="Container--MenuPannel MenuPannel">
-        <div className="container--options">
-          <div className="MenuPannel__options">&nbsp;</div>
+        <div
+          className="container--options"
+          onMouseOver={(): void => this.setLabel("Options")}
+          onMouseLeave={this.resetLabel}
+          onClick={(): void => {
+            this.setState(prevState => {
+              return { ...prevState, menu: !prevState.menu };
+            });
+            this.setState({ label: "" });
+          }}
+        >
+          <div
+            className={`MenuPannel__options MenuPannel__options--${
+              this.state.menu ? "menu" : "normal"
+            } `}
+          >
+            &nbsp;
+          </div>
+          <div
+            className="icon__bubble icon__bubble--options"
+            style={{
+              display:
+                this.state.label === "Options"
+                  ? this.state.menu
+                    ? "none"
+                    : "block"
+                  : "none"
+            }}
+          >
+            <div>Options</div>
+          </div>
+        </div>
+
+        <div
+          className="icon__bubble icon__bubble--menu"
+          style={{
+            display: this.state.menu ? "block" : "none"
+          }}
+        >
+          <div>Manage Users</div>
+          <div>Manage SOPs</div>
         </div>
 
         <div className="seperator--MenuPannel seperator--MenuPannel--top">
-          &nbps;
+          &nbsp;
         </div>
         <div
-          onMouseOver={(): void => {
-            this.setState({ label: "QA" });
-          }}
-          onMouseLeave={(): void => {
-            this.setState({ label: "" });
-          }}
+          onMouseOver={(): void => this.setLabel("QA")}
+          onMouseLeave={this.resetLabel}
           className="MenuPannel__icon MenuPannel__icon--QA"
         >
           <div
@@ -54,8 +106,17 @@ class MenuPannel extends Component {
             <ellipse cx="296" cy="304" rx="24" ry="48" fill="#fff" />
           </svg>
         </div>
-        <div className="MenuPannel__icon MenuPannel__icon--Packing">
-          <div className="icon__bubble">
+        <div
+          className="MenuPannel__icon MenuPannel__icon--Packing"
+          onMouseOver={(): void => this.setLabel("Packing")}
+          onMouseLeave={this.resetLabel}
+        >
+          <div
+            className="icon__bubble"
+            style={{
+              display: this.state.label === "Packing" ? "block" : "none"
+            }}
+          >
             <div>Packing</div>
           </div>
           <svg
@@ -101,8 +162,17 @@ class MenuPannel extends Component {
             />
           </svg>
         </div>
-        <div className="MenuPannel__icon MenuPannel__icon--Harvesting">
-          <div className="icon__bubble">
+        <div
+          className="MenuPannel__icon MenuPannel__icon--Harvesting"
+          onMouseOver={(): void => this.setLabel("Harvesting")}
+          onMouseLeave={this.resetLabel}
+        >
+          <div
+            className="icon__bubble"
+            style={{
+              display: this.state.label === "Harvesting" ? "block" : "none"
+            }}
+          >
             <div>Harvesting</div>
           </div>
           <svg
@@ -134,8 +204,17 @@ class MenuPannel extends Component {
             />
           </svg>
         </div>
-        <div className="MenuPannel__icon MenuPannel__icon--Growing">
-          <div className="icon__bubble">
+        <div
+          className="MenuPannel__icon MenuPannel__icon--Growing"
+          onMouseOver={(): void => this.setLabel("Growing")}
+          onMouseLeave={this.resetLabel}
+        >
+          <div
+            className="icon__bubble"
+            style={{
+              display: this.state.label === "Growing" ? "block" : "none"
+            }}
+          >
             <div>Growing</div>
           </div>
           <svg
@@ -187,8 +266,17 @@ class MenuPannel extends Component {
             />
           </svg>
         </div>
-        <div className="MenuPannel__icon MenuPannel__icon--Maintenance">
-          <div className="icon__bubble">
+        <div
+          className="MenuPannel__icon MenuPannel__icon--Maintenance"
+          onMouseOver={(): void => this.setLabel("Maintenance")}
+          onMouseLeave={this.resetLabel}
+        >
+          <div
+            className="icon__bubble"
+            style={{
+              display: this.state.label === "Maintenance" ? "block" : "none"
+            }}
+          >
             <div>Maintenance</div>
           </div>
           <svg
@@ -220,8 +308,17 @@ class MenuPannel extends Component {
             />
           </svg>
         </div>
-        <div className="MenuPannel__icon MenuPannel__icon--Safety">
-          <div className="icon__bubble">
+        <div
+          className="MenuPannel__icon MenuPannel__icon--Safety"
+          onMouseOver={(): void => this.setLabel("Safety")}
+          onMouseLeave={this.resetLabel}
+        >
+          <div
+            className="icon__bubble"
+            style={{
+              display: this.state.label === "Safety" ? "block" : "none"
+            }}
+          >
             <div>Safety</div>
           </div>
           <svg

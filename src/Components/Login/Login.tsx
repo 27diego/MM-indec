@@ -10,10 +10,7 @@ import { AppState } from "../../Redux/Store/configureStore";
 import { ThunkDispatch } from "redux-thunk";
 import { bindActionCreators } from "redux";
 
-interface LoginPageProps {
-  id?: string;
-  color?: string;
-}
+interface LoginPageProps {}
 
 interface LoginPageState {
   username: string;

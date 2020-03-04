@@ -1,0 +1,16 @@
+@import "../../../styles/variables";
+
+.Container--ListPannel {
+  background-color: rgba($color-black, 0.8);
+  border-radius: 5px;
+
+  -webkit-box-shadow: 6px 6px 27px -12px rgba(0, 0, 0, 0.75);
+  -moz-box-shadow: 6px 6px 27px -12px rgba(0, 0, 0, 0.75);
+  box-shadow: 6px 6px 27px -12px rgba(0, 0, 0, 0.75);
+
+  &:hover {
+    -webkit-box-shadow: 6px 6px 27px -12px rgba(0, 0, 0, 0.9);
+    -moz-box-shadow: 6px 6px 27px -12px rgba(0, 0, 0, 0.9);
+    box-shadow: 6px 6px 27px -12px rgba(0, 0, 0, 0.9);
+  }
+}
