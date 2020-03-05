@@ -10,9 +10,6 @@ export const Dashboard = () => {
       <div className="container--MenuPannel">
         <MenuPannel />
       </div>
-      <div className="container--ListPannel">
-        <ListPannel />
-      </div>
     </div>
   );
 };

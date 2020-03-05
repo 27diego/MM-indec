@@ -1,16 +1,7 @@
 import React, { Component } from "react";
 import "./ListPannel.scss";
 
-interface STATE {}
-interface PROPS {
-  users: [];
-}
-
-class ListPannel extends Component<PROPS, STATE> {
-  state = {
-    users: []
-  };
-
+class ListPannel extends Component {
   render() {
     return <div className="Container--ListPannel">Hello List</div>;
   }

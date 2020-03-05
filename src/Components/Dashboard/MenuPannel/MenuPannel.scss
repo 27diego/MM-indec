@@ -1,232 +1,27 @@
 @import "../../../styles/variables";
 
 .Container--MenuPannel {
+  background-color: rgba($color-black, 0.8);
   width: 100%;
   height: 100%;
-  background-color: rgba($color-black, 0.6);
   border-radius: 5px;
-  padding: 1.5rem;
-  position: relative;
-
-  display: grid;
-  grid-template-rows: repeat(12, 1fr);
-
-  -webkit-box-shadow: 6px 6px 27px -12px rgba(0, 0, 0, 0.75);
-  -moz-box-shadow: 6px 6px 27px -12px rgba(0, 0, 0, 0.75);
-  box-shadow: 6px 6px 27px -12px rgba(0, 0, 0, 0.75);
-
-  &:hover {
-    -webkit-box-shadow: 6px 6px 27px -12px rgba(0, 0, 0, 0.9);
-    -moz-box-shadow: 6px 6px 27px -12px rgba(0, 0, 0, 0.9);
-    box-shadow: 6px 6px 27px -12px rgba(0, 0, 0, 0.9);
-  }
-}
-
-.container--options {
-  width: 100%;
-  height: 2rem;
-  display: flex;
-  justify-content: center;
-  align-self: center;
-  cursor: pointer;
-  position: relative;
 }
 
 .MenuPannel {
-  &__options {
-    align-self: center;
-    grid-row: 1/2;
+  padding: 1rem;
+  &__header {
+    color: $color-white;
+    text-align: center;
+    font-size: 1.7rem;
 
-    &,
-    &::before {
+    &::after {
       content: "";
-      height: 2px;
-      width: 70%;
-      background-color: #fff;
-      transition: all 0.5s;
-    }
-
-    &::before {
+      width: 80%;
+      height: 1px;
       display: block;
-      width: 100%;
-      transform: translateY(0.7rem);
-    }
-
-    &--menu {
-      width: 50%;
-      & {
-        transform: rotate(45deg);
-      }
-
-      &::before {
-        transform: rotate(-90deg);
-      }
-    }
-  }
-  &__icon {
-    height: 4rem;
-    position: relative;
-
-    &:hover {
-      cursor: pointer;
-    }
-    &--QA {
-      grid-row: 3/4;
-    }
-    &--Packing {
-      grid-row: 4/5;
-    }
-    &--Harvesting {
-      grid-row: 5/6;
-    }
-    &--Growing {
-      grid-row: 6/7;
-    }
-    &--Maintenance {
-      grid-row: 7/8;
-    }
-
-    &--Safety {
-      height: 4.5rem;
-      grid-row: 8/9;
-    }
-  }
-  &__logOut {
-    height: 90%;
-    grid-row: 12/13;
-  }
-}
-
-.seperator--MenuPannel {
-  content: "";
-  height: 2px;
-  width: 100%;
-  background-color: rgba($color-light-grey, 0.5);
-
-  &--top {
-    grid-row: 2/3;
-    align-self: start;
-    margin-top: 1rem;
-  }
-
-  &--bottom {
-    align-self: center;
-    grid-row: 11/12;
-  }
-}
-
-.btn--MenuPannel {
-  align-self: end;
-  justify-self: center;
-  height: 80%;
-  width: 85%;
-  background-color: #107fe7;
-  border-radius: 5px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  transition: all 0.5s;
-
-  grid-row: 10/11;
-
-  &:hover {
-    cursor: pointer;
-    background-color: #fff;
-  }
-
-  &:hover &__icon,
-  &:hover &__icon:before {
-    background-color: #107fe7;
-  }
-
-  &__icon {
-    &,
-    &::before {
-      content: "";
-      height: 2px;
-      width: 45%;
       background-color: #fff;
-      border-radius: 5px;
-
-      &:hover {
-        background-color: #107fe7;
-      }
-    }
-
-    &::before {
-      width: 100%;
-      height: 100%;
-      display: block;
-      transform: rotate(90deg);
-    }
-  }
-}
-
-.icon__bubble {
-  position: absolute;
-  width: 7rem;
-  height: 4rem;
-  background-color: #000;
-  color: #fff;
-  border-radius: 5px;
-  left: 6rem;
-
-  &:after {
-    content: "";
-    position: absolute;
-    left: 0;
-    top: 50%;
-    width: 0;
-    height: 0;
-    border: 5px solid transparent;
-    border-right-color: #000;
-    border-left: 0;
-    margin-top: -5px;
-    margin-left: -5px;
-  }
-
-  div {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 1.1rem;
-  }
-
-  &--menu {
-    left: 1rem;
-    top: 6rem;
-    height: 15rem;
-    width: 10rem;
-    z-index: 100;
-    padding: 10px;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-evenly;
-    align-items: center;
-
-    div {
-      height: 50%;
-      font-size: 1.2rem;
-      border-radius: 3px;
-
-      &:hover {
-        background-color: $color-grey;
-        cursor: pointer;
-      }
-    }
-
-    &:after {
-      content: "";
-      position: absolute;
-      top: 0;
-      left: 33%;
-      width: 0;
-      height: 0;
-      border: 5px solid transparent;
-      border-bottom-color: $color-black;
-      border-top: 0;
-      margin-left: -5px;
-      margin-top: -5px;
+      margin: 0 auto;
+      margin-top: 0.5rem;
     }
   }
 }
