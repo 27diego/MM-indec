@@ -1,16 +1,30 @@
 import React, { Component } from "react";
 import "./MenuPannel.scss";
 
-interface MenuPannelProps {}
-interface MenuPannelState {
+//Redux imports
+import { connect } from "react-redux";
+import { signOut } from "../../../Redux/actions/index";
+import { AppActions } from "../../../types/Actions";
+import { AppState } from "../../../Redux/Store/configureStore";
+import { ThunkDispatch } from "redux-thunk";
+import { bindActionCreators } from "redux";
+
+import history from "../../../history";
+
+interface MenuPannelPROPS {}
+interface MenuPannelSTATE {
   active: string;
+  menu: boolean;
+  tag: boolean;
 }
 
-type Props = MenuPannelProps;
+type Props = MenuPannelPROPS & LinkDispatchProps & LinkStateProps;
 
-class MenuPannel extends Component<Props, MenuPannelState> {
+class MenuPannel extends Component<Props, MenuPannelSTATE> {
   state = {
-    active: ""
+    active: "",
+    menu: false,
+    tag: false
   };
 
   render() {
@@ -281,10 +295,35 @@ class MenuPannel extends Component<Props, MenuPannelState> {
           </div>
         </div>
         <div className="MenuFooter">
-          <button className="MenuFooter__add">
+          <div
+            className="MenuFooter__menu"
+            style={{ display: this.state.menu ? "flex" : "none" }}
+          >
+            <div className="MenuFooter__menu__sops">Manage Documents</div>
+            <div className="MenuFooter__menu__users">Manage Users</div>
+          </div>
+          <button
+            className="MenuFooter__add"
+            onClick={(): void =>
+              this.setState(prevState => ({ menu: !prevState.menu }))
+            }
+          >
             <div className="MenuFooter__add__icon">&nbsp;</div>
           </button>
-          <div className="MenuFooter__logOut deps__icon">
+
+          <div
+            className="MenuFooter__logOut__tag"
+            style={{ display: this.state.tag ? "block" : "none" }}
+          >
+            LogOut
+          </div>
+
+          <div
+            className="MenuFooter__logOut deps__icon"
+            onMouseOver={(): void => this.setState({ tag: true })}
+            onMouseLeave={(): void => this.setState({ tag: false })}
+            onClick={(): void => this.props.signOut()}
+          >
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="512"
@@ -333,4 +372,16 @@ class MenuPannel extends Component<Props, MenuPannelState> {
   }
 }
 
-export default MenuPannel;
+interface LinkStateProps {}
+interface LinkDispatchProps {
+  signOut: () => void;
+}
+
+const mapDispatchToProps = (
+  dispatch: ThunkDispatch<any, any, AppActions>,
+  ownProps: MenuPannelPROPS
+): LinkDispatchProps => ({
+  signOut: bindActionCreators(signOut, dispatch)
+});
+
+export default connect(null, mapDispatchToProps)(MenuPannel);

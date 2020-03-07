@@ -25,3 +25,10 @@ export const signIn = (username: string, password: string) => {
       .catch(err => console.log(err));
   };
 };
+
+export const signOut = () => {
+  history.push("/");
+  return {
+    type: "SIGN_OUT"
+  };
+};

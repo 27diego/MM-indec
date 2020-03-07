@@ -16,10 +16,7 @@ export const AuthenticationReducer = (
     case "SIGN_IN":
       return { ...state, ...action.payload };
     case "SIGN_OUT":
-      return {
-        ...state,
-        ...action.payload
-      };
+      return AuthenticationReducerDefaultState;
     default:
       return state;
   }

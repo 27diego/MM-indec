@@ -150,5 +150,74 @@
       width: 4.5rem;
       height: auto;
     }
+
+    &__tag {
+      padding: 0.4rem 1rem;
+      background-color: rgba($color: $color-black, $alpha: 1);
+      border-radius: 5px;
+      height: 3rem;
+      width: 7rem;
+      position: absolute;
+      right: -7rem;
+      color: $color-white;
+      font-size: 1.5rem;
+
+      &:after {
+        content: "";
+        position: absolute;
+        left: 0;
+        top: 50%;
+        width: 0;
+        height: 0;
+        border: 8px solid transparent;
+        border-right-color: rgba($color: $color-black, $alpha: 1);
+        border-left: 0;
+        margin-top: -8px;
+        margin-left: -8px;
+      }
+    }
+  }
+}
+
+.MenuFooter__menu {
+  background-color: rgba($color: $color-grey, $alpha: 0.9);
+  position: absolute;
+  color: $color-white;
+  height: 9rem;
+  padding: 1rem;
+  border-radius: 5px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+
+  top: -10rem;
+  left: 0;
+
+  &:after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 30%;
+    width: 0;
+    height: 0;
+    border: 5px solid transparent;
+    border-top-color: rgba($color: $color-grey, $alpha: 0.9);
+    border-bottom: 0;
+    margin-left: -5px;
+    margin-bottom: -5px;
+  }
+
+  div {
+    font-size: 1.3rem;
+    height: 100%;
+    width: 100%;
+    padding: 0.5rem;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    &:hover {
+      cursor: pointer;
+      background-color: black;
+    }
   }
 }
