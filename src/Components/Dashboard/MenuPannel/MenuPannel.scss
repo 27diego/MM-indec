@@ -1,27 +1,154 @@
 @import "../../../styles/variables";
 
 .Container--MenuPannel {
-  background-color: rgba($color-black, 0.8);
   width: 100%;
   height: 100%;
   border-radius: 5px;
+  background-color: rgba($color: $color-black, $alpha: 0.8);
+
+  display: grid;
+  grid-template-rows: 10% 80% 10%;
 }
 
 .MenuPannel {
-  padding: 1rem;
+  padding: 1.5rem;
   &__header {
     color: $color-white;
-    text-align: center;
     font-size: 1.7rem;
+    text-align: center;
 
     &::after {
       content: "";
+      height: 1.5px;
       width: 80%;
-      height: 1px;
+      background-color: $color-light-grey;
       display: block;
-      background-color: #fff;
       margin: 0 auto;
-      margin-top: 0.5rem;
+      margin-top: 1rem;
+    }
+  }
+}
+
+.deps--container {
+  padding: 1rem 0;
+}
+
+.deps {
+  &--QA--active {
+    background-color: rgba($color-grey, 0.9);
+  }
+  &--Packing--active {
+    background-color: rgba($color-grey, 0.9);
+  }
+  &--Harvesting--active {
+    background-color: rgba($color-grey, 0.9);
+  }
+  &--Growing--active {
+    background-color: rgba($color-grey, 0.9);
+  }
+  &--Maintenance--active {
+    background-color: rgba($color-grey, 0.9);
+  }
+  &--Safety--active {
+    background-color: rgba($color-grey, 0.9);
+  }
+}
+
+.deps {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 0 2rem;
+  width: 100%;
+  height: 4rem;
+  color: $color-white;
+  border-radius: 5px;
+
+  &__icon {
+    margin-left: auto;
+    svg {
+      width: 3rem;
+      height: auto;
+    }
+  }
+  &__title {
+    font-size: 1.5rem;
+  }
+
+  &:hover {
+    cursor: pointer;
+    background-color: rgba($color-grey, 0.9);
+  }
+}
+
+.MenuFooter {
+  align-items: center;
+
+  display: flex;
+  justify-content: space-evenly;
+  position: relative;
+  padding: 0 1.3rem;
+
+  &::before {
+    content: "";
+    display: block;
+    width: 90%;
+    height: 2px;
+    background-color: $color-light-grey;
+    position: absolute;
+    top: 0;
+  }
+
+  &__add {
+    width: 4rem;
+    height: 3.5rem;
+    border-radius: 5px;
+    border: none;
+    outline: none;
+    background-color: $color-green;
+    display: flex;
+    justify-content: center;
+
+    transition: all 0.5s;
+
+    &:hover {
+      background-color: #fff;
+      cursor: pointer;
+    }
+
+    &:hover &__icon {
+      background-color: $color-green;
+    }
+
+    &:hover &__icon::before {
+      background-color: $color-green;
+    }
+
+    &__icon {
+      &,
+      &::before {
+        content: "";
+        height: 2px;
+        width: 50%;
+        background-color: #fff;
+      }
+
+      &::before {
+        width: 80%;
+        margin: 0 auto;
+        display: block;
+        transform: rotate(90deg);
+      }
+    }
+  }
+
+  &__logOut {
+    &:hover {
+      cursor: pointer;
+    }
+    svg {
+      width: 4.5rem;
+      height: auto;
     }
   }
 }
