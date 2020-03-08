@@ -1,0 +1,67 @@
+@import "../../../styles/variables";
+
+.Container {
+  &--UserList {
+    width: 100%;
+    height: 100%;
+    background-color: $color-black;
+    color: $color-white;
+    padding: 2rem 4rem;
+  }
+}
+
+.user {
+  display: grid;
+  grid-template-columns: 5% 40% repeat(3, 1fr) 5%;
+
+  list-style: none;
+  border-bottom: 1px solid $color-light-grey;
+  height: 3rem;
+
+  li {
+    font-size: 1.3rem;
+  }
+
+  &__name {
+  }
+  &__username {
+  }
+  &__admin {
+  }
+  &__department {
+  }
+
+  &__edit {
+    width: 3rem;
+    height: 2.5rem;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    &:hover {
+      cursor: pointer;
+    }
+
+    div {
+      &,
+      &::before,
+      &::after {
+        content: "";
+        width: 65%;
+        height: 1px;
+        background-color: $color-white;
+        display: block;
+      }
+
+      &::before {
+        width: 100%;
+        transform: translateY(-0.7rem);
+      }
+      &::after {
+        width: 100%;
+        transform: translateY(-0.6rem);
+      }
+    }
+  }
+}

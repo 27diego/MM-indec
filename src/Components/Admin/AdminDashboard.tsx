@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import "./AdminDashboard.scss";
 import AdminMenu from "./AdminMenu/AdminMenu";
+import AdminList from "./AdminList/AdminList";
 
 class AdminDashboard extends Component {
   render() {
@@ -13,7 +14,7 @@ class AdminDashboard extends Component {
           <AdminMenu />
         </div>
         <div className="container--body">
-          <div className="body"></div>
+          <AdminList />
         </div>
       </div>
     );

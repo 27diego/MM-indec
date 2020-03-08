@@ -3,7 +3,8 @@ import "./AdminMenu.scss";
 
 class AdminMenu extends Component {
   state = {
-    item: "Document"
+    item: "Document",
+    search: ""
   };
   render() {
     return (
@@ -46,8 +47,10 @@ class AdminMenu extends Component {
             </li>
           </ul>
           <input
+            value={this.state.search}
+            onChange={e => this.setState({ search: e.target.value })}
             className="menu__search"
-            placeholder="Search Users"
+            placeholder={`Search ${this.state.item}s`}
             type="text"
           />
         </div>
