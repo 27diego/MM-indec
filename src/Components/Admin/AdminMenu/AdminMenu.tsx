@@ -1,7 +1,15 @@
 import React, { Component } from "react";
 import "./AdminMenu.scss";
 
-class AdminMenu extends Component {
+interface PROPS {
+  toggleNew: () => void;
+}
+interface STATE {
+  item: string;
+  search: string;
+}
+
+class AdminMenu extends Component<PROPS, STATE> {
   state = {
     item: "Document",
     search: ""

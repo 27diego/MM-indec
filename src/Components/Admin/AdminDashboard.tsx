@@ -3,7 +3,20 @@ import "./AdminDashboard.scss";
 import AdminMenu from "./AdminMenu/AdminMenu";
 import AdminList from "./AdminList/AdminList";
 
-class AdminDashboard extends Component {
+interface PROPS {}
+interface STATE {
+  new: boolean;
+}
+
+class AdminDashboard extends Component<PROPS, STATE> {
+  state = {
+    new: false
+  };
+
+  toggleNew = () => {
+    this.setState(prevState => ({ new: !prevState.new }));
+  };
+
   render() {
     return (
       <div className="Container--Admin">
@@ -11,10 +24,10 @@ class AdminDashboard extends Component {
           <div className="side"></div>
         </div>
         <div className="container--menu">
-          <AdminMenu />
+          <AdminMenu toggleNew={this.toggleNew} />
         </div>
         <div className="container--body">
-          <AdminList />
+          <AdminList new={this.state.new} />
         </div>
       </div>
     );
