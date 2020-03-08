@@ -1,0 +1,41 @@
+@import "../../styles/variables";
+
+.Container--Admin {
+  background-color: $color-grey;
+  width: 100%;
+  height: 100vh;
+
+  display: grid;
+  grid-template-columns: 20% 1fr;
+  grid-template-rows: 32% 1fr;
+
+  box-sizing: border-box;
+}
+
+.container {
+  &--side {
+    padding: 2rem;
+    grid-area: 1/1/-1/2;
+  }
+  &--menu {
+    padding: 2rem;
+    grid-area: 1/2/2/3;
+  }
+  &--body {
+    padding: 2rem;
+    grid-area: 2/2/3/3;
+  }
+}
+
+.side {
+  width: 100%;
+  height: 100%;
+  background-color: $color-black;
+  border-radius: 5px;
+}
+.body {
+  width: 100%;
+  height: 100%;
+  background-color: $color-black;
+  border-radius: 5px;
+}

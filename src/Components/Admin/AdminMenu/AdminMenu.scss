@@ -1,0 +1,117 @@
+@import "../../../styles/variables";
+
+.Container--AdminMenu {
+  width: 100%;
+  height: 100%;
+  border-radius: 5px;
+  padding: 1rem;
+
+  display: grid;
+  grid-template-rows: 30% 1fr;
+}
+
+.heading {
+  display: flex;
+  width: 100%;
+  &__header {
+    font-size: 2rem;
+    color: $color-white;
+  }
+  .addButton {
+    margin-left: auto;
+    width: auto;
+    height: 4rem;
+    display: flex;
+    align-items: center;
+    font-size: 1.4rem;
+    padding: 1rem;
+    border: none;
+    border-radius: 8px;
+    outline: none;
+    background-color: #101f81;
+    color: $color-white;
+
+    &__logo {
+      &,
+      &::before {
+        content: "";
+        width: 1.5rem;
+        height: 1px;
+        display: block;
+        background-color: #fff;
+      }
+
+      &::before {
+        transform: rotate(90deg);
+      }
+    }
+  }
+}
+
+.logo--container {
+  margin-right: 0.8rem;
+  display: flex;
+  border-radius: 20px;
+  justify-content: center;
+  align-items: center;
+  background-color: $color-black;
+  width: 2rem;
+  height: 2rem;
+}
+
+.menu {
+  width: 100%;
+  height: 100%;
+  background-color: $color-black;
+  padding: 1rem;
+  border-radius: 5px;
+
+  display: grid;
+  grid-template-rows: 40% 1fr;
+
+  &__items {
+    position: relative;
+    color: $color-white;
+    list-style: none;
+    display: flex;
+    justify-content: center;
+
+    &--single {
+      font-size: 1.5rem;
+      padding: 0 3rem;
+      cursor: pointer;
+    }
+    &--users {
+      //active borderbottom
+      border-bottom: 4px solid #fff;
+    }
+
+    &::after {
+      content: "";
+      width: 90%;
+      height: 1px;
+      position: absolute;
+      bottom: 0;
+      background-color: $color-light-grey;
+    }
+  }
+
+  &__search {
+    padding: 1.5rem 4rem;
+    justify-self: center;
+    align-self: center;
+    width: 95%;
+    height: 60%;
+
+    border-radius: 7px;
+    border: none;
+    outline: none;
+    background-color: $color-grey;
+    font-size: 1.2rem;
+    color: $color-white;
+
+    &::placeholder {
+      font-size: 1.2rem;
+    }
+  }
+}
