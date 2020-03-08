@@ -2,6 +2,9 @@ import React, { Component } from "react";
 import "./AdminMenu.scss";
 
 class AdminMenu extends Component {
+  state = {
+    item: "Document"
+  };
   render() {
     return (
       <div className="Container--AdminMenu AdminMenu">
@@ -11,17 +14,34 @@ class AdminMenu extends Component {
             <div className="logo--container">
               <div className="addButton__logo">&nbsp;</div>
             </div>
-            New Department
+            New {this.state.item}
           </button>
         </div>
 
         <div className="menu">
           <ul className="menu__items">
-            <li className="menu__items--dep menu__items--single">
+            <li
+              className={`menu__items--dep menu__items--single menu__items--single--${
+                this.state.item === "Department" ? "active" : ""
+              }`}
+              onClick={(): void => this.setState({ item: "Department" })}
+            >
               Departments
             </li>
-            <li className="menu__items--users menu__items--single">Users</li>
-            <li className="menu__items--sop menu__items--single">
+            <li
+              className={`menu__items--users menu__items--single menu__items--single--${
+                this.state.item === "User" ? "active" : ""
+              }`}
+              onClick={(): void => this.setState({ item: "User" })}
+            >
+              Users
+            </li>
+            <li
+              className={`menu__items--sop menu__items--single menu__items--single--${
+                this.state.item === "Document" ? "active" : ""
+              }`}
+              onClick={(): void => this.setState({ item: "Document" })}
+            >
               Sop Documents
             </li>
           </ul>
