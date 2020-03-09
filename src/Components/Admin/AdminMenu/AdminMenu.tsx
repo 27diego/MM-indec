@@ -19,7 +19,10 @@ class AdminMenu extends Component<PROPS, STATE> {
       <div className="Container--AdminMenu AdminMenu">
         <div className="heading">
           <div className="heading__header">Admin Dashboard</div>
-          <button className="heading__addButton addButton">
+          <button
+            onClick={this.props.toggleNew}
+            className="heading__addButton addButton"
+          >
             <div className="logo--container">
               <div className="addButton__logo">&nbsp;</div>
             </div>

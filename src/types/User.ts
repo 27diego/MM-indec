@@ -3,4 +3,5 @@ export interface User {
   last_name: string;
   username: string;
   admin: boolean;
+  department: string;
 }

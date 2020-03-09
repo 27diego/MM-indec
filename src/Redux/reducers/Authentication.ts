@@ -5,7 +5,8 @@ const AuthenticationReducerDefaultState: User = {
   first_name: "",
   last_name: "",
   username: "",
-  admin: false
+  admin: false,
+  department: ""
 };
 
 export const AuthenticationReducer = (
