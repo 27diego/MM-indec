@@ -12,6 +12,9 @@
   box-sizing: border-box;
 
   position: relative;
+  overflow: hidden;
+
+  transition: all 1s;
 }
 
 .container {

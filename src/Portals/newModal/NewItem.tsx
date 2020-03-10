@@ -37,7 +37,7 @@ class NewItem extends Component<Props, State> {
           className="userModal__password"
         />
         <select name="" id="" className="userModal__department">
-          <option></option>
+          <option>Department</option>
           <option>QA</option>
           <option>Packing</option>
           <option>Harvesting</option>
@@ -46,7 +46,7 @@ class NewItem extends Component<Props, State> {
           <option>Safety</option>
         </select>
         <select name="" id="" className="userModal__admin">
-          <option></option>
+          <option>Admin</option>
           <option>Yes</option>
           <option>No</option>
         </select>
