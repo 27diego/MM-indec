@@ -2,33 +2,49 @@ import React, { Component } from "react";
 import "./AdminDashboard.scss";
 import AdminMenu from "./AdminMenu/AdminMenu";
 import AdminList from "./AdminList/AdminList";
+import NewItem from "../../Portals/newModal/NewItem";
 
 interface PROPS {}
 interface STATE {
-  new: boolean;
+  modal: boolean;
 }
 
 class AdminDashboard extends Component<PROPS, STATE> {
   state = {
-    new: false
+    modal: true
   };
 
-  toggleNew = () => {
-    this.setState(prevState => ({ new: !prevState.new }));
+  toggleModal = () => {
+    this.setState(prevState => ({
+      modal: !prevState.modal
+    }));
+  };
+
+  removeModal = () => {
+    this.setState({ modal: false });
   };
 
   render() {
+    console.log(this.state.modal);
     return (
       <div className="Container--Admin">
         <div className="container--side">
           <div className="side"></div>
         </div>
         <div className="container--menu">
-          <AdminMenu toggleNew={this.toggleNew} />
+          <AdminMenu modal={this.state.modal} toggleModal={this.toggleModal} />
         </div>
         <div className="container--body">
-          <AdminList new={this.state.new} />
+          <AdminList />
         </div>
+
+        {this.state.modal ? (
+          <React.Fragment>
+            <NewItem removeModal={this.removeModal} />
+          </React.Fragment>
+        ) : (
+          ""
+        )}
       </div>
     );
   }

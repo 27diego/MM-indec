@@ -2,7 +2,8 @@ import React, { Component } from "react";
 import "./AdminMenu.scss";
 
 interface PROPS {
-  toggleNew: () => void;
+  modal: boolean;
+  toggleModal: () => void;
 }
 interface STATE {
   item: string;
@@ -14,13 +15,14 @@ class AdminMenu extends Component<PROPS, STATE> {
     item: "Document",
     search: ""
   };
+
   render() {
     return (
       <div className="Container--AdminMenu AdminMenu">
         <div className="heading">
           <div className="heading__header">Admin Dashboard</div>
           <button
-            onClick={this.props.toggleNew}
+            onClick={this.props.toggleModal}
             className="heading__addButton addButton"
           >
             <div className="logo--container">
