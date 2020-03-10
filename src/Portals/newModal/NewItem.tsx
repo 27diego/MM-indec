@@ -37,23 +37,29 @@ class NewItem extends Component<Props, State> {
           className="userModal__password"
         />
         <select name="" id="" className="userModal__department">
-          <li>QA</li>
-          <li>Packing</li>
-          <li>Harvesting</li>
-          <li>Growing</li>
-          <li>Maintenance</li>
-          <li>Safety</li>
+          <option></option>
+          <option>QA</option>
+          <option>Packing</option>
+          <option>Harvesting</option>
+          <option>Growing</option>
+          <option>Maintenance</option>
+          <option>Safety</option>
         </select>
-        <select name="" id="" className="userModal__Admin">
-          <li>Yes</li>
-          <li>No</li>
+        <select name="" id="" className="userModal__admin">
+          <option></option>
+          <option>Yes</option>
+          <option>No</option>
         </select>
+        <div className="userModal__buttons nubuttons">
+          <button className="nubuttons__ok">OK</button>
+          <button className="nuButtons__cancel">cancel</button>
+        </div>
       </div>
     );
   };
 
   render() {
-    return ReactDOM.createPortal(<div>Hello</div>, this.portal);
+    return ReactDOM.createPortal(this.newUser(), this.portal);
   }
 }
 

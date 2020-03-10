@@ -1,0 +1,52 @@
+@import "../../styles/variables";
+
+.userModal {
+  display: grid;
+  grid-template-rows: repeat(6, 1fr);
+
+  background-color: #10151f;
+  border-radius: 5px;
+
+  position: absolute;
+  top: 25%;
+  left: 25%;
+
+  padding: 2rem;
+  color: $color-white;
+
+  &__header {
+    font-size: 2rem;
+  }
+
+  input {
+    background-color: #40464e;
+    border: none;
+    outline: none;
+    border-radius: 5px;
+    padding: 1rem;
+    height: 4rem;
+    width: 35rem;
+    font-size: 1.2rem;
+    color: $color-white;
+  }
+
+  &__name {
+    width: 40rem;
+  }
+  &__username {
+  }
+  &__password {
+  }
+
+  select {
+    background-color: #40464e;
+    border: none;
+    outline: none;
+    padding: 1rem;
+    color: rgba($color: $color-white, $alpha: 0.3);
+  }
+  &__department {
+  }
+  &__admin {
+  }
+}

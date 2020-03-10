@@ -45,6 +45,7 @@ class AdminDashboard extends Component<PROPS, STATE> {
         ) : (
           ""
         )}
+        <div></div>
       </div>
     );
   }
