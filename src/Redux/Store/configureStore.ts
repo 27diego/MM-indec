@@ -4,12 +4,10 @@ import { AppActions } from "../../types/Actions";
 
 import { AuthenticationReducer } from "../reducers/Authentication";
 import { ErrorReducer } from "../reducers/Errors";
-import { UsersReducer } from "../reducers/Users";
 
 export const rootReducer = combineReducers({
   AuthenticationReducer,
-  ErrorReducer,
-  UsersReducer
+  ErrorReducer
 });
 
 const composeEnhanger =

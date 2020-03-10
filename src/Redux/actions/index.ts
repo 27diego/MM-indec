@@ -33,27 +33,6 @@ export const signOut = () => {
   };
 };
 
-export const getUsers = () => {
-  return async (dispatch: Dispatch<AppActions>, getState: () => AppState) => {
-    await fetch("http://localhost:3000/user/all", {
-      method: "GET",
-      headers: { "Content-Type": "application/json" }
-    })
-      .then(res => res.json())
-      .then(data => {
-        if (data != null) {
-          dispatch({ type: "GET_USERS", payload: data });
-          dispatch({ type: "ERROR", payload: "" });
-          // console.log("data is good: ", data);
-        } else {
-          dispatch({ type: "ERROR", payload: data });
-          // console.log("data is not good: ", data[0]);
-        }
-      })
-      .catch(err => console.log(err));
-  };
-};
-
 export const postUser = (
   firstName: string,
   lastName: string,

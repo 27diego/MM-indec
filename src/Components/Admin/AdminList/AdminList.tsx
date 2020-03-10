@@ -1,16 +1,6 @@
 import React, { Component } from "react";
 import "./AdminList.scss";
 
-import { connect } from "react-redux";
-import { getUsers } from "../../../Redux/actions/index";
-import { AppActions } from "../../../types/Actions";
-import { AppState } from "../../../Redux/Store/configureStore";
-import { ThunkDispatch } from "redux-thunk";
-import { bindActionCreators, Observable } from "redux";
-
-import { User } from "../../../types/User";
-import { Users } from "../../../types/Users";
-
 interface AdminListProps {
   new: boolean;
 }
@@ -19,9 +9,7 @@ interface AdminListState {
   userForm: {};
 }
 
-type PROPS = AdminListProps & LinkStateProps & LinkDispatchProps;
-
-class AdminList extends Component<PROPS, AdminListState> {
+class AdminList extends Component<AdminListProps, AdminListState> {
   state = {
     usersList: [],
     userForm: {
@@ -38,10 +26,8 @@ class AdminList extends Component<PROPS, AdminListState> {
   };
 
   componentDidMount = () => {
-    this.props.getUsers();
-    // this.setState({ usersList: this.props.users });
-    console.log("from redux: ", this.props);
-    // console.log(this.state.usersList);
+    //call getUsers action
+    //set props data to component state
   };
 
   renderUsers = () => {
@@ -223,25 +209,4 @@ class AdminList extends Component<PROPS, AdminListState> {
   }
 }
 
-interface LinkStateProps {
-  reduxState: AppState;
-}
-interface LinkDispatchProps {
-  getUsers: () => void;
-}
-
-const mapStateToProps = (
-  state: AppState,
-  ownProps: AdminListProps
-): LinkStateProps => ({
-  reduxState: state
-});
-
-const mapDispatchToProps = (
-  dispatch: ThunkDispatch<any, any, AppActions>,
-  ownProps: AdminListProps
-): LinkDispatchProps => ({
-  getUsers: bindActionCreators(getUsers, dispatch)
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(AdminList);
+export default AdminList;

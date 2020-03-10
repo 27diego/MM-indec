@@ -1,5 +1,4 @@
 import { User } from "./User";
-import { Users } from "./Users";
 
 export const SIGN_IN = "SIGN_IN";
 export const SIGN_OUT = "SIGN_OUT";
@@ -16,11 +15,6 @@ export interface SignOutUserAction {
   payload: User;
 }
 
-export interface GetUsersAction {
-  type: typeof GET_USERS;
-  payload: Array<User>;
-}
-
 export interface ErrorAction {
   type: typeof ERROR;
   payload: string;
@@ -28,6 +22,5 @@ export interface ErrorAction {
 
 export type UserAuthenticationTypes = SignInUserAction | SignOutUserAction;
 export type ErrorTypes = ErrorAction;
-export type GetUsersTypes = GetUsersAction;
 
-export type AppActions = UserAuthenticationTypes | ErrorTypes | GetUsersTypes;
+export type AppActions = UserAuthenticationTypes | ErrorTypes;
