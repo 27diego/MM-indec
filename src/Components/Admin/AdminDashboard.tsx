@@ -11,7 +11,7 @@ interface STATE {
 
 class AdminDashboard extends Component<PROPS, STATE> {
   state = {
-    modal: true
+    modal: false
   };
 
   toggleModal = () => {
@@ -37,14 +37,7 @@ class AdminDashboard extends Component<PROPS, STATE> {
         <div className="container--body">
           <AdminList />
         </div>
-
-        {this.state.modal ? (
-          <React.Fragment>
-            <NewItem removeModal={this.removeModal} />
-          </React.Fragment>
-        ) : (
-          ""
-        )}
+        <NewItem removeModal={this.removeModal} modal={this.state.modal} />
         <div></div>
       </div>
     );

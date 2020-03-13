@@ -7,6 +7,7 @@ const modal = document.querySelector("#modal") as HTMLElement;
 
 interface Props {
   removeModal: () => void;
+  modal: boolean;
 }
 interface State {}
 
@@ -23,7 +24,11 @@ class NewItem extends Component<Props, State> {
 
   newUser = () => {
     return (
-      <div className="container--newUser userModal">
+      <div
+        className={`container--newUser userModal userModal--${
+          this.props.modal ? "active" : "deactive"
+        }`}
+      >
         <div className="userModal__header">New User</div>
         <input type="text" placeholder="Name" className="userModal__name" />
         <input
