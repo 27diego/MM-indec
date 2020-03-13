@@ -1,21 +1,13 @@
 @import "../../styles/variables";
 
-.userModal {
-  display: grid;
-  grid-row-gap: 2rem;
-  grid-column-gap: 1rem;
-  grid-template-rows: repeat(6, 1fr);
-  grid-template-columns: 59% 38.2%;
+.modal {
+  transition: all 1s;
 
-  background-color: #10151f;
-  border-radius: 5px;
-
+  padding: 2rem;
+  z-index: 100;
   position: absolute;
   bottom: 0;
   left: 40%;
-
-  color: $color-white;
-  transition: all 1s;
 
   &--active {
     bottom: 25%;
@@ -25,6 +17,19 @@
     bottom: -50%;
     opacity: 0;
   }
+
+  background-color: #10151f;
+  border-radius: 5px;
+
+  color: $color-white;
+}
+
+.userModal {
+  display: grid;
+  grid-row-gap: 2rem;
+  grid-column-gap: 1rem;
+  grid-template-rows: repeat(6, 1fr);
+  grid-template-columns: 59% 38.2%;
 
   &__header {
     font-size: 2rem;
@@ -76,7 +81,6 @@
     height: 100%;
     width: 100%;
 
-    background-color: #40464e;
     display: flex;
     justify-content: space-evenly;
     align-items: center;
@@ -85,11 +89,124 @@
 
 .nubuttons {
   button {
+    cursor: pointer;
     width: 9rem;
     height: 3rem;
     border-radius: 5px;
     outline: none;
     background-color: #444444;
     border: 1px solid #707070;
+    font-size: 1.2rem;
+  }
+}
+
+.departmentModal {
+  width: 30%;
+  height: 60%;
+
+  &__header {
+    font-size: 2rem;
+    align-self: center;
+  }
+
+  display: grid;
+  grid-template-rows: 15% 59% 13 13%;
+
+  .DPlist {
+    width: 100%;
+    max-height: 30rem;
+    min-height: 15rem;
+    align-self: center;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    overflow-y: scroll;
+
+    &__item {
+      padding: 1rem;
+      background-color: #40464e;
+      border-radius: 5px;
+      display: flex;
+      align-items: center;
+      margin: 0.7rem 0;
+      width: 80%;
+
+      &__header {
+        padding-left: 3rem;
+        font-size: 1.3rem;
+      }
+
+      &__delete {
+        content: "";
+        width: 3rem;
+        height: 3rem;
+        background-color: #691c1c;
+        border-radius: 50%;
+
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        &:hover {
+          cursor: pointer;
+        }
+
+        &--icon {
+          content: "";
+          width: 70%;
+          height: 2px;
+          display: block;
+          background-color: #fff;
+        }
+      }
+    }
+  }
+  &__add {
+    align-self: start;
+    justify-self: center;
+    content: "";
+    width: 5rem;
+    height: 5rem;
+    display: block;
+    background-color: #10151f;
+    border: 2px solid #444444;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    &--icon {
+      &,
+      &::before {
+        content: "";
+        width: 60%;
+        height: 2px;
+        background-color: #fff;
+      }
+
+      &::before {
+        margin: 0 auto;
+        width: 90%;
+        transform: rotate(90deg);
+        display: block;
+      }
+    }
+
+    &:hover {
+      cursor: pointer;
+    }
+  }
+  &__ok {
+    width: 35%;
+    justify-self: center;
+
+    cursor: pointer;
+    border-radius: 5px;
+    outline: none;
+    background-color: #444444;
+    border: 1px solid #707070;
+    font-size: 1.2rem;
   }
 }
