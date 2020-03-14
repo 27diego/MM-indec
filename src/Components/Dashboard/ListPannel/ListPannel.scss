@@ -64,9 +64,12 @@
     width: 100%;
     height: 100%;
     grid-area: 1/1/-1/2;
-    background-color: #481380;
     border-top-left-radius: 5px;
     border-bottom-left-radius: 5px;
+
+    &--chemical {
+      background-color: #481380;
+    }
   }
   &__header {
     font-size: 1.3rem;

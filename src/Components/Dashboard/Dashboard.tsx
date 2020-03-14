@@ -13,6 +13,7 @@ export const Dashboard = () => {
       <div className="container--ListPannel">
         <ListPannel />
       </div>
+      <div className="container--DocumentPannel"></div>
     </div>
   );
 };

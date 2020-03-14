@@ -14,16 +14,27 @@
   background-color: $color-grey;
 }
 
-.container--MenuPannel {
-  padding: 1rem 2rem;
-  grid-column: 1/2;
-  height: 100%;
-  width: 100%;
-}
+.container {
+  &--MenuPannel {
+    padding: 1rem 2rem;
+    grid-column: 1/2;
+    height: 100%;
+    width: 100%;
+  }
 
-.container--ListPannel {
-  padding: 1rem 2rem;
-  grid-column: 2/3;
-  height: 100%;
-  width: 100%;
+  &--ListPannel {
+    padding: 1rem 2rem;
+    grid-column: 2/3;
+    height: 100%;
+    width: 100%;
+  }
+
+  &--DocumentPannel {
+    padding: 1rem 2rem;
+    grid-column: 3/4;
+    height: 100%;
+    width: 100%;
+
+    background-color: rgba(9, 10, 15, 0.8);
+  }
 }
