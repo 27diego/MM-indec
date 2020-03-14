@@ -1,6 +1,8 @@
 @import "../../../styles/variables";
 
 .Container--ListPannel {
+  width: 100%;
+  height: 100%;
   background-color: rgba($color-black, 0.8);
   border-radius: 5px;
 
@@ -12,5 +14,66 @@
     -webkit-box-shadow: 6px 6px 27px -12px rgba(0, 0, 0, 0.9);
     -moz-box-shadow: 6px 6px 27px -12px rgba(0, 0, 0, 0.9);
     box-shadow: 6px 6px 27px -12px rgba(0, 0, 0, 0.9);
+  }
+}
+
+.ListPannel {
+  display: grid;
+  grid-template-rows: 7% 7% 1fr;
+  color: $color-white;
+  padding: 2rem;
+  &__header {
+    font-size: 2rem;
+    align-self: center;
+  }
+  &__search {
+    width: 70%;
+    height: 70%;
+    border-radius: 5px;
+    border: none;
+    outline: none;
+    padding: 1rem;
+    background-color: #2f374d;
+    color: rgba($color: $color-white, $alpha: 1);
+    font-size: 1.1rem;
+
+    &::placeholder {
+      font-size: 1.1rem;
+      color: rgba($color: $color-white, $alpha: 0.7);
+    }
+  }
+  &__list {
+    padding: 0 1rem;
+    overflow-y: scroll;
+  }
+}
+
+.LPitem {
+  width: 100%;
+  height: 15%;
+  background-color: #2e52f7;
+  border-radius: 5px;
+  margin-bottom: 1rem;
+  cursor: pointer;
+
+  display: grid;
+  grid-template-columns: 7% 1fr;
+  grid-template-rows: 30% 1fr;
+
+  &__sideColor {
+    width: 100%;
+    height: 100%;
+    grid-area: 1/1/-1/2;
+    background-color: #481380;
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
+  }
+  &__header {
+    font-size: 1.3rem;
+    align-self: center;
+  }
+  &__title {
+    font-size: 1.4rem;
+    padding-left: 0.2rem;
   }
 }
