@@ -1,0 +1,109 @@
+@import "../../../styles/variables";
+
+.documentModal {
+  width: 40%;
+  height: 35rem;
+
+  display: grid;
+  grid-template-rows: 60% repeat(6 1fr);
+  grid-template-columns: 70% 30%;
+  align-items: end;
+
+  left: 50%;
+  transform: translateX(-50%);
+  &__title {
+    grid-area: 2/1/4/2;
+    width: 50%;
+    height: 70%;
+    padding: 0.5rem 1rem;
+    margin-left: 8rem;
+    background-color: #40464e;
+    border: none;
+    color: $color-white;
+    font-size: 1.2rem;
+    border-radius: 5px;
+
+    &::placeholder {
+      color: $color-white;
+      font-size: 1.2rem;
+    }
+  }
+  &__category {
+    grid-area: 4/1/6/2;
+    width: 50%;
+    height: 70%;
+    margin-left: 8rem;
+  }
+  &__department {
+    grid-area: 6/1/8/2;
+    width: 50%;
+    height: 70%;
+    margin-left: 8rem;
+    outline: none;
+  }
+  button {
+    border: none;
+    outline: none;
+    border-radius: 5px;
+    font-size: 1.1rem;
+    color: $color-white;
+
+    &:hover {
+      cursor: pointer;
+    }
+  }
+  &__confirm {
+    grid-area: 2/2/5/3;
+    width: 50%;
+    height: 60%;
+    background-color: #3a464d;
+  }
+  &__cancel {
+    grid-area: 5/2/8/3;
+    width: 50%;
+    height: 60%;
+    background-color: #f9283d;
+  }
+}
+
+.dropzone {
+  grid-area: 1/1/2/-1;
+
+  justify-self: center;
+  align-self: start;
+
+  width: 70%;
+  padding: 3rem;
+
+  border: dashed 2px $color-light-grey;
+  border-radius: 5px;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  &__icon {
+    height: 7rem;
+    width: 7rem;
+  }
+  &__prompt {
+    font-size: 1.5rem;
+    font-weight: bold;
+  }
+  &__or {
+    margin-top: 1rem;
+    font-weight: bold;
+  }
+  &__btn {
+    margin-top: 1rem;
+    width: 60%;
+    height: 3.5rem;
+    border: none;
+    outline: none;
+    border-radius: 5px;
+    background-color: #5d4fde;
+    font-size: 1.2rem;
+    color: $color-white;
+    font-weight: bold;
+    box-shadow: -1px 2px 58px -8px rgba(0, 0, 0, 0.75);
+  }
+}

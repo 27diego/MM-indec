@@ -3,6 +3,7 @@ import ReactDOM from "react-dom";
 import "./NewItem.scss";
 
 import Overlay from "../Overlay/Overlay";
+import DropZone from "./DropZone/DropZone";
 
 const modal = document.querySelector("#modal") as HTMLElement;
 
@@ -28,7 +29,6 @@ class NewItem extends Component<Props, State> {
   componentWillUnmount() {
     modal.removeChild(this.portal);
   }
-
   newDepartment = () => {
     return (
       <div
@@ -122,7 +122,13 @@ class NewItem extends Component<Props, State> {
   };
 
   render() {
-    return ReactDOM.createPortal(this.newDepartment(), this.portal);
+    return ReactDOM.createPortal(
+      <DropZone
+        modal={this.props.modal}
+        removeModal={this.props.removeModal}
+      />,
+      this.portal
+    );
   }
 }
 
