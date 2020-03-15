@@ -11,6 +11,12 @@ interface Props {
 interface State {}
 
 class DropZone extends Component<Props, State> {
+  private myRef: React.RefObject<HTMLInputElement>;
+  constructor(props: Props) {
+    super(props);
+    this.myRef = React.createRef();
+  }
+
   render() {
     return (
       <div
@@ -61,9 +67,20 @@ class DropZone extends Component<Props, State> {
               }}
             />
           </svg>
+          <input
+            type="file"
+            ref={this.myRef}
+            multiple
+            style={{ display: "none" }}
+          />
           <div className="dropzone__prompt">Drag and drop your file here</div>
           <div className="dropzone__or">OR</div>
-          <button className="dropzone__btn">Browse Files</button>
+          <button
+            onClick={(): void => this.myRef.current?.click()}
+            className="dropzone__btn"
+          >
+            Browse Files
+          </button>
         </div>
         <input
           type="text"

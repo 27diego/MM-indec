@@ -10,7 +10,8 @@
   align-items: end;
 
   left: 50%;
-  transform: translateX(-50%);
+
+  transform: translateX(-50%) translateY(-20%);
   &__title {
     grid-area: 2/1/4/2;
     width: 50%;
@@ -92,6 +93,23 @@
   &__or {
     margin-top: 1rem;
     font-weight: bold;
+    display: flex;
+    align-items: center;
+    &::before,
+    &::after {
+      content: "";
+      display: block;
+      width: 9rem;
+      height: 1px;
+      background-color: rgba($color: #fff, $alpha: 0.1);
+    }
+
+    &::before {
+      margin-right: 1rem;
+    }
+    &::after {
+      margin-left: 1rem;
+    }
   }
   &__btn {
     margin-top: 1rem;
