@@ -1,13 +1,19 @@
 import React, { Component } from "react";
 import "./AdminList.scss";
 
+//redux imports
+import { connect } from "react-redux";
+import { AppState } from "../../../Redux/Store/configureStore";
+
 interface AdminListProps {}
 interface AdminListState {
   usersList: string[];
   userForm: {};
 }
 
-class AdminList extends Component<AdminListProps, AdminListState> {
+type Props = AdminListProps & LinkStateProps;
+
+class AdminList extends Component<Props, AdminListState> {
   state = {
     usersList: [],
     userForm: {
@@ -69,4 +75,15 @@ class AdminList extends Component<AdminListProps, AdminListState> {
   }
 }
 
-export default AdminList;
+interface LinkStateProps {
+  MenuItem: string;
+}
+
+const mapStateToProps = (
+  state: AppState,
+  ownProps: AdminListProps
+): LinkStateProps => ({
+  MenuItem: state.MenuItemReducer
+});
+
+export default connect(mapStateToProps, { null: null })(AdminList);

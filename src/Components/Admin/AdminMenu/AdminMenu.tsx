@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import "./AdminMenu.scss";
 
+//redux imports
 import { connect } from "react-redux";
 import { selectMenu } from "../../../Redux/actions/index";
 import { AppActions } from "../../../types/Actions";

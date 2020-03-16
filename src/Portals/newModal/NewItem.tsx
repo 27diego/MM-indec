@@ -67,9 +67,6 @@ class NewItem extends Component<Props, NewItemState> {
 interface LinkStateProps {
   MenuItem: string;
 }
-interface LinkDispatchProps {
-  selectMenu: (item: string) => void;
-}
 
 const mapStateToProps = (
   state: AppState,
