@@ -6,12 +6,14 @@ import { AuthenticationReducer } from "../reducers/Authentication";
 import { ErrorReducer } from "../reducers/Errors";
 import { MenuItemReducer } from "../reducers/MenuItem";
 import { GetUsersReducer } from "../reducers/GetUsers";
+import { GetDepartmentsReducer } from "../reducers/GetDepartments";
 
 export const rootReducer = combineReducers({
   AuthenticationReducer,
   ErrorReducer,
   MenuItemReducer,
-  GetUsersReducer
+  GetUsersReducer,
+  GetDepartmentsReducer
 });
 
 const composeEnhanger =

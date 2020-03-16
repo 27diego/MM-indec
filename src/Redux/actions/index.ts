@@ -52,6 +52,25 @@ export const getUsers = () => {
   };
 };
 
+export const getDepartments = () => {
+  return async (dispatch: Dispatch<AppActions>, getState: () => AppState) => {
+    await fetch("http://localhost:3000/department/all", {
+      method: "GET",
+      headers: { "Content-Type": "application/json" }
+    })
+      .then(res => res.json())
+      .then(data => {
+        if (data != null && Array.isArray(data)) {
+          dispatch({ type: "GET_DEPARTMENTS", payload: data });
+          dispatch({ type: "ERROR", payload: "" });
+        } else {
+          dispatch({ type: "ERROR", payload: data });
+        }
+      })
+      .catch(err => console.log(err));
+  };
+};
+
 export const postUser = async (
   firstName: string,
   lastName: string,

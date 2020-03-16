@@ -2,14 +2,19 @@ import React, { Component } from "react";
 import Overlay from "../../Overlay/Overlay";
 import "./NewUser.scss";
 
-import { postUser } from "../../../Redux/actions/index";
+import { connect } from "react-redux";
+import { postUser, getDepartments } from "../../../Redux/actions/index";
+import { AppActions } from "../../../types/Actions";
+import { AppState } from "../../../Redux/Store/configureStore";
+import { ThunkDispatch } from "redux-thunk";
+import { bindActionCreators } from "redux";
 
-interface Props {
+interface NewUserProps {
   modal: boolean;
   removeModal: () => void;
 }
 
-interface State {
+interface NewUserState {
   name: string;
   username: string;
   password: string;
@@ -17,14 +22,22 @@ interface State {
   admin: boolean;
 }
 
-class NewUser extends Component<Props, State> {
-  state = {
-    name: "",
-    username: "",
-    password: "",
-    department: "",
-    admin: false
-  };
+type Props = NewUserProps & LinkDispatchProps & LinkStateProps;
+
+class NewUser extends Component<Props, NewUserState> {
+  constructor(props: Props) {
+    super(props);
+
+    this.state = {
+      name: "",
+      username: "",
+      password: "",
+      department: "",
+      admin: false
+    };
+
+    this.props.getDepartments();
+  }
 
   render() {
     return (
@@ -57,8 +70,11 @@ class NewUser extends Component<Props, State> {
         />
         <select className="userModal__department">
           <option value="">Department</option>
-          <option>QA</option>
-          <option>Packing</option>
+          {this.props.departments.map(dep => (
+            <option key={dep} value={dep}>
+              {dep}
+            </option>
+          ))}
         </select>
         <select
           onChange={(e): void =>
@@ -92,4 +108,26 @@ class NewUser extends Component<Props, State> {
   }
 }
 
-export default NewUser;
+interface LinkStateProps {
+  departments: string[];
+}
+
+interface LinkDispatchProps {
+  getDepartments: () => void;
+}
+
+const mapStateToProps = (
+  state: AppState,
+  ownProps: NewUserProps
+): LinkStateProps => ({
+  departments: state.GetDepartmentsReducer
+});
+
+const mapDispatchToProps = (
+  dispatch: ThunkDispatch<any, any, AppActions>,
+  ownProps: NewUserProps
+): LinkDispatchProps => ({
+  getDepartments: bindActionCreators(getDepartments, dispatch)
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(NewUser);
