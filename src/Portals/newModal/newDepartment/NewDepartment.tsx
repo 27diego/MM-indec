@@ -2,44 +2,61 @@ import React, { Component } from "react";
 import Overlay from "../../Overlay/Overlay";
 import "./NewDepartment.scss";
 
-interface Props {
+import { connect } from "react-redux";
+import {
+  getDepartments,
+  deleteDepartment,
+  postDepartment
+} from "../../../Redux/actions/index";
+import { AppActions } from "../../../types/Actions";
+import { AppState } from "../../../Redux/Store/configureStore";
+import { ThunkDispatch } from "redux-thunk";
+import { bindActionCreators } from "redux";
+
+interface NewDepartmentProps {
   modal: boolean;
   removeModal: () => void;
 }
 
-interface State {
-  departments: Array<string>;
+interface NewDepartmentState {
   newItem: boolean;
   departmentInput: string;
   activeKey: string;
 }
 
-class NewDepartment extends Component<Props, State> {
-  state = {
-    departments: ["QA", "Maintenance", "Growing"],
-    newItem: false,
-    departmentInput: "",
-    activeKey: ""
-  };
+type Props = NewDepartmentProps & LinkDispatchProps & LinkStateProps;
+
+class NewDepartment extends Component<Props, NewDepartmentState> {
+  constructor(props: Props) {
+    super(props);
+    this.state = {
+      newItem: false,
+      departmentInput: "",
+      activeKey: ""
+    };
+
+    if (!this.props.departments) {
+      this.props.getDepartments();
+    }
+
+    console.log(this.props.departments);
+  }
 
   onSubmit = () => {
     if (this.state.departmentInput !== "") {
-      this.setState({
-        departments: [...this.state.departments, this.state.departmentInput]
-      });
-
+      postDepartment(this.state.departmentInput);
       this.setState({ departmentInput: "" });
+      this.props.getDepartments();
     }
   };
 
   removeItem = () => {
-    const newDepartments: Array<string> = this.state.departments.filter(
-      item => item !== this.state.activeKey
-    );
-    this.setState({ departments: newDepartments, activeKey: "" });
+    deleteDepartment(this.state.activeKey);
+    this.setState({ activeKey: "" });
   };
 
   render() {
+    console.log(this.props.departments);
     return (
       <div
         className={`modal modal--${
@@ -48,7 +65,7 @@ class NewDepartment extends Component<Props, State> {
       >
         <div className="departmentModal__header">Departments</div>
         <div className="DPlist">
-          {this.state.departments.map(item => (
+          {this.props.departments.map(item => (
             <div key={item} className="DPlist__item">
               <div
                 className={`DPlist__item__deleteConfirm DPlist__item__deleteConfirm--${
@@ -117,4 +134,26 @@ class NewDepartment extends Component<Props, State> {
   }
 }
 
-export default NewDepartment;
+interface LinkStateProps {
+  departments: string[];
+}
+
+interface LinkDispatchProps {
+  getDepartments: () => void;
+}
+
+const mapStateToProps = (
+  state: AppState,
+  ownProps: NewDepartmentProps
+): LinkStateProps => ({
+  departments: state.GetDepartmentsReducer
+});
+
+const mapDispatchToProps = (
+  dispatch: ThunkDispatch<any, any, AppActions>,
+  ownProps: NewDepartmentProps
+): LinkDispatchProps => ({
+  getDepartments: bindActionCreators(getDepartments, dispatch)
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(NewDepartment);

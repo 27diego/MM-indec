@@ -52,6 +52,57 @@ export const getUsers = () => {
   };
 };
 
+export const postUser = async (
+  first_name: string,
+  last_name: string,
+  username: string,
+  password: string,
+  admin: boolean,
+  department: string
+) => {
+  await fetch("http://localhost:3000/user", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      first_name,
+      last_name,
+      username,
+      password,
+      admin,
+      department
+    })
+  })
+    .then(res => res.json())
+    .then(data => console.log(data))
+    .catch(err => console.log(err));
+};
+
+export const deleteUser = (
+  first_name: string,
+  last_name: string,
+  username: string
+) => {
+  fetch("http://localhost:3000/user", {
+    method: "DELETE",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      first_name,
+      last_name,
+      username
+    })
+  })
+    .then(res => res.json())
+    .then(data => console.log(data))
+    .catch(err => console.log(err));
+};
+
+export const selectMenu = (item: string) => {
+  return {
+    type: "SET_MENU_ITEM",
+    payload: item
+  };
+};
+
 export const getDepartments = () => {
   return async (dispatch: Dispatch<AppActions>, getState: () => AppState) => {
     await fetch("http://localhost:3000/department/all", {
@@ -71,34 +122,22 @@ export const getDepartments = () => {
   };
 };
 
-export const postUser = async (
-  firstName: string,
-  lastName: string,
-  username: string,
-  password: string,
-  admin: boolean,
-  department: string
-) => {
-  await fetch("http://localhost:3000/user", {
-    method: "POST",
+export const deleteDepartment = (department: string) => {
+  fetch("http://localhost:3000/department", {
+    method: "DELETE",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({
-      firstName,
-      lastName,
-      username,
-      password,
-      admin,
-      department
-    })
+    body: JSON.stringify({ department })
   })
     .then(res => res.json())
-    .then(data => console.log(data))
-    .catch(err => console.log(err));
+    .then(data => console.log(data));
 };
 
-export const selectMenu = (item: string) => {
-  return {
-    type: "SET_MENU_ITEM",
-    payload: item
-  };
+export const postDepartment = (department: string) => {
+  fetch("http://localhost:3000/department", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ department })
+  })
+    .then(res => res.json())
+    .then(data => console.log(data));
 };

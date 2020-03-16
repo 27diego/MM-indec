@@ -39,6 +39,16 @@ class NewUser extends Component<Props, NewUserState> {
     this.props.getDepartments();
   }
 
+  handleSubmit = () => {
+    const { name, username, password, department, admin } = this.state;
+
+    const first_name = name.substr(0, name.indexOf(" "));
+    const last_name = name.substr(name.indexOf(" ") + 1, name.length);
+
+    // console.log(newUser);
+    postUser(first_name, last_name, username, password, admin, department);
+  };
+
   render() {
     return (
       <div
@@ -68,7 +78,10 @@ class NewUser extends Component<Props, NewUserState> {
           placeholder="Password"
           className="userModal__password"
         />
-        <select className="userModal__department">
+        <select
+          onChange={(e): void => this.setState({ department: e.target.value })}
+          className="userModal__department"
+        >
           <option value="">Department</option>
           {this.props.departments.map(dep => (
             <option key={dep} value={dep}>
@@ -93,7 +106,10 @@ class NewUser extends Component<Props, NewUserState> {
           >
             Cancel
           </button>
-          <button onClick={this.props.removeModal} className="nubuttons__ok">
+          <button
+            onClick={/*this.props.removeModal*/ this.handleSubmit}
+            className="nubuttons__ok"
+          >
             OK
           </button>
         </div>
