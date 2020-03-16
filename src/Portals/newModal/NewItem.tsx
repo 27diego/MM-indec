@@ -8,11 +8,7 @@ import NewDepartment from "./newDepartment/NewDepartment";
 
 //Redux import
 import { connect } from "react-redux";
-import { selectMenu } from "../../Redux/actions/index";
-import { AppActions } from "../../types/Actions";
 import { AppState } from "../../Redux/Store/configureStore";
-import { ThunkDispatch } from "redux-thunk";
-import { bindActionCreators } from "redux";
 
 const modal = document.querySelector("#modal") as HTMLElement;
 
@@ -24,7 +20,7 @@ interface NewItemState {
   departments: Array<string>;
 }
 
-type Props = NewItemProps & LinkDispatchProps & LinkStateProps;
+type Props = NewItemProps & LinkStateProps;
 
 class NewItem extends Component<Props, NewItemState> {
   portal: HTMLElement = document.createElement("div");
@@ -82,11 +78,4 @@ const mapStateToProps = (
   MenuItem: state.MenuItemReducer
 });
 
-const mapDispatchToProps = (
-  dispatch: ThunkDispatch<any, any, AppActions>,
-  ownProps: NewItemProps
-): LinkDispatchProps => ({
-  selectMenu: bindActionCreators(selectMenu, dispatch)
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(NewItem);
+export default connect(mapStateToProps, { null: null })(NewItem);
