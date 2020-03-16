@@ -23,6 +23,7 @@ class DropZone extends Component<Props, State> {
         className={`modal modal--${
           this.props.modal ? "active" : "deactive"
         } documentModal `}
+        onDragOver={() => console.log("dragging over")}
       >
         <div className="dropzone">
           <svg

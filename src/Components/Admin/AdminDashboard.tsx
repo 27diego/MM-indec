@@ -26,7 +26,6 @@ class AdminDashboard extends Component<PROPS, STATE> {
   };
 
   render() {
-    console.log(this.state.modal);
     return (
       <div className="Container--Admin">
         <div className="container--side">
