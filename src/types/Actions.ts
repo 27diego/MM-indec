@@ -4,6 +4,7 @@ export const SIGN_IN = "SIGN_IN";
 export const SIGN_OUT = "SIGN_OUT";
 export const ERROR = "ERROR";
 export const GET_USERS = "GET_USERS";
+export const SET_MENU_ITEM = "SET_MENU_ITEM";
 
 export interface SignInUserAction {
   type: typeof SIGN_IN;
@@ -20,7 +21,13 @@ export interface ErrorAction {
   payload: string;
 }
 
+export interface MenuItemAction {
+  type: typeof SET_MENU_ITEM;
+  payload: string;
+}
+
 export type UserAuthenticationTypes = SignInUserAction | SignOutUserAction;
 export type ErrorTypes = ErrorAction;
+export type MenuItemTypes = MenuItemAction;
 
-export type AppActions = UserAuthenticationTypes | ErrorTypes;
+export type AppActions = UserAuthenticationTypes | ErrorTypes | MenuItemTypes;

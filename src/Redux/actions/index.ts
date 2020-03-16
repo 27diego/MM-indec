@@ -57,3 +57,10 @@ export const postUser = (
     .then(data => console.log(data))
     .catch(err => console.log(err));
 };
+
+export const selectMenu = (item: string) => {
+  return {
+    type: "SET_MENU_ITEM",
+    payload: item
+  };
+};

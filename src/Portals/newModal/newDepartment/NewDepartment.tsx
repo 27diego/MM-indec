@@ -40,7 +40,6 @@ class NewDepartment extends Component<Props, State> {
   };
 
   render() {
-    console.log(this.state.newItem);
     return (
       <div
         className={`modal modal--${
@@ -95,10 +94,13 @@ class NewDepartment extends Component<Props, State> {
         </div>
 
         <button
-          //   onClick={this.props.removeModal}
           onClick={() => {
-            this.setState({ newItem: false });
-            this.onSubmit();
+            if (this.state.newItem) {
+              this.setState({ newItem: false });
+              this.onSubmit();
+            } else {
+              this.props.removeModal();
+            }
           }}
           className="departmentModal__ok"
         >

@@ -4,10 +4,12 @@ import { AppActions } from "../../types/Actions";
 
 import { AuthenticationReducer } from "../reducers/Authentication";
 import { ErrorReducer } from "../reducers/Errors";
+import { MenuItemReducer } from "../reducers/MenuItem";
 
 export const rootReducer = combineReducers({
   AuthenticationReducer,
-  ErrorReducer
+  ErrorReducer,
+  MenuItemReducer
 });
 
 const composeEnhanger =

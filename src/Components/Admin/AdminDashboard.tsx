@@ -22,7 +22,6 @@ class AdminDashboard extends Component<PROPS, STATE> {
 
   removeModal = () => {
     this.setState({ modal: false });
-    console.log("removing modal");
   };
 
   render() {
