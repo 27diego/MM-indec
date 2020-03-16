@@ -3,7 +3,12 @@ import "./AdminList.scss";
 
 //redux imports
 import { connect } from "react-redux";
+import { getUsers } from "../../../Redux/actions/index";
+import { AppActions } from "../../../types/Actions";
 import { AppState } from "../../../Redux/Store/configureStore";
+import { ThunkDispatch } from "redux-thunk";
+import { bindActionCreators } from "redux";
+import { User } from "../../../types/User";
 
 interface AdminListProps {}
 interface AdminListState {
@@ -11,7 +16,7 @@ interface AdminListState {
   userForm: {};
 }
 
-type Props = AdminListProps & LinkStateProps;
+type Props = AdminListProps & LinkStateProps & LinkDispatchProps;
 
 class AdminList extends Component<Props, AdminListState> {
   state = {
@@ -30,8 +35,7 @@ class AdminList extends Component<Props, AdminListState> {
   };
 
   componentDidMount = () => {
-    //call getUsers action
-    //set props data to component state
+    this.props.getUsers();
   };
 
   renderUsers = () => {
@@ -50,11 +54,13 @@ class AdminList extends Component<Props, AdminListState> {
           </li>
         </ul>
 
-        {/* {this.state.usersList.map(user => {
+        {this.props.Users.map(user => {
           return (
-            <ul className="user">
+            <ul key={user.username} className="user">
               <li>img</li>
-              <li className="user__name">{user.first_name + " " + user.last_name}</li>
+              <li className="user__name">
+                {user.first_name + " " + user.last_name}
+              </li>
               <li className="user__username">{user.username}</li>
               <li className="user__admin">{user.admin}</li>
               <li className="user__department">{user.department}</li>
@@ -65,7 +71,7 @@ class AdminList extends Component<Props, AdminListState> {
               </li>
             </ul>
           );
-        })} */}
+        })}
       </div>
     );
   };
@@ -77,13 +83,24 @@ class AdminList extends Component<Props, AdminListState> {
 
 interface LinkStateProps {
   MenuItem: string;
+  Users: User[];
+}
+
+interface LinkDispatchProps {
+  getUsers: () => void;
 }
 
 const mapStateToProps = (
   state: AppState,
   ownProps: AdminListProps
 ): LinkStateProps => ({
-  MenuItem: state.MenuItemReducer
+  MenuItem: state.MenuItemReducer,
+  Users: state.GetUsersReducer
 });
 
-export default connect(mapStateToProps, { null: null })(AdminList);
+const mapDispatchToProps = (
+  dispatch: ThunkDispatch<any, any, AppActions>,
+  ownProps: AdminListProps
+): LinkDispatchProps => ({ getUsers: bindActionCreators(getUsers, dispatch) });
+
+export default connect(mapStateToProps, mapDispatchToProps)(AdminList);

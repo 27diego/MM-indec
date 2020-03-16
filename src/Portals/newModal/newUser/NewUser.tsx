@@ -2,14 +2,30 @@ import React, { Component } from "react";
 import Overlay from "../../Overlay/Overlay";
 import "./NewUser.scss";
 
+import { postUser } from "../../../Redux/actions/index";
+
 interface Props {
   modal: boolean;
   removeModal: () => void;
 }
 
-interface State {}
+interface State {
+  name: string;
+  username: string;
+  password: string;
+  department: string;
+  admin: boolean;
+}
 
 class NewUser extends Component<Props, State> {
+  state = {
+    name: "",
+    username: "",
+    password: "",
+    department: "",
+    admin: false
+  };
+
   render() {
     return (
       <div
@@ -18,30 +34,41 @@ class NewUser extends Component<Props, State> {
         } userModal`}
       >
         <div className="userModal__header">New User</div>
-        <input type="text" placeholder="Name" className="userModal__name" />
         <input
+          value={this.state.name}
+          onChange={(e): void => this.setState({ name: e.target.value })}
+          type="text"
+          placeholder="Name"
+          className="userModal__name"
+        />
+        <input
+          value={this.state.username}
+          onChange={(e): void => this.setState({ username: e.target.value })}
           type="text"
           placeholder="Username"
           className="userModal__username"
         />
         <input
+          value={this.state.password}
+          onChange={(e): void => this.setState({ password: e.target.value })}
           type="text"
           placeholder="Password"
           className="userModal__password"
         />
-        <select name="" id="" className="userModal__department">
-          <option>Department</option>
+        <select className="userModal__department">
+          <option value="">Department</option>
           <option>QA</option>
           <option>Packing</option>
-          <option>Harvesting</option>
-          <option>Growing</option>
-          <option>Maintenance</option>
-          <option>Safety</option>
         </select>
-        <select name="" id="" className="userModal__admin">
+        <select
+          onChange={(e): void =>
+            this.setState({ admin: e.target.value === "true" ? true : false })
+          }
+          className="userModal__admin"
+        >
           <option>Admin</option>
-          <option>Yes</option>
-          <option>No</option>
+          <option value="true">Yes</option>
+          <option value="false">No</option>
         </select>
         <div className="userModal__buttons nubuttons">
           <button

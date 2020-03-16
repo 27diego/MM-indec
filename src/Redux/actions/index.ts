@@ -33,7 +33,26 @@ export const signOut = () => {
   };
 };
 
-export const postUser = (
+export const getUsers = () => {
+  return async (dispatch: Dispatch<AppActions>, getState: () => AppState) => {
+    await fetch("http://localhost:3000/user/all", {
+      method: "GET",
+      headers: { "Content-Type": "application/json" }
+    })
+      .then(res => res.json())
+      .then(data => {
+        if (data != null && Array.isArray(data)) {
+          dispatch({ type: "GET_USERS", payload: data });
+          dispatch({ type: "ERROR", payload: "" });
+        } else {
+          dispatch({ type: "ERROR", payload: data });
+        }
+      })
+      .catch(err => console.log(err));
+  };
+};
+
+export const postUser = async (
   firstName: string,
   lastName: string,
   username: string,
@@ -41,7 +60,7 @@ export const postUser = (
   admin: boolean,
   department: string
 ) => {
-  fetch("http://localhost:3000/user", {
+  await fetch("http://localhost:3000/user", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({

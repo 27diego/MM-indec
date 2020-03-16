@@ -5,11 +5,13 @@ import { AppActions } from "../../types/Actions";
 import { AuthenticationReducer } from "../reducers/Authentication";
 import { ErrorReducer } from "../reducers/Errors";
 import { MenuItemReducer } from "../reducers/MenuItem";
+import { GetUsersReducer } from "../reducers/GetUsers";
 
 export const rootReducer = combineReducers({
   AuthenticationReducer,
   ErrorReducer,
-  MenuItemReducer
+  MenuItemReducer,
+  GetUsersReducer
 });
 
 const composeEnhanger =

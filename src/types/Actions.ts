@@ -26,8 +26,18 @@ export interface MenuItemAction {
   payload: string;
 }
 
+export interface getUsersActions {
+  type: typeof GET_USERS;
+  payload: User[];
+}
+
 export type UserAuthenticationTypes = SignInUserAction | SignOutUserAction;
+export type UsersTypes = getUsersActions;
 export type ErrorTypes = ErrorAction;
 export type MenuItemTypes = MenuItemAction;
 
-export type AppActions = UserAuthenticationTypes | ErrorTypes | MenuItemTypes;
+export type AppActions =
+  | UserAuthenticationTypes
+  | UsersTypes
+  | ErrorTypes
+  | MenuItemTypes;
