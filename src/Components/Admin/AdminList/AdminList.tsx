@@ -3,42 +3,37 @@ import "./AdminList.scss";
 
 //redux imports
 import { connect } from "react-redux";
-import { getUsers } from "../../../Redux/actions/index";
+import { getUsers, deleteUser } from "../../../Redux/actions/index";
 import { AppActions } from "../../../types/Actions";
 import { AppState } from "../../../Redux/Store/configureStore";
 import { ThunkDispatch } from "redux-thunk";
 import { bindActionCreators } from "redux";
 import { User } from "../../../types/User";
 
-interface AdminListProps {}
+interface AdminListProps {
+  filter: string;
+  setFilter: (filter: string) => void;
+}
 interface AdminListState {
-  usersList: string[];
-  userForm: {};
+  label: string;
 }
 
 type Props = AdminListProps & LinkStateProps & LinkDispatchProps;
 
 class AdminList extends Component<Props, AdminListState> {
-  state = {
-    usersList: [],
-    userForm: {
-      name: "",
-      userName: "",
-      admin: null,
-      password: "",
-      department: ""
-    },
-    departmentForm: {
-      department: ""
-    },
-    sopDocumentForm: {}
-  };
+  constructor(props: Props) {
+    super(props);
 
-  componentDidMount = () => {
     this.props.getUsers();
-  };
+    this.props.setFilter("");
+
+    this.state = {
+      label: "dvega"
+    };
+  }
 
   renderUsers = () => {
+    console.log(this.props.filter);
     return (
       <div className="Container--UserList">
         <ul className="user">
@@ -65,8 +60,31 @@ class AdminList extends Component<Props, AdminListState> {
               <li className="user__admin">{user.admin ? "Yes" : "No"}</li>
               <li className="user__department">{user.department}</li>
               <li>
-                <div className="user__edit">
+                <div
+                  onClick={(): void =>
+                    this.setState(prevState => ({
+                      label: prevState.label === "" ? user.username : ""
+                    }))
+                  }
+                  className="user__edit"
+                >
                   <div>&nbsp;</div>
+                </div>
+                <div
+                  style={{
+                    display:
+                      this.state.label === user.username ? "flex" : "none"
+                  }}
+                  className="user__label"
+                >
+                  <div>Edit</div>
+                  <div
+                    onClick={() =>
+                      deleteUser(user.first_name, user.last_name, user.username)
+                    }
+                  >
+                    Delete
+                  </div>
                 </div>
               </li>
             </ul>

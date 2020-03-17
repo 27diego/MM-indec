@@ -12,18 +12,14 @@ import { bindActionCreators } from "redux";
 interface AdminMenuProps {
   modal: boolean;
   toggleModal: () => void;
+  filter: string;
+  setFilter: (filer: string) => void;
 }
-interface AdminMenuState {
-  search: string;
-}
+interface AdminMenuState {}
 
 type Props = AdminMenuProps & LinkDispatchProps & LinkStateProps;
 
 class AdminMenu extends Component<Props, AdminMenuState> {
-  state = {
-    search: ""
-  };
-
   render() {
     return (
       <div className="Container--AdminMenu AdminMenu">
@@ -68,8 +64,8 @@ class AdminMenu extends Component<Props, AdminMenuState> {
             </li>
           </ul>
           <input
-            value={this.state.search}
-            onChange={e => this.setState({ search: e.target.value })}
+            value={this.props.filter}
+            onChange={e => this.props.setFilter(e.target.value)}
             className="menu__search"
             placeholder={`Search ${this.props.MenuItem}s`}
             type="text"

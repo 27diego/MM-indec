@@ -26,6 +26,10 @@ class AdminDashboard extends Component<PROPS, STATE> {
     this.setState({ modal: false });
   };
 
+  setFilter = (filter: string) => {
+    this.setState({ filter });
+  };
+
   render() {
     return (
       <div className="Container--Admin">
@@ -33,10 +37,15 @@ class AdminDashboard extends Component<PROPS, STATE> {
           <div className="side"></div>
         </div>
         <div className="container--menu">
-          <AdminMenu modal={this.state.modal} toggleModal={this.toggleModal} />
+          <AdminMenu
+            filter={this.state.filter}
+            setFilter={this.setFilter}
+            modal={this.state.modal}
+            toggleModal={this.toggleModal}
+          />
         </div>
         <div className="container--body">
-          <AdminList />
+          <AdminList filter={this.state.filter} setFilter={this.setFilter} />
         </div>
         <NewItem removeModal={this.removeModal} modal={this.state.modal} />
         <div></div>
