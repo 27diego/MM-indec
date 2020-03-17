@@ -5,8 +5,8 @@ import { AppActions } from "../../types/Actions";
 import { AuthenticationReducer } from "../reducers/Authentication";
 import { ErrorReducer } from "../reducers/Errors";
 import { MenuItemReducer } from "../reducers/MenuItem";
-import { GetUsersReducer } from "../reducers/GetUsers";
-import { GetDepartmentsReducer } from "../reducers/GetDepartments";
+import { GetUsersReducer } from "../reducers/Users";
+import { GetDepartmentsReducer } from "../reducers/Departments";
 
 export const rootReducer = combineReducers({
   AuthenticationReducer,

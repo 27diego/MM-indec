@@ -4,13 +4,23 @@ import AdminMenu from "./AdminMenu/AdminMenu";
 import AdminList from "./AdminList/AdminList";
 import NewItem from "../../Portals/newModal/NewItem";
 
-interface PROPS {}
-interface STATE {
+//redux imports
+import { connect } from "react-redux";
+import { filterUsers } from "../../Redux/actions/index";
+import { AppActions } from "../../types/Actions";
+import { AppState } from "../../Redux/Store/configureStore";
+import { ThunkDispatch } from "redux-thunk";
+import { bindActionCreators } from "redux";
+
+interface AdminDashboardProps {}
+interface AdminDashboardState {
   modal: boolean;
   filter: string;
 }
 
-class AdminDashboard extends Component<PROPS, STATE> {
+type Props = AdminDashboardProps & LinkStateProps & LinkDispatchProps;
+
+class AdminDashboard extends Component<Props, AdminDashboardState> {
   state = {
     modal: false,
     filter: ""
@@ -27,6 +37,18 @@ class AdminDashboard extends Component<PROPS, STATE> {
   };
 
   setFilter = (filter: string) => {
+    switch (this.props.MenuItem) {
+      case "User":
+        this.props.filterUsers(filter);
+        break;
+      case "Document":
+        console.log("it is in document mode");
+        break;
+      case "Department":
+        console.log("it is in department mode");
+        break;
+    }
+
     this.setState({ filter });
   };
 
@@ -54,4 +76,25 @@ class AdminDashboard extends Component<PROPS, STATE> {
   }
 }
 
-export default AdminDashboard;
+interface LinkStateProps {
+  MenuItem: string;
+}
+interface LinkDispatchProps {
+  filterUsers: (item: string) => void;
+}
+
+const mapStateToProps = (
+  state: AppState,
+  ownProps: AdminDashboardProps
+): LinkStateProps => ({
+  MenuItem: state.MenuItemReducer
+});
+
+const mapDispatchToProps = (
+  dispatch: ThunkDispatch<any, any, AppActions>,
+  ownProps: AdminDashboardProps
+): LinkDispatchProps => ({
+  filterUsers: bindActionCreators(filterUsers, dispatch)
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(AdminDashboard);

@@ -9,6 +9,10 @@ export const GetDepartmentsReducer = (
   switch (action.type) {
     case "GET_DEPARTMENTS":
       return action.payload;
+    case "REMOVE_DEPARTMENT":
+      return state.filter(item => item !== action.payload);
+    case "ADD_DEPARTMENT":
+      return [...state, action.payload];
     default:
       return state;
   }

@@ -19,7 +19,6 @@ interface NewDepartmentProps {
 }
 
 interface NewDepartmentState {
-  departments: string[];
   newItem: boolean;
   departmentInput: string;
   activeKey: string;
@@ -31,7 +30,6 @@ class NewDepartment extends Component<Props, NewDepartmentState> {
   constructor(props: Props) {
     super(props);
     this.state = {
-      departments: this.props.departments,
       newItem: false,
       departmentInput: "",
       activeKey: ""
@@ -46,26 +44,18 @@ class NewDepartment extends Component<Props, NewDepartmentState> {
 
   onSubmit = () => {
     if (this.state.departmentInput !== "") {
-      this.setState((prevState, props) => ({
-        departments: [...this.state.departments, this.state.departmentInput],
-        departmentInput: ""
-      }));
-      postDepartment(this.state.departmentInput);
+      this.props.postDepartment(this.state.departmentInput);
     }
   };
 
   removeItem = () => {
     this.setState({
-      departments: this.state.departments.filter(
-        item => item !== this.state.activeKey
-      ),
       activeKey: ""
     });
-    deleteDepartment(this.state.activeKey);
+    this.props.deleteDepartment(this.state.activeKey);
   };
 
   render() {
-    console.log(this.state.departments);
     return (
       <div
         className={`modal modal--${
@@ -74,7 +64,7 @@ class NewDepartment extends Component<Props, NewDepartmentState> {
       >
         <div className="departmentModal__header">Departments</div>
         <div className="DPlist">
-          {this.state.departments.map(item => (
+          {this.props.departments.map(item => (
             <div key={item} className="DPlist__item">
               <div
                 className={`DPlist__item__deleteConfirm DPlist__item__deleteConfirm--${
@@ -149,6 +139,8 @@ interface LinkStateProps {
 
 interface LinkDispatchProps {
   getDepartments: () => void;
+  deleteDepartment: (item: string) => void;
+  postDepartment: (item: string) => void;
 }
 
 const mapStateToProps = (
@@ -162,7 +154,9 @@ const mapDispatchToProps = (
   dispatch: ThunkDispatch<any, any, AppActions>,
   ownProps: NewDepartmentProps
 ): LinkDispatchProps => ({
-  getDepartments: bindActionCreators(getDepartments, dispatch)
+  getDepartments: bindActionCreators(getDepartments, dispatch),
+  deleteDepartment: bindActionCreators(deleteDepartment, dispatch),
+  postDepartment: bindActionCreators(postDepartment, dispatch)
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(NewDepartment);

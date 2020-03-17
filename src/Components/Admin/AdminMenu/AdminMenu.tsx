@@ -21,6 +21,7 @@ type Props = AdminMenuProps & LinkDispatchProps & LinkStateProps;
 
 class AdminMenu extends Component<Props, AdminMenuState> {
   render() {
+    console.log("Menu Item: ", this.props.MenuItem);
     return (
       <div className="Container--AdminMenu AdminMenu">
         <div className="heading">

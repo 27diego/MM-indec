@@ -3,7 +3,11 @@ import "./AdminList.scss";
 
 //redux imports
 import { connect } from "react-redux";
-import { getUsers, deleteUser } from "../../../Redux/actions/index";
+import {
+  getUsers,
+  deleteUser,
+  deleteDepartment
+} from "../../../Redux/actions/index";
 import { AppActions } from "../../../types/Actions";
 import { AppState } from "../../../Redux/Store/configureStore";
 import { ThunkDispatch } from "redux-thunk";
@@ -28,12 +32,12 @@ class AdminList extends Component<Props, AdminListState> {
     this.props.setFilter("");
 
     this.state = {
-      label: "dvega"
+      label: ""
     };
   }
 
   renderUsers = () => {
-    console.log(this.props.filter);
+    console.log("filter: ", this.props.filter);
     return (
       <div className="Container--UserList">
         <ul className="user">
@@ -80,7 +84,11 @@ class AdminList extends Component<Props, AdminListState> {
                   <div>Edit</div>
                   <div
                     onClick={() =>
-                      deleteUser(user.first_name, user.last_name, user.username)
+                      this.props.deleteUser(
+                        user.first_name,
+                        user.last_name,
+                        user.username
+                      )
                     }
                   >
                     Delete
@@ -106,6 +114,7 @@ interface LinkStateProps {
 
 interface LinkDispatchProps {
   getUsers: () => void;
+  deleteUser: (first_name: string, last_name: string, username: string) => void;
 }
 
 const mapStateToProps = (
@@ -119,6 +128,9 @@ const mapStateToProps = (
 const mapDispatchToProps = (
   dispatch: ThunkDispatch<any, any, AppActions>,
   ownProps: AdminListProps
-): LinkDispatchProps => ({ getUsers: bindActionCreators(getUsers, dispatch) });
+): LinkDispatchProps => ({
+  getUsers: bindActionCreators(getUsers, dispatch),
+  deleteUser: bindActionCreators(deleteUser, dispatch)
+});
 
 export default connect(mapStateToProps, mapDispatchToProps)(AdminList);

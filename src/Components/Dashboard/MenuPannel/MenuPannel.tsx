@@ -3,7 +3,7 @@ import "./MenuPannel.scss";
 
 //Redux imports
 import { connect } from "react-redux";
-import { signOut } from "../../../Redux/actions/index";
+import { signOut, selectMenu } from "../../../Redux/actions/index";
 import { AppActions } from "../../../types/Actions";
 import { AppState } from "../../../Redux/Store/configureStore";
 import { ThunkDispatch } from "redux-thunk";
@@ -29,8 +29,6 @@ class MenuPannel extends Component<Props, MenuPannelSTATE> {
 
   render() {
     const { active } = this.state;
-
-    console.log(this.state);
 
     return (
       <div className="Container--MenuPannel MenuPannel">
@@ -299,8 +297,24 @@ class MenuPannel extends Component<Props, MenuPannelSTATE> {
             className="MenuFooter__menu"
             style={{ display: this.state.menu ? "flex" : "none" }}
           >
-            <div className="MenuFooter__menu__sops">Manage Documents</div>
-            <div className="MenuFooter__menu__users">Manage Users</div>
+            <div
+              onClick={() => {
+                this.props.selectMenu("Document");
+                history.push("/Admin");
+              }}
+              className="MenuFooter__menu__sops"
+            >
+              Manage Documents
+            </div>
+            <div
+              onClick={() => {
+                this.props.selectMenu("User");
+                history.push("/Admin");
+              }}
+              className="MenuFooter__menu__users"
+            >
+              Manage Users
+            </div>
           </div>
           <button
             className="MenuFooter__add"
@@ -375,13 +389,15 @@ class MenuPannel extends Component<Props, MenuPannelSTATE> {
 interface LinkStateProps {}
 interface LinkDispatchProps {
   signOut: () => void;
+  selectMenu: (item: string) => void;
 }
 
 const mapDispatchToProps = (
   dispatch: ThunkDispatch<any, any, AppActions>,
   ownProps: MenuPannelPROPS
 ): LinkDispatchProps => ({
-  signOut: bindActionCreators(signOut, dispatch)
+  signOut: bindActionCreators(signOut, dispatch),
+  selectMenu: bindActionCreators(selectMenu, dispatch)
 });
 
 export default connect(null, mapDispatchToProps)(MenuPannel);

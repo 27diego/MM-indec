@@ -46,7 +46,14 @@ class NewUser extends Component<Props, NewUserState> {
     const last_name = name.substr(name.indexOf(" ") + 1, name.length);
 
     // console.log(newUser);
-    postUser(first_name, last_name, username, password, admin, department);
+    this.props.postUser(
+      first_name,
+      last_name,
+      username,
+      password,
+      admin,
+      department
+    );
   };
 
   render() {
@@ -107,7 +114,10 @@ class NewUser extends Component<Props, NewUserState> {
             Cancel
           </button>
           <button
-            onClick={/*this.props.removeModal*/ this.handleSubmit}
+            onClick={() => {
+              this.handleSubmit();
+              this.props.removeModal();
+            }}
             className="nubuttons__ok"
           >
             OK
@@ -130,6 +140,14 @@ interface LinkStateProps {
 
 interface LinkDispatchProps {
   getDepartments: () => void;
+  postUser: (
+    first_name: string,
+    last_name: string,
+    username: string,
+    password: string,
+    admin: boolean,
+    department: string
+  ) => void;
 }
 
 const mapStateToProps = (
@@ -143,7 +161,8 @@ const mapDispatchToProps = (
   dispatch: ThunkDispatch<any, any, AppActions>,
   ownProps: NewUserProps
 ): LinkDispatchProps => ({
-  getDepartments: bindActionCreators(getDepartments, dispatch)
+  getDepartments: bindActionCreators(getDepartments, dispatch),
+  postUser: bindActionCreators(postUser, dispatch)
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(NewUser);

@@ -52,7 +52,14 @@ export const getUsers = () => {
   };
 };
 
-export const postUser = async (
+export const filterUsers = (item: string) => {
+  return {
+    type: "FILTER_USERS",
+    payload: item
+  };
+};
+
+export const postUser = (
   first_name: string,
   last_name: string,
   username: string,
@@ -60,21 +67,30 @@ export const postUser = async (
   admin: boolean,
   department: string
 ) => {
-  await fetch("http://localhost:3000/user", {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({
-      first_name,
-      last_name,
-      username,
-      password,
-      admin,
-      department
+  return async (dispatch: Dispatch<AppActions>, getState: () => AppState) => {
+    await fetch("http://localhost:3000/user", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        first_name,
+        last_name,
+        username,
+        password,
+        admin,
+        department
+      })
     })
-  })
-    .then(res => res.json())
-    .then(data => console.log(data))
-    .catch(err => console.log(err));
+      .then(res => res.json())
+      .then(data => {
+        if (data != null) {
+          dispatch({ type: "ADD_USER", payload: data });
+          dispatch({ type: "ERROR", payload: "" });
+        } else {
+          dispatch({ type: "ERROR", payload: data });
+        }
+      })
+      .catch(err => console.log(err));
+  };
 };
 
 export const deleteUser = (
@@ -82,18 +98,27 @@ export const deleteUser = (
   last_name: string,
   username: string
 ) => {
-  fetch("http://localhost:3000/user", {
-    method: "DELETE",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({
-      first_name,
-      last_name,
-      username
+  return async (dispatch: Dispatch<AppActions>, getState: () => AppState) => {
+    await fetch("http://localhost:3000/user", {
+      method: "DELETE",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        first_name,
+        last_name,
+        username
+      })
     })
-  })
-    .then(res => res.json())
-    .then(data => console.log(data))
-    .catch(err => console.log(err));
+      .then(res => res.json())
+      .then(data => {
+        if (data != null) {
+          dispatch({ type: "DELETE_USER", payload: data });
+          dispatch({ type: "ERROR", payload: "" });
+        } else {
+          dispatch({ type: "ERROR", payload: data });
+        }
+      })
+      .catch(err => console.log(err));
+  };
 };
 
 export const selectMenu = (item: string) => {
@@ -123,21 +148,41 @@ export const getDepartments = () => {
 };
 
 export const deleteDepartment = (department: string) => {
-  fetch("http://localhost:3000/department", {
-    method: "DELETE",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ department })
-  })
-    .then(res => res.json())
-    .then(data => console.log(data));
+  return async (dispatch: Dispatch<AppActions>, getState: () => AppState) => {
+    await fetch("http://localhost:3000/department", {
+      method: "DELETE",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ department })
+    })
+      .then(res => res.json())
+      .then(data => {
+        console.log("data from back end: ", data);
+        if (data != null) {
+          dispatch({ type: "REMOVE_DEPARTMENT", payload: data.department });
+          dispatch({ type: "ERROR", payload: "" });
+        } else {
+          dispatch({ type: "ERROR", payload: "" });
+        }
+      })
+      .catch(err => console.log(err));
+  };
 };
 
 export const postDepartment = (department: string) => {
-  fetch("http://localhost:3000/department", {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ department })
-  })
-    .then(res => res.json())
-    .then(data => console.log(data));
+  return async (dispatch: Dispatch<AppActions>, getState: () => AppState) => {
+    await fetch("http://localhost:3000/department", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ department })
+    })
+      .then(res => res.json())
+      .then(data => {
+        if (data != null) {
+          dispatch({ type: "ADD_DEPARTMENT", payload: department });
+          dispatch({ type: "ERROR", payload: "" });
+        } else {
+          dispatch({ type: "ERROR", payload: data });
+        }
+      });
+  };
 };
