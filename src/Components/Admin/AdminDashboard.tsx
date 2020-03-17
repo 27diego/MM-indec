@@ -7,11 +7,13 @@ import NewItem from "../../Portals/newModal/NewItem";
 interface PROPS {}
 interface STATE {
   modal: boolean;
+  filter: string;
 }
 
 class AdminDashboard extends Component<PROPS, STATE> {
   state = {
-    modal: false
+    modal: false,
+    filter: ""
   };
 
   toggleModal = () => {

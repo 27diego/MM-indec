@@ -19,6 +19,7 @@ interface NewDepartmentProps {
 }
 
 interface NewDepartmentState {
+  departments: string[];
   newItem: boolean;
   departmentInput: string;
   activeKey: string;
@@ -30,6 +31,7 @@ class NewDepartment extends Component<Props, NewDepartmentState> {
   constructor(props: Props) {
     super(props);
     this.state = {
+      departments: this.props.departments,
       newItem: false,
       departmentInput: "",
       activeKey: ""
@@ -39,24 +41,31 @@ class NewDepartment extends Component<Props, NewDepartmentState> {
       this.props.getDepartments();
     }
 
-    console.log(this.props.departments);
+    // this.setState({ departments: this.props.departments });
   }
 
   onSubmit = () => {
     if (this.state.departmentInput !== "") {
+      this.setState((prevState, props) => ({
+        departments: [...this.state.departments, this.state.departmentInput],
+        departmentInput: ""
+      }));
       postDepartment(this.state.departmentInput);
-      this.setState({ departmentInput: "" });
-      this.props.getDepartments();
     }
   };
 
   removeItem = () => {
+    this.setState({
+      departments: this.state.departments.filter(
+        item => item !== this.state.activeKey
+      ),
+      activeKey: ""
+    });
     deleteDepartment(this.state.activeKey);
-    this.setState({ activeKey: "" });
   };
 
   render() {
-    console.log(this.props.departments);
+    console.log(this.state.departments);
     return (
       <div
         className={`modal modal--${
@@ -65,7 +74,7 @@ class NewDepartment extends Component<Props, NewDepartmentState> {
       >
         <div className="departmentModal__header">Departments</div>
         <div className="DPlist">
-          {this.props.departments.map(item => (
+          {this.state.departments.map(item => (
             <div key={item} className="DPlist__item">
               <div
                 className={`DPlist__item__deleteConfirm DPlist__item__deleteConfirm--${

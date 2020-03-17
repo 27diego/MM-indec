@@ -62,7 +62,7 @@ class AdminList extends Component<Props, AdminListState> {
                 {user.first_name + " " + user.last_name}
               </li>
               <li className="user__username">{user.username}</li>
-              <li className="user__admin">{user.admin}</li>
+              <li className="user__admin">{user.admin ? "Yes" : "No"}</li>
               <li className="user__department">{user.department}</li>
               <li>
                 <div className="user__edit">
