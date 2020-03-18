@@ -17,13 +17,13 @@ export const GetUsersReducer = (
       originalArray = [...originalArray, action.payload];
       return [...state, action.payload];
     case "FILTER_USERS":
-      if (action.payload === "") return originalArray;
-      else {
-        filteredUsers = state.filter(item =>
-          item.first_name.includes(action.payload)
-        );
-        return filteredUsers;
-      }
+      filteredUsers = originalArray;
+      return filteredUsers.filter(item => {
+        let name =
+          item.first_name.toLocaleLowerCase() +
+          item.last_name.toLocaleLowerCase();
+        return name.indexOf(action.payload.toLocaleLowerCase()) !== -1;
+      });
     case "DELETE_USER":
       originalArray = originalArray.filter(
         item => item.username !== action.payload
