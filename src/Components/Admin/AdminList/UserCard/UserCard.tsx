@@ -1,6 +1,12 @@
 import React, { Component, createRef } from "react";
 import "./UserCard.scss";
 
+import { connect } from "react-redux";
+import { deleteUser } from "../../../../Redux/actions/index";
+import { AppActions } from "../../../../types/Actions";
+import { ThunkDispatch } from "redux-thunk";
+import { bindActionCreators } from "redux";
+
 interface UserCardProps {
   firstName: string;
   lastName: string;
@@ -12,10 +18,12 @@ interface UserCardState {
   label: boolean;
 }
 
-class UserCard extends Component<UserCardProps, UserCardState> {
+type Props = UserCardProps & LinkDispatchProps;
+
+class UserCard extends Component<Props, UserCardState> {
   private imgRef = createRef<HTMLImageElement>();
 
-  constructor(props: UserCardProps) {
+  constructor(props: Props) {
     super(props);
 
     this.state = {
@@ -50,9 +58,13 @@ class UserCard extends Component<UserCardProps, UserCardState> {
     return (
       <div className="userCard">
         <img className="userCard__avatar" ref={this.imgRef} alt="avatar" />
-        <div className="userCard__name">{`${this.props.firstName} ${this.props.lastName}`}</div>
-        <div className="userCard__userName">{this.props.userName}</div>
-        <div className="userCard__department">{this.props.department}</div>
+        <div className="userCard__name">{`Name: ${this.props.firstName} ${this.props.lastName}`}</div>
+        <div className="userCard__department">
+          Department: {this.props.department}
+        </div>
+        <div className="userCard__userName">
+          Username: {this.props.userName}
+        </div>
         <div
           onClick={() =>
             this.setState(prevState => ({ label: !prevState.label }))
@@ -70,11 +82,33 @@ class UserCard extends Component<UserCardProps, UserCardState> {
             }`}
           >
             <div>Edit</div>
-            <div>Delete</div>
+            <div
+              onClick={() =>
+                this.props.deleteUser(
+                  this.props.firstName,
+                  this.props.lastName,
+                  this.props.userName
+                )
+              }
+            >
+              Delete
+            </div>
           </div>
         </div>
       </div>
     );
   }
 }
-export default UserCard;
+
+interface LinkDispatchProps {
+  deleteUser: (first_name: string, last_name: string, username: string) => void;
+}
+
+const mapDispatchToProps = (
+  dispatch: ThunkDispatch<any, any, AppActions>,
+  ownProps: UserCardProps
+): LinkDispatchProps => ({
+  deleteUser: bindActionCreators(deleteUser, dispatch)
+});
+
+export default connect(null, mapDispatchToProps)(UserCard);

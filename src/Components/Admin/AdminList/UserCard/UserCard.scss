@@ -3,10 +3,11 @@
 .userCard {
   padding: 2rem 0;
 
-  width: 17rem;
-  height: 20rem;
+  width: 100%;
+  height: 100%;
 
   display: grid;
+  grid-template-columns: 1fr;
   justify-content: center;
 
   background-color: #10151f;
@@ -16,9 +17,11 @@
   font-size: 1.5rem;
 
   &__avatar {
+    justify-self: center;
   }
   &__name {
     font-size: inherit;
+    width: 100%;
   }
   &__userName {
     font-size: 1.2rem;
@@ -28,6 +31,8 @@
   }
   &__menu {
     justify-self: end;
+    align-self: flex-end;
+    margin-right: 1.2rem;
     background-color: #090a0f;
     width: 4rem;
     height: 4rem;
