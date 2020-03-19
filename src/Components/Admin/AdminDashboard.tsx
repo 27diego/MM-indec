@@ -16,7 +16,7 @@ import { bindActionCreators } from "redux";
 interface AdminDashboardProps {}
 interface AdminDashboardState {
   modal: boolean;
-  list: boolean;
+  list: string;
   filter: string;
 }
 
@@ -25,7 +25,7 @@ type Props = AdminDashboardProps & LinkStateProps & LinkDispatchProps;
 class AdminDashboard extends Component<Props, AdminDashboardState> {
   state = {
     modal: false,
-    list: false,
+    list: "",
     filter: ""
   };
 
@@ -35,10 +35,10 @@ class AdminDashboard extends Component<Props, AdminDashboardState> {
     }));
   };
 
-  toggleList = () => {
-    this.setState(prevState => ({
-      list: !prevState.list
-    }));
+  toggleList = (item: string) => {
+    this.setState({
+      list: item
+    });
   };
 
   removeModal = () => {
@@ -80,7 +80,11 @@ class AdminDashboard extends Component<Props, AdminDashboardState> {
           />
         </div>
         <div className="container--body">
-          <AdminList filter={this.state.filter} setFilter={this.setFilter} />
+          <AdminList
+            filter={this.state.filter}
+            setFilter={this.setFilter}
+            listMode={this.state.list}
+          />
         </div>
         <NewItem removeModal={this.removeModal} modal={this.state.modal} />
         <div></div>

@@ -14,9 +14,12 @@ import { ThunkDispatch } from "redux-thunk";
 import { bindActionCreators } from "redux";
 import { User } from "../../../types/User";
 
+import UserCard from "./UserCard/UserCard";
+
 interface AdminListProps {
   filter: string;
   setFilter: (filter: string) => void;
+  listMode: string;
 }
 interface AdminListState {
   label: string;
@@ -36,8 +39,20 @@ class AdminList extends Component<Props, AdminListState> {
     };
   }
 
-  renderUsers = () => {
-    console.log("filter: ", this.props.filter);
+  renderUsersCard = () => {
+    return (
+      <div className="Container--UserList">
+        <UserCard
+          firstName="Diego"
+          lastName="Vega"
+          userName="dvega"
+          department="QA"
+        />
+      </div>
+    );
+  };
+
+  renderUsersList = () => {
     return (
       <div className="Container--UserList">
         <ul className="user">
@@ -103,7 +118,13 @@ class AdminList extends Component<Props, AdminListState> {
   };
 
   render() {
-    return <React.Fragment>{this.renderUsers()}</React.Fragment>;
+    return (
+      <React.Fragment>
+        {this.props.listMode === "list"
+          ? this.renderUsersList()
+          : this.renderUsersCard()}
+      </React.Fragment>
+    );
   }
 }
 

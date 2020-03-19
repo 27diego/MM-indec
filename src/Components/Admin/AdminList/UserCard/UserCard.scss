@@ -1,0 +1,132 @@
+@import "../../../../styles/variables";
+
+.userCard {
+  position: relative;
+  padding: 2rem 0;
+
+  width: 17rem;
+  height: 20rem;
+
+  display: grid;
+  justify-content: center;
+
+  background-color: #10151f;
+  border-radius: 4px;
+
+  text-align: center;
+  font-size: 1.5rem;
+
+  &__avatar {
+  }
+  &__name {
+    font-size: inherit;
+  }
+  &__userName {
+    font-size: 1.2rem;
+  }
+  &__department {
+    font-size: inherit;
+  }
+  &__menu {
+    justify-self: end;
+    background-color: #090a0f;
+    width: 4rem;
+    height: 4rem;
+    border-radius: 50%;
+    border: solid 1px rgba(#707070, 0.4);
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    &:hover {
+      cursor: pointer;
+    }
+
+    &__lines {
+      &,
+      &::after,
+      &::before {
+        content: "";
+        width: 60%;
+        height: 2px;
+        background-color: #ed1d1d;
+        display: block;
+        transition: all 0.7s;
+      }
+
+      &::before {
+        width: 100%;
+        transform: translateY(0.7rem);
+      }
+
+      &::after {
+        width: 100%;
+        transform: translateY(-0.9rem);
+      }
+
+      &--active {
+        &::before {
+          opacity: 0;
+        }
+        & {
+          transform: rotate(45deg);
+        }
+        &::after {
+          transform: translateY(-0.2rem) rotate(90deg);
+        }
+      }
+    }
+  }
+  &__label {
+    z-index: 100;
+
+    position: absolute;
+    bottom: -3rem;
+    right: 3rem;
+
+    height: 5rem;
+    width: 7rem;
+
+    border-radius: 5px;
+    background-color: rgba($color: $color-grey, $alpha: 1);
+
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    &::after {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 50%;
+      width: 0;
+      height: 0;
+      border: 5px solid transparent;
+      border-bottom-color: $color-grey;
+      border-top: 0;
+      margin-left: -5px;
+      margin-top: -5px;
+    }
+
+    div {
+      font-size: 1.2rem;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      &:hover {
+        background-color: rgba($color: $color-black, $alpha: 0.5);
+        cursor: pointer;
+      }
+    }
+
+    &--active {
+      display: flex;
+    }
+  }
+}
