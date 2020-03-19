@@ -64,14 +64,14 @@ class UserCard extends Component<UserCardProps, UserCardState> {
               this.state.label ? "active" : ""
             }`}
           ></div>
-        </div>
-        <div
-          className={`userCard__label userCard__label--${
-            this.state.label ? "active" : ""
-          }`}
-        >
-          <div>Edit</div>
-          <div>Delete</div>
+          <div
+            className={`userCard__label userCard__label--${
+              this.state.label ? "active" : ""
+            }`}
+          >
+            <div>Edit</div>
+            <div>Delete</div>
+          </div>
         </div>
       </div>
     );

@@ -1,6 +1,10 @@
 import React, { Component, createRef } from "react";
 import "./SidePannel.scss";
 
+//Redux imports
+import { connect } from "react-redux";
+import { AppState } from "../../../Redux/Store/configureStore";
+
 interface SidePannelState {
   avatar: string;
 }
@@ -11,14 +15,16 @@ interface SidePannelProps {
   toggleList: (item: string) => void;
 }
 
-class SidePannel extends Component<SidePannelProps, SidePannelState> {
+type Props = SidePannelProps & LinkStateProps;
+
+class SidePannel extends Component<Props, SidePannelState> {
   private imgRef = createRef<HTMLImageElement>();
 
-  constructor(props: SidePannelProps) {
+  constructor(props: Props) {
     super(props);
 
     fetch(
-      "https://ui-avatars.com/api/?name=Diego+Vega&rounded=true&background=fff&color=0D8ABC",
+      `https://ui-avatars.com/api/?name=${this.props.firstName}+${this.props.lastName}&rounded=true&background=fff&color=0D8ABC`,
       {
         method: "GET"
       }
@@ -65,4 +71,17 @@ class SidePannel extends Component<SidePannelProps, SidePannelState> {
   }
 }
 
-export default SidePannel;
+interface LinkStateProps {
+  firstName: string;
+  lastName: string;
+}
+
+const mapStateToProps = (
+  state: AppState,
+  props: SidePannelProps
+): LinkStateProps => ({
+  firstName: state.AuthenticationReducer.first_name,
+  lastName: state.AuthenticationReducer.last_name
+});
+
+export default connect(mapStateToProps, { null: null })(SidePannel);
