@@ -1,9 +1,27 @@
 import React, { Component } from "react";
 import "./SidePannel.scss";
 
-class SidePannel extends Component {
+interface SidePannelState {
+  avatar: string;
+}
+
+interface SidePannelProps {
+  name: string;
+  list: boolean;
+  toggleList: () => void;
+}
+
+class SidePannel extends Component<SidePannelProps, SidePannelState> {
+  constructor(props: SidePannelProps) {
+    super(props);
+
+    this.state = {
+      avatar: ""
+    };
+  }
+
   render() {
-    return <div>Hello SidePannel</div>;
+    return <div className="Container--SidePannel">Hello SidePannel</div>;
   }
 }
 

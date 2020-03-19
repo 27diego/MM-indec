@@ -3,6 +3,7 @@ import "./AdminDashboard.scss";
 import AdminMenu from "./AdminMenu/AdminMenu";
 import AdminList from "./AdminList/AdminList";
 import NewItem from "../../Portals/newModal/NewItem";
+import SidePannel from "./SidePannel/SidePannel";
 
 //redux imports
 import { connect } from "react-redux";
@@ -15,6 +16,7 @@ import { bindActionCreators } from "redux";
 interface AdminDashboardProps {}
 interface AdminDashboardState {
   modal: boolean;
+  list: boolean;
   filter: string;
 }
 
@@ -23,12 +25,19 @@ type Props = AdminDashboardProps & LinkStateProps & LinkDispatchProps;
 class AdminDashboard extends Component<Props, AdminDashboardState> {
   state = {
     modal: false,
+    list: false,
     filter: ""
   };
 
   toggleModal = () => {
     this.setState(prevState => ({
       modal: !prevState.modal
+    }));
+  };
+
+  toggleList = () => {
+    this.setState(prevState => ({
+      list: !prevState.list
     }));
   };
 
@@ -56,7 +65,11 @@ class AdminDashboard extends Component<Props, AdminDashboardState> {
     return (
       <div className="Container--Admin">
         <div className="container--side">
-          <div className="side"></div>
+          <SidePannel
+            name={this.props.name}
+            list={this.state.list}
+            toggleList={this.toggleList}
+          />
         </div>
         <div className="container--menu">
           <AdminMenu
@@ -78,6 +91,7 @@ class AdminDashboard extends Component<Props, AdminDashboardState> {
 
 interface LinkStateProps {
   MenuItem: string;
+  name: string;
 }
 interface LinkDispatchProps {
   filterUsers: (item: string) => void;
@@ -87,7 +101,11 @@ const mapStateToProps = (
   state: AppState,
   ownProps: AdminDashboardProps
 ): LinkStateProps => ({
-  MenuItem: state.MenuItemReducer
+  MenuItem: state.MenuItemReducer,
+  name:
+    state.AuthenticationReducer.first_name +
+    " " +
+    state.AuthenticationReducer.last_name
 });
 
 const mapDispatchToProps = (
