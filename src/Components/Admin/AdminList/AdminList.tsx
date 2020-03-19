@@ -41,13 +41,16 @@ class AdminList extends Component<Props, AdminListState> {
 
   renderUsersCard = () => {
     return (
-      <div className="Container--UserList">
-        <UserCard
-          firstName="Diego"
-          lastName="Vega"
-          userName="dvega"
-          department="QA"
-        />
+      <div className="Container--UserList Container--UserList--cards">
+        {this.props.Users.map(user => (
+          <UserCard
+            key={user.username}
+            firstName={user.first_name}
+            lastName={user.last_name}
+            userName={user.username}
+            department={user.department}
+          />
+        ))}
       </div>
     );
   };

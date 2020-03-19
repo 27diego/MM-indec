@@ -23,7 +23,7 @@ class UserCard extends Component<UserCardProps, UserCardState> {
     };
 
     fetch(
-      "https://ui-avatars.com/api/?name=Diego+Vega&rounded=true&background=fff&color=0D8ABC",
+      `https://ui-avatars.com/api/?name=${this.props.firstName}+${this.props.lastName}&rounded=true&background=fff&color=0D8ABC`,
       {
         method: "GET"
       }
@@ -50,9 +50,9 @@ class UserCard extends Component<UserCardProps, UserCardState> {
     return (
       <div className="userCard">
         <img className="userCard__avatar" ref={this.imgRef} alt="avatar" />
-        <div className="userCard__name">Diego Vega</div>
-        <div className="userCard__userName">dvega</div>
-        <div className="userCard__department">QA</div>
+        <div className="userCard__name">{`${this.props.firstName} ${this.props.lastName}`}</div>
+        <div className="userCard__userName">{this.props.userName}</div>
+        <div className="userCard__department">{this.props.department}</div>
         <div
           onClick={() =>
             this.setState(prevState => ({ label: !prevState.label }))
