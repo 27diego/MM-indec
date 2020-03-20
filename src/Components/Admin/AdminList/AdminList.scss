@@ -8,13 +8,13 @@
   padding: 2rem 4rem;
   border-radius: 5px;
 
-  overflow: hidden;
+  overflow-y: scroll;
 
   &--cards {
     display: grid;
     grid-gap: 1rem;
     grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr));
-    grid-template-rows: repeat(auto-fit, 30rem);
+    // grid-template-rows: repeat(auto-fit, minmax(30rem, 1fr));
     // justify-items: center;
   }
 }

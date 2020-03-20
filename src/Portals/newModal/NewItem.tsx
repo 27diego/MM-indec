@@ -16,9 +16,7 @@ interface NewItemProps {
   removeModal: () => void;
   modal: boolean;
 }
-interface NewItemState {
-  departments: Array<string>;
-}
+interface NewItemState {}
 
 type Props = NewItemProps & LinkStateProps;
 

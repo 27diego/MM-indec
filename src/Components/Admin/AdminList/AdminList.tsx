@@ -122,11 +122,14 @@ class AdminList extends Component<Props, AdminListState> {
 
   render() {
     return (
-      <React.Fragment>
+      <div
+        className="temp-overflow"
+        style={{ overflowY: "scroll", maxHeight: "62vh" }}
+      >
         {this.props.listMode === "list"
           ? this.renderUsersList()
           : this.renderUsersCard()}
-      </React.Fragment>
+      </div>
     );
   }
 }

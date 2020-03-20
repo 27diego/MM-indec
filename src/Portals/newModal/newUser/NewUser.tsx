@@ -20,6 +20,7 @@ interface NewUserState {
   password: string;
   department: string;
   admin: boolean;
+  style: {};
 }
 
 type Props = NewUserProps & LinkDispatchProps & LinkStateProps;
@@ -33,10 +34,32 @@ class NewUser extends Component<Props, NewUserState> {
       username: "",
       password: "",
       department: "",
-      admin: false
+      admin: false,
+      style: {
+        transform: "",
+        transition: "all .5s ease",
+        bottom: "0",
+        opacity: "0"
+      }
     };
 
     this.props.getDepartments();
+  }
+
+  componentDidMount() {
+    setTimeout(() => {
+      this.setState({
+        style: {
+          ...this.state.style,
+          transform: "translateY(-20rem)",
+          opacity: "1"
+        }
+      });
+    }, 500);
+  }
+
+  componentWillReceiveProps(newProps: Props) {
+    console.log("will recieve props");
   }
 
   handleSubmit = () => {
@@ -62,6 +85,7 @@ class NewUser extends Component<Props, NewUserState> {
         className={`modal modal--${
           this.props.modal ? "active" : "deactive"
         } userModal`}
+        style={this.state.style}
       >
         <div className="userModal__header">New User</div>
         <input

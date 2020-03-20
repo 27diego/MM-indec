@@ -86,7 +86,11 @@ class AdminDashboard extends Component<Props, AdminDashboardState> {
             listMode={this.state.list}
           />
         </div>
-        <NewItem removeModal={this.removeModal} modal={this.state.modal} />
+        {this.state.modal ? (
+          <NewItem removeModal={this.removeModal} modal={this.state.modal} />
+        ) : (
+          ""
+        )}
         <div></div>
       </div>
     );

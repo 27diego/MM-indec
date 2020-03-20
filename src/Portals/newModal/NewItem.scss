@@ -11,11 +11,11 @@
 
   &--active {
     bottom: 25%;
-    opacity: 1;
+    display: block;
   }
   &--deactive {
     bottom: -50%;
-    opacity: 0;
+    display: none;
   }
 
   background-color: #10151f;

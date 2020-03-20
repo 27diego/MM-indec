@@ -9,9 +9,8 @@
   grid-template-columns: 70% 30%;
   align-items: end;
 
-  left: 50%;
+  left: 35%;
 
-  transform: translateX(-50%) translateY(-10%);
   &__title {
     grid-area: 2/1/4/2;
     width: 50%;

@@ -22,6 +22,7 @@ interface NewDepartmentState {
   newItem: boolean;
   departmentInput: string;
   activeKey: string;
+  style: {};
 }
 
 type Props = NewDepartmentProps & LinkDispatchProps & LinkStateProps;
@@ -32,14 +33,30 @@ class NewDepartment extends Component<Props, NewDepartmentState> {
     this.state = {
       newItem: false,
       departmentInput: "",
-      activeKey: ""
+      activeKey: "",
+      style: {
+        transform: "",
+        transition: "all .5s ease",
+        bottom: "0",
+        opacity: "0"
+      }
     };
 
     if (!this.props.departments) {
       this.props.getDepartments();
     }
+  }
 
-    // this.setState({ departments: this.props.departments });
+  componentDidMount() {
+    setTimeout(() => {
+      this.setState({
+        style: {
+          ...this.state.style,
+          transform: "translateY(-20rem)",
+          opacity: "1"
+        }
+      });
+    }, 500);
   }
 
   onSubmit = () => {
@@ -61,6 +78,7 @@ class NewDepartment extends Component<Props, NewDepartmentState> {
         className={`modal modal--${
           this.props.modal ? "active" : "deactive"
         } departmentModal `}
+        style={this.state.style}
       >
         <div className="departmentModal__header">Departments</div>
         <div className="DPlist">

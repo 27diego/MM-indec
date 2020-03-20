@@ -8,13 +8,36 @@ interface Props {
   removeModal: () => void;
 }
 
-interface State {}
+interface State {
+  style: {};
+}
 
 class DropZone extends Component<Props, State> {
   private myRef: React.RefObject<HTMLInputElement>;
   constructor(props: Props) {
     super(props);
     this.myRef = React.createRef();
+
+    this.state = {
+      style: {
+        transform: "",
+        transition: "all .5s ease",
+        bottom: "0",
+        opacity: "0"
+      }
+    };
+  }
+
+  componentDidMount() {
+    setTimeout(() => {
+      this.setState({
+        style: {
+          ...this.state.style,
+          transform: "translateY(-20rem)",
+          opacity: "1"
+        }
+      });
+    }, 500);
   }
 
   render() {
@@ -24,6 +47,7 @@ class DropZone extends Component<Props, State> {
           this.props.modal ? "active" : "deactive"
         } documentModal `}
         onDragOver={() => console.log("dragging over")}
+        style={this.state.style}
       >
         <div className="dropzone">
           <svg
