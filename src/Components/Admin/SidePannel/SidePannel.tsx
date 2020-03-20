@@ -6,7 +6,7 @@ import { connect } from "react-redux";
 import { AppState } from "../../../Redux/Store/configureStore";
 
 interface SidePannelState {
-  avatar: string;
+  activeSlider: string;
 }
 
 interface SidePannelProps {
@@ -22,6 +22,10 @@ class SidePannel extends Component<Props, SidePannelState> {
 
   constructor(props: Props) {
     super(props);
+
+    this.state = {
+      activeSlider: ""
+    };
 
     fetch(
       `https://ui-avatars.com/api/?name=${this.props.firstName}+${this.props.lastName}&rounded=true&background=fff&color=0D8ABC`,
@@ -51,19 +55,39 @@ class SidePannel extends Component<Props, SidePannelState> {
     return (
       <div className="Container--SidePannel SidePannel">
         <img className="SidePannel__avatar" ref={this.imgRef} alt="avatar" />
-        <div className="SidePannel__actions">Actions</div>
         <div className="actions">
+          <div className="actions__title">Actions</div>
           <div
-            onClick={() => this.props.toggleList("list")}
-            className="actions__List"
+            onClick={(): void => {
+              this.props.toggleList("list");
+              this.setState({ activeSlider: "list" });
+            }}
+            className="listMode"
           >
-            List Mode
+            <div className="listMode__title">List Mode</div>
+            <div className="listMode__slider">
+              <div
+                className={`listMode__icon listMode__icon--${
+                  this.state.activeSlider === "list" ? "active" : "unactive"
+                }`}
+              ></div>
+            </div>
           </div>
           <div
-            onClick={() => this.props.toggleList("cards")}
-            className="actions__cards"
+            onClick={(): void => {
+              this.props.toggleList("cards");
+              this.setState({ activeSlider: "cards" });
+            }}
+            className="listMode"
           >
-            Cards Mode
+            <div className="listMode__title">Cards Mode</div>
+            <div className="listMode__slider">
+              <div
+                className={`listMode__icon listMode__icon--${
+                  this.state.activeSlider === "cards" ? "active" : "unactive"
+                }`}
+              ></div>
+            </div>
           </div>
         </div>
       </div>
