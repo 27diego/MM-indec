@@ -24,7 +24,7 @@ class SidePannel extends Component<Props, SidePannelState> {
     super(props);
 
     this.state = {
-      activeSlider: ""
+      activeSlider: "cards"
     };
 
     fetch(
@@ -62,15 +62,17 @@ class SidePannel extends Component<Props, SidePannelState> {
               this.props.toggleList("list");
               this.setState({ activeSlider: "list" });
             }}
-            className="listMode"
+            className="option option--list"
           >
-            <div className="listMode__title">List Mode</div>
-            <div className="listMode__slider">
-              <div
-                className={`listMode__icon listMode__icon--${
-                  this.state.activeSlider === "list" ? "active" : "unactive"
-                }`}
-              ></div>
+            <div
+              className={`option__logo option__logo--${
+                this.state.activeSlider === "list" ? "active" : ""
+              }`}
+            >
+              <svg height="24" viewBox="0 0 24 24" width="24">
+                <path d="M3 13h2v-2H3v2zm0 4h2v-2H3v2zm0-8h2V7H3v2zm4 4h14v-2H7v2zm0 4h14v-2H7v2zM7 7v2h14V7H7z" />
+                <path d="M0 0h24v24H0z" fill="none" />
+              </svg>
             </div>
           </div>
           <div
@@ -78,15 +80,17 @@ class SidePannel extends Component<Props, SidePannelState> {
               this.props.toggleList("cards");
               this.setState({ activeSlider: "cards" });
             }}
-            className="listMode"
+            className="option option--card"
           >
-            <div className="listMode__title">Cards Mode</div>
-            <div className="listMode__slider">
-              <div
-                className={`listMode__icon listMode__icon--${
-                  this.state.activeSlider === "cards" ? "active" : "unactive"
-                }`}
-              ></div>
+            <div
+              className={`option__logo option__logo--${
+                this.state.activeSlider === "cards" ? "active" : ""
+              }`}
+            >
+              <svg height="24" viewBox="0 0 24 24" width="24">
+                <path d="M7 19h10V4H7v15zm-5-2h4V6H2v11zM18 6v11h4V6h-4z" />
+                <path d="M0 0h24v24H0z" fill="none" />
+              </svg>
             </div>
           </div>
         </div>
