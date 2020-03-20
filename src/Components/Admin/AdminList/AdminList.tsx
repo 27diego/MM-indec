@@ -49,6 +49,7 @@ class AdminList extends Component<Props, AdminListState> {
             lastName={user.last_name}
             userName={user.username}
             department={user.department}
+            admin={user.admin}
           />
         ))}
       </div>
@@ -124,7 +125,7 @@ class AdminList extends Component<Props, AdminListState> {
     return (
       <div
         className="temp-overflow"
-        style={{ overflowY: "scroll", maxHeight: "62vh" }}
+        style={{ overflowY: "scroll", maxHeight: "62vh", minHeight: "62vh" }}
       >
         {this.props.listMode === "list"
           ? this.renderUsersList()

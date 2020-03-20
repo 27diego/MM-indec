@@ -11,7 +11,9 @@ import { bindActionCreators } from "redux";
 
 import history from "../../../history";
 
-interface MenuPannelPROPS {}
+interface MenuPannelPROPS {
+  toggleMenu: React.Dispatch<React.SetStateAction<string>>;
+}
 interface MenuPannelSTATE {
   active: string;
   menu: boolean;
@@ -29,6 +31,7 @@ class MenuPannel extends Component<Props, MenuPannelSTATE> {
 
   render() {
     const { active } = this.state;
+    const { toggleMenu } = this.props;
 
     return (
       <div className="Container--MenuPannel MenuPannel">
@@ -38,7 +41,10 @@ class MenuPannel extends Component<Props, MenuPannelSTATE> {
             className={`deps deps--QA deps--QA--${
               active === "QA" ? "active" : ""
             }`}
-            onClick={(): void => this.setState({ active: "QA" })}
+            onClick={(): void => {
+              this.setState({ active: "QA" });
+              toggleMenu("QA");
+            }}
           >
             <div className="deps__title">QA</div>
             <div className="deps__icon">
@@ -70,7 +76,10 @@ class MenuPannel extends Component<Props, MenuPannelSTATE> {
             className={`deps deps--Packing deps--Packing--${
               active === "Packing" ? "active" : ""
             }`}
-            onClick={(): void => this.setState({ active: "Packing" })}
+            onClick={(): void => {
+              this.setState({ active: "Packing" });
+              toggleMenu("Packing");
+            }}
           >
             <div className="deps__title">Packing</div>
             <div className="deps__icon">
@@ -122,7 +131,10 @@ class MenuPannel extends Component<Props, MenuPannelSTATE> {
             className={`deps deps--Harvesting deps--Harvesting--${
               active === "Harvesting" ? "active" : ""
             }`}
-            onClick={(): void => this.setState({ active: "Harvesting" })}
+            onClick={(): void => {
+              this.setState({ active: "Harvesting" });
+              toggleMenu("Harvesting");
+            }}
           >
             <div className="deps__title">Harvesting</div>
             <div className="deps__icon">
@@ -160,7 +172,10 @@ class MenuPannel extends Component<Props, MenuPannelSTATE> {
             className={`deps deps--Growing deps--Growing--${
               active === "Growing" ? "active" : ""
             }`}
-            onClick={(): void => this.setState({ active: "Growing" })}
+            onClick={(): void => {
+              this.setState({ active: "Growing" });
+              toggleMenu("Growing");
+            }}
           >
             <div className="deps__title">Growing</div>
             <div className="deps__icon">
@@ -219,7 +234,10 @@ class MenuPannel extends Component<Props, MenuPannelSTATE> {
             className={`deps deps--Maintenance deps--Maintenance--${
               active === "Maintenance" ? "active" : ""
             }`}
-            onClick={(): void => this.setState({ active: "Maintenance" })}
+            onClick={(): void => {
+              this.setState({ active: "Maintenance" });
+              toggleMenu("Maintenance");
+            }}
           >
             <div className="deps__title">Maintenance</div>
             <div className="deps__icon">
@@ -257,7 +275,10 @@ class MenuPannel extends Component<Props, MenuPannelSTATE> {
             className={`deps deps--Safety deps--Safety--${
               active === "Safety" ? "active" : ""
             }`}
-            onClick={(): void => this.setState({ active: "Safety" })}
+            onClick={(): void => {
+              this.setState({ active: "Safety" });
+              toggleMenu("Safety");
+            }}
           >
             <div className="deps__title">Safety</div>
             <div className="deps__icon">

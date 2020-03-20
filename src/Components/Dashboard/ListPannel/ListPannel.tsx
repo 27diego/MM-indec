@@ -1,7 +1,9 @@
 import React, { Component } from "react";
 import "./ListPannel.scss";
 
-interface Props {}
+interface Props {
+  department: string;
+}
 interface State {
   search: string;
   temp: Array<{}>;

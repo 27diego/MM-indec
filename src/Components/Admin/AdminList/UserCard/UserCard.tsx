@@ -12,6 +12,7 @@ interface UserCardProps {
   lastName: string;
   userName: string;
   department: string;
+  admin: boolean;
 }
 
 interface UserCardState {
@@ -56,7 +57,7 @@ class UserCard extends Component<Props, UserCardState> {
 
   render() {
     return (
-      <div className="userCard">
+      <div className={`userCard userCard--${this.props.admin ? "admin" : ""}`}>
         <img className="userCard__avatar" ref={this.imgRef} alt="avatar" />
         <div className="userCard__name">{`Name: ${this.props.firstName} ${this.props.lastName}`}</div>
         <div className="userCard__department">
