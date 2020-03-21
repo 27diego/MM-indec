@@ -9,7 +9,17 @@ interface Props {
 }
 
 interface State {
+  highlight: boolean;
+  disabled: boolean;
+  form: Form;
   style: {};
+}
+
+interface Form {
+  file: null;
+  title: string;
+  category: string;
+  department: string;
 }
 
 class DropZone extends Component<Props, State> {
@@ -19,6 +29,14 @@ class DropZone extends Component<Props, State> {
     this.myRef = React.createRef();
 
     this.state = {
+      highlight: false,
+      disabled: false,
+      form: {
+        file: null,
+        title: "",
+        category: "",
+        department: ""
+      },
       style: {
         transform: "",
         transition: "all .5s ease",
@@ -40,16 +58,41 @@ class DropZone extends Component<Props, State> {
     }, 500);
   }
 
+  onFileAdd = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (this.state.disabled) return;
+    const file = e.target.files;
+    console.log("added a file: ", file);
+  };
+
+  onFileDrop = (e: React.DragEvent<HTMLDivElement>) => {
+    e.preventDefault();
+    if (e.dataTransfer.files && e.dataTransfer.files[0]) {
+      console.log("file: ", e.dataTransfer.files[0]);
+    }
+  };
+
+  onSubmit = (): void => {};
+
   render() {
     return (
       <div
         className={`modal modal--${
           this.props.modal ? "active" : "deactive"
         } documentModal `}
-        onDragOver={() => console.log("dragging over")}
         style={this.state.style}
+        
       >
-        <div className="dropzone">
+        <div
+          className={`dropzone dropzone--${
+            this.state.highlight ? "active" : ""
+          }`}
+          onDragOver={(e): void => {
+            this.setState({ highlight: true });
+            e.preventDefault();
+          }}
+          onDragLeave={(): void => this.setState({ highlight: false })}
+          onDrop={this.onFileDrop}
+        >
           <svg
             className="dropzone__icon"
             xmlns="http://www.w3.org/2000/svg"
@@ -57,7 +100,6 @@ class DropZone extends Component<Props, State> {
             height="512"
             viewBox="0 0 512 512"
           >
-            <title>ionicons-v5-f</title>
             <path
               d="M320,367.79h76c55,0,100-29.21,100-83.6s-53-81.47-96-83.6c-8.89-85.06-71-136.8-144-136.8-69,0-113.44,45.79-128,91.2-60,5.7-112,43.88-112,106.4s54,106.4,120,106.4h56"
               style={{
@@ -97,6 +139,7 @@ class DropZone extends Component<Props, State> {
             ref={this.myRef}
             multiple
             style={{ display: "none" }}
+            onChange={this.onFileAdd}
           />
           <div className="dropzone__prompt">Drag and drop your file here</div>
           <div className="dropzone__or">OR</div>
@@ -108,16 +151,41 @@ class DropZone extends Component<Props, State> {
           </button>
         </div>
         <input
+          value={this.state.form.title}
+          onChange={(e): void =>
+            this.setState({
+              ...this.state,
+              form: { ...this.state.form, title: e.target.value }
+            })
+          }
           type="text"
           placeholder="title"
           className="documentModal__title"
         />
 
-        <select className="documentModal__category">
+        <select
+          onChange={(e): void =>
+            this.setState({
+              ...this.state,
+              form: { ...this.state.form, category: e.target.value }
+            })
+          }
+          className="documentModal__category"
+        >
           <option value="">categories</option>
+          <option value="Chemical">Chemical</option>
         </select>
-        <select className="documentModal__department">
+        <select
+          onChange={(e): void =>
+            this.setState({
+              ...this.state,
+              form: { ...this.state.form, department: e.target.value }
+            })
+          }
+          className="documentModal__department"
+        >
           <option value="">department</option>
+          <option value="QA">QA</option>
         </select>
 
         <button className="documentModal__confirm">OK</button>

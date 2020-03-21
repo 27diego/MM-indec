@@ -42,7 +42,9 @@ class MenuPannel extends Component<Props, MenuPannelSTATE> {
               active === "QA" ? "active" : ""
             }`}
             onClick={(): void => {
-              this.setState({ active: "QA" });
+              this.setState(prevState => ({
+                active: prevState.active === "QA" ? "" : "QA"
+              }));
               toggleMenu("QA");
             }}
           >
@@ -77,7 +79,9 @@ class MenuPannel extends Component<Props, MenuPannelSTATE> {
               active === "Packing" ? "active" : ""
             }`}
             onClick={(): void => {
-              this.setState({ active: "Packing" });
+              this.setState(prevState => ({
+                active: prevState.active === "Packing" ? "" : "Packing"
+              }));
               toggleMenu("Packing");
             }}
           >
@@ -132,7 +136,9 @@ class MenuPannel extends Component<Props, MenuPannelSTATE> {
               active === "Harvesting" ? "active" : ""
             }`}
             onClick={(): void => {
-              this.setState({ active: "Harvesting" });
+              this.setState(prevState => ({
+                active: prevState.active === "Harvesting" ? "" : "Harvesting"
+              }));
               toggleMenu("Harvesting");
             }}
           >
@@ -173,7 +179,9 @@ class MenuPannel extends Component<Props, MenuPannelSTATE> {
               active === "Growing" ? "active" : ""
             }`}
             onClick={(): void => {
-              this.setState({ active: "Growing" });
+              this.setState(prevState => ({
+                active: prevState.active === "Growing" ? "" : "Growing"
+              }));
               toggleMenu("Growing");
             }}
           >
@@ -235,7 +243,9 @@ class MenuPannel extends Component<Props, MenuPannelSTATE> {
               active === "Maintenance" ? "active" : ""
             }`}
             onClick={(): void => {
-              this.setState({ active: "Maintenance" });
+              this.setState(prevState => ({
+                active: prevState.active === "Maintenance" ? "" : "Maintenance"
+              }));
               toggleMenu("Maintenance");
             }}
           >
@@ -276,7 +286,9 @@ class MenuPannel extends Component<Props, MenuPannelSTATE> {
               active === "Safety" ? "active" : ""
             }`}
             onClick={(): void => {
-              this.setState({ active: "Safety" });
+              this.setState(prevState => ({
+                active: prevState.active === "Safety" ? "" : "Safety"
+              }));
               toggleMenu("Safety");
             }}
           >

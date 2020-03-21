@@ -42,9 +42,7 @@ class NewDepartment extends Component<Props, NewDepartmentState> {
       }
     };
 
-    if (!this.props.departments) {
-      this.props.getDepartments();
-    }
+    this.props.getDepartments();
   }
 
   componentDidMount() {
