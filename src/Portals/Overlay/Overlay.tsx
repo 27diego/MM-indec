@@ -27,9 +27,11 @@ export default class Overlay extends Component<Props, State> {
   };
 
   render() {
-    setTimeout(() => {
-      this.setState({ modal: true });
-    }, 200);
+    if (this.state.modal === false) {
+      setTimeout(() => {
+        this.setState({ modal: true });
+      }, 200);
+    }
 
     return ReactDOM.createPortal(
       <div

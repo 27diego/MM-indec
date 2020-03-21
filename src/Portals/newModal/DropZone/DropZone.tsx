@@ -16,7 +16,7 @@ interface State {
 }
 
 interface Form {
-  file: null;
+  file: File | FileList | null;
   title: string;
   category: string;
   department: string;
@@ -60,14 +60,22 @@ class DropZone extends Component<Props, State> {
 
   onFileAdd = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (this.state.disabled) return;
-    const file = e.target.files;
-    console.log("added a file: ", file);
+    const file: any = e.target.files;
+    console.log("added a file: ", file[0]);
+    this.setState({
+      disabled: true,
+      form: { ...this.state.form, file: file[0] }
+    });
   };
 
   onFileDrop = (e: React.DragEvent<HTMLDivElement>) => {
     e.preventDefault();
     if (e.dataTransfer.files && e.dataTransfer.files[0]) {
       console.log("file: ", e.dataTransfer.files[0]);
+      this.setState({
+        disabled: true,
+        form: { ...this.state.form, file: e.dataTransfer.files[0] }
+      });
     }
   };
 
@@ -80,7 +88,6 @@ class DropZone extends Component<Props, State> {
           this.props.modal ? "active" : "deactive"
         } documentModal `}
         style={this.state.style}
-        
       >
         <div
           className={`dropzone dropzone--${
@@ -196,11 +203,11 @@ class DropZone extends Component<Props, State> {
           Cancel
         </button>
 
-        {this.props.modal ? (
-          <Overlay removeModal={this.props.removeModal} />
-        ) : (
+        {/* {this.props.modal ? ( */}
+        <Overlay removeModal={this.props.removeModal} />
+        {/* ) : (
           ""
-        )}
+        )} */}
       </div>
     );
   }
