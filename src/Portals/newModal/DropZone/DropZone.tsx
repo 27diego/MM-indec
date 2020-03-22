@@ -16,7 +16,7 @@ interface State {
 }
 
 interface Form {
-  file: File | FileList | null;
+  files: any;
   title: string;
   category: string;
   department: string;
@@ -32,7 +32,7 @@ class DropZone extends Component<Props, State> {
       highlight: false,
       disabled: false,
       form: {
-        file: null,
+        files: null,
         title: "",
         category: "",
         department: ""
@@ -59,27 +59,57 @@ class DropZone extends Component<Props, State> {
   }
 
   onFileAdd = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (this.state.disabled) return;
-    const file: any = e.target.files;
-    console.log("added a file: ", file[0]);
+    const files = e.target.files;
+    const array = this.fileToListArray(files);
     this.setState({
       disabled: true,
-      form: { ...this.state.form, file: file[0] }
+      form: { ...this.state.form, files: array }
     });
   };
 
   onFileDrop = (e: React.DragEvent<HTMLDivElement>) => {
     e.preventDefault();
     if (e.dataTransfer.files && e.dataTransfer.files[0]) {
-      console.log("file: ", e.dataTransfer.files[0]);
-      this.setState({
-        disabled: true,
-        form: { ...this.state.form, file: e.dataTransfer.files[0] }
-      });
+      const files = e.dataTransfer.files;
+      const array = this.fileToListArray(files);
+      this.setState({ form: { ...this.state.form, files: array } });
     }
   };
 
-  onSubmit = (): void => {};
+  fileToListArray = (list: any) => {
+    const array = [];
+    for (let i = 0; i < list.length; i++) {
+      array.push(list.item(i));
+    }
+    return array;
+  };
+
+  uploadFiles = async () => {
+    const promises: any = [];
+    this.state.form.files.forEach((file: File) => {
+      promises.push(this.sendRequest(file));
+    });
+
+    try {
+      await Promise.all(promises);
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
+  sendRequest = (file: File) => {
+    return new Promise((resolve, reject) => {
+      const req = new XMLHttpRequest();
+      const formData = new FormData();
+      formData.append("file", file);
+      formData.append("title", this.state.form.title);
+      formData.append("category", this.state.form.category);
+      formData.append("department", this.state.form.department);
+
+      req.open("POST", "http://localhost:3000/file");
+      req.send(formData);
+    });
+  };
 
   render() {
     return (
@@ -195,7 +225,15 @@ class DropZone extends Component<Props, State> {
           <option value="QA">QA</option>
         </select>
 
-        <button className="documentModal__confirm">OK</button>
+        <button
+          onClick={(): void => {
+            this.uploadFiles();
+            this.props.removeModal();
+          }}
+          className="documentModal__confirm"
+        >
+          OK
+        </button>
         <button
           onClick={this.props.removeModal}
           className="documentModal__cancel"
@@ -203,11 +241,11 @@ class DropZone extends Component<Props, State> {
           Cancel
         </button>
 
-        {/* {this.props.modal ? ( */}
-        <Overlay removeModal={this.props.removeModal} />
-        {/* ) : (
+        {this.props.modal ? (
+          <Overlay removeModal={this.props.removeModal} />
+        ) : (
           ""
-        )} */}
+        )}
       </div>
     );
   }
