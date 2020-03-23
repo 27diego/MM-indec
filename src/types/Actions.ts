@@ -11,6 +11,9 @@ export const SET_MENU_ITEM = "SET_MENU_ITEM";
 export const GET_DEPARTMENTS = "GET_DEPARTMENTS";
 export const REMOVE_DEPARTMENT = "REMOVE_DEPARTMENT";
 export const ADD_DEPARTMENT = "ADD_DEPARTMENT";
+export const GET_DOCUMENT = "GET_DOCUMENT";
+export const GET_DOCUMENTS = "GET_DOCUMENTS";
+export const DELETE_DOCUMENTS = "DELETE_DOCUMENTS";
 
 export interface SignInUserAction {
   type: typeof SIGN_IN;
@@ -67,7 +70,13 @@ export interface addDepartmentAction {
   payload: string;
 }
 
+export interface getDocumentsAction {
+  type: typeof GET_DOCUMENTS;
+  payload: Document[];
+}
+
 export type UserAuthenticationTypes = SignInUserAction | SignOutUserAction;
+export type DocumentTypes = getDocumentsAction;
 export type UsersTypes =
   | getUsersActions
   | addUserAction
@@ -85,4 +94,5 @@ export type AppActions =
   | UsersTypes
   | ErrorTypes
   | MenuItemTypes
-  | DepartmentTypes;
+  | DepartmentTypes
+  | DocumentTypes;

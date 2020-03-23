@@ -1,15 +1,27 @@
 import React, { Component } from "react";
 import "./ListPannel.scss";
 
-interface Props {
+//Redux imports
+import { connect } from "react-redux";
+import { getDocuments } from "../../../Redux/actions/index";
+import { AppActions } from "../../../types/Actions";
+import { AppState } from "../../../Redux/Store/configureStore";
+import { ThunkDispatch } from "redux-thunk";
+import { bindActionCreators } from "redux";
+import { Document } from "../../../types/Document";
+
+interface ListPannelProps {
   department: string;
+  setDocument: (item: string) => void;
 }
-interface State {
+interface ListPannelState {
   search: string;
   temp: Array<{}>;
 }
 
-class ListPannel extends Component<Props, State> {
+type Props = ListPannelProps & LinkStateProps & LinkDispatchProps;
+
+class ListPannel extends Component<Props, ListPannelState> {
   state = {
     search: "",
     temp: [
@@ -17,76 +29,81 @@ class ListPannel extends Component<Props, State> {
         id: 0,
         dep: "Packing",
         title: "Temp1",
-        cat: "chemical"
+        cat: "Chemical"
       },
       {
         id: 1,
         dep: "Packing",
         title: "Temp1",
-        cat: "chemical"
+        cat: "Chemical"
       },
       {
         id: 2,
         dep: "Packing",
         title: "Temp1",
-        cat: "chemical"
+        cat: "Chemical"
       },
       {
         id: 3,
         dep: "Packing",
         title: "Temp1",
-        cat: "chemical"
+        cat: "Chemical"
       },
       {
         id: 4,
         dep: "Packing",
         title: "Temp1",
-        cat: "chemical"
+        cat: "Chemical"
       },
       {
         id: 5,
         dep: "Packing",
         title: "Temp1",
-        cat: "chemical"
+        cat: "Chemical"
       },
       {
         id: 6,
         dep: "Packing",
         title: "Temp1",
-        cat: "chemical"
+        cat: "Chemical"
       },
       {
         id: 7,
         dep: "Packing",
         title: "Temp1",
-        cat: "chemical"
+        cat: "Chemical"
       },
       {
         id: 8,
         dep: "Packing",
         title: "Temp1",
-        cat: "chemical"
+        cat: "Chemical"
       },
       {
         id: 9,
         dep: "Packing",
         title: "Temp1",
-        cat: "chemical"
+        cat: "Chemical"
       },
       {
         id: 10,
         dep: "Packing",
         title: "Temp1",
-        cat: "chemical"
+        cat: "Chemical"
       },
       {
         id: 11,
         dep: "Packing",
         title: "Temp1",
-        cat: "chemical"
+        cat: "Chemical"
       }
     ]
   };
+
+  componentDidMount() {
+    this.props.getDocuments();
+  }
+
   render() {
     return (
       <div className="Container--ListPannel ListPannel">
@@ -100,12 +117,16 @@ class ListPannel extends Component<Props, State> {
         />
 
         <div className="ListPannel__list">
-          {this.state.temp.map(item => (
-            <div className="LPitem" key={item.id}>
+          {this.props.Documents.map(item => (
+            <div
+              className="LPitem"
+              key={item.title}
+              onClick={(): void => this.props.setDocument(item.title)}
+            >
               <div
-                className={`LPitem__sideColor LPitem__sideColor--${item.cat}`}
+                className={`LPitem__sideColor LPitem__sideColor--${item.category}`}
               ></div>
-              <div className="LPitem__header">{item.dep}</div>
+              <div className="LPitem__header">{item.department}</div>
               <div className="LPitem__title">{item.title}</div>
             </div>
           ))}
@@ -115,4 +136,25 @@ class ListPannel extends Component<Props, State> {
   }
 }
 
-export default ListPannel;
+interface LinkStateProps {
+  Documents: Document[];
+}
+interface LinkDispatchProps {
+  getDocuments: () => void;
+}
+
+const mapStateToProps = (
+  state: AppState,
+  ownProps: ListPannelProps
+): LinkStateProps => ({
+  Documents: state.DocumentReducer
+});
+
+const mapDispatchToProps = (
+  dispatch: ThunkDispatch<any, any, AppActions>,
+  ownProps: ListPannelProps
+): LinkDispatchProps => ({
+  getDocuments: bindActionCreators(getDocuments, dispatch)
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(ListPannel);

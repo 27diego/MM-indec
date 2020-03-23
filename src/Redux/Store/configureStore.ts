@@ -7,13 +7,15 @@ import { ErrorReducer } from "../reducers/Errors";
 import { MenuItemReducer } from "../reducers/MenuItem";
 import { GetUsersReducer } from "../reducers/Users";
 import { GetDepartmentsReducer } from "../reducers/Departments";
+import { DocumentReducer } from "../reducers/Document";
 
 export const rootReducer = combineReducers({
   AuthenticationReducer,
   ErrorReducer,
   MenuItemReducer,
   GetUsersReducer,
-  GetDepartmentsReducer
+  GetDepartmentsReducer,
+  DocumentReducer
 });
 
 const composeEnhanger =

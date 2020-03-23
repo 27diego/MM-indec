@@ -1,7 +1,9 @@
 import history from "../../history";
-import { AppActions } from "../../types/Actions";
+import { AppActions, GET_DOCUMENT } from "../../types/Actions";
 import { Dispatch } from "redux";
 import { AppState } from "../Store/configureStore";
+
+import { GET_DOCUMENTS } from "../../types/Actions";
 
 export const signIn = (username: string, password: string) => {
   return async (dispatch: Dispatch<AppActions>, getState: () => AppState) => {
@@ -179,6 +181,24 @@ export const postDepartment = (department: string) => {
       .then(data => {
         if (data != null) {
           dispatch({ type: "ADD_DEPARTMENT", payload: department });
+          dispatch({ type: "ERROR", payload: "" });
+        } else {
+          dispatch({ type: "ERROR", payload: data });
+        }
+      });
+  };
+};
+
+export const getDocuments = () => {
+  return async (dispatch: Dispatch<AppActions>, getState: () => AppState) => {
+    await fetch("http://localhost:3000/file/all", {
+      method: "GET",
+      headers: { "Content-Type": "application/json" }
+    })
+      .then(res => res.json())
+      .then(data => {
+        if (data != null) {
+          dispatch({ type: "GET_DOCUMENTS", payload: data });
           dispatch({ type: "ERROR", payload: "" });
         } else {
           dispatch({ type: "ERROR", payload: data });

@@ -3,16 +3,11 @@ import "./Dashboard.scss";
 
 import MenuPannel from "./MenuPannel/MenuPannel";
 import ListPannel from "./ListPannel/ListPannel";
-
-interface DashboardProps {}
-interface DashboardState {
-  department: string;
-}
+import DocumentPannel from "./DocumentPannel/DocumentPannel";
 
 export const Dashboard = () => {
   const [department, setdepartment] = useState("");
-
-  console.log(department);
+  const [document, setDocument] = useState("");
 
   return (
     <div className="Container--Dashboard">
@@ -20,9 +15,11 @@ export const Dashboard = () => {
         <MenuPannel toggleMenu={setdepartment} />
       </div>
       <div className="container--ListPannel">
-        <ListPannel department={department} />
+        <ListPannel department={department} setDocument={setDocument} />
       </div>
-      <div className="container--DocumentPannel"></div>
+      <div className="container--DocumentPannel">
+        <DocumentPannel document={document} />
+      </div>
     </div>
   );
 };
