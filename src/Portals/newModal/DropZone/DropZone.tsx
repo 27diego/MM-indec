@@ -102,7 +102,7 @@ class DropZone extends Component<Props, State> {
       const req = new XMLHttpRequest();
       const formData = new FormData();
       formData.append("file", file);
-      formData.append("title", this.state.form.title);
+      formData.append("title", this.state.form.title.replace(/ /g, "_"));
       formData.append("category", this.state.form.category);
       formData.append("department", this.state.form.department);
 
@@ -112,6 +112,8 @@ class DropZone extends Component<Props, State> {
   };
 
   render() {
+    console.log(this.state.form);
+
     return (
       <div
         className={`modal modal--${
@@ -192,7 +194,10 @@ class DropZone extends Component<Props, State> {
           onChange={(e): void =>
             this.setState({
               ...this.state,
-              form: { ...this.state.form, title: e.target.value }
+              form: {
+                ...this.state.form,
+                title: e.target.value
+              }
             })
           }
           type="text"

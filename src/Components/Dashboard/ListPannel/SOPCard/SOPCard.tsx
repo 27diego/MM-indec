@@ -27,7 +27,9 @@ class SOPCard extends Component<Props, State> {
           className={`LPitem__sideColor LPitem__sideColor--${this.props.category}`}
         ></div>
         <div className="LPitem__header">{this.props.department}</div>
-        <div className="LPitem__title">{this.props.title}</div>
+        <div className="LPitem__title">
+          {this.props.title.replace(/_/g, " ")}
+        </div>
         <div
           onClick={() =>
             this.setState(prevState => ({ label: !prevState.label }))
