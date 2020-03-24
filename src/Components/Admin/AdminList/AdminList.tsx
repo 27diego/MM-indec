@@ -6,13 +6,15 @@ import { connect } from "react-redux";
 import {
   getUsers,
   deleteUser,
-  deleteDepartment
+  deleteDepartment,
+  getDocuments
 } from "../../../Redux/actions/index";
 import { AppActions } from "../../../types/Actions";
 import { AppState } from "../../../Redux/Store/configureStore";
 import { ThunkDispatch } from "redux-thunk";
 import { bindActionCreators } from "redux";
 import { User } from "../../../types/User";
+import { Document } from "../../../types/Document";
 
 import UserCard from "./UserCard/UserCard";
 
@@ -33,6 +35,7 @@ class AdminList extends Component<Props, AdminListState> {
 
     this.props.getUsers();
     this.props.setFilter("");
+    this.props.getDocuments();
 
     this.state = {
       label: ""
@@ -52,6 +55,14 @@ class AdminList extends Component<Props, AdminListState> {
             admin={user.admin}
           />
         ))}
+      </div>
+    );
+  };
+
+  renderSOPList = () => {
+    return (
+      <div className="Container--UserList Container--UserList--cards">
+        {this.props.Documents.map(item => item.title)}
       </div>
     );
   };
@@ -121,15 +132,23 @@ class AdminList extends Component<Props, AdminListState> {
     );
   };
 
+  renderUsers = () => {
+    return this.props.listMode === "list"
+      ? this.renderUsersList()
+      : this.renderUsersCard();
+  };
+
   render() {
     return (
       <div
         className="temp-overflow"
         style={{ overflowY: "scroll", maxHeight: "62vh", minHeight: "62vh" }}
       >
-        {this.props.listMode === "list"
-          ? this.renderUsersList()
-          : this.renderUsersCard()}
+        {this.props.MenuItem === "User"
+          ? this.renderUsers()
+          : this.props.MenuItem === "Document"
+          ? this.renderSOPList()
+          : ""}
       </div>
     );
   }
@@ -138,11 +157,13 @@ class AdminList extends Component<Props, AdminListState> {
 interface LinkStateProps {
   MenuItem: string;
   Users: User[];
+  Documents: Document[];
 }
 
 interface LinkDispatchProps {
   getUsers: () => void;
   deleteUser: (first_name: string, last_name: string, username: string) => void;
+  getDocuments: () => void;
 }
 
 const mapStateToProps = (
@@ -150,7 +171,8 @@ const mapStateToProps = (
   ownProps: AdminListProps
 ): LinkStateProps => ({
   MenuItem: state.MenuItemReducer,
-  Users: state.GetUsersReducer
+  Users: state.GetUsersReducer,
+  Documents: state.DocumentReducer
 });
 
 const mapDispatchToProps = (
@@ -158,7 +180,8 @@ const mapDispatchToProps = (
   ownProps: AdminListProps
 ): LinkDispatchProps => ({
   getUsers: bindActionCreators(getUsers, dispatch),
-  deleteUser: bindActionCreators(deleteUser, dispatch)
+  deleteUser: bindActionCreators(deleteUser, dispatch),
+  getDocuments: bindActionCreators(getDocuments, dispatch)
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(AdminList);

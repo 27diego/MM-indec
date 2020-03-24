@@ -3,12 +3,14 @@ import "./ListPannel.scss";
 
 //Redux imports
 import { connect } from "react-redux";
-import { getDocuments } from "../../../Redux/actions/index";
+import { getDocuments, selectMenu } from "../../../Redux/actions/index";
 import { AppActions } from "../../../types/Actions";
 import { AppState } from "../../../Redux/Store/configureStore";
 import { ThunkDispatch } from "redux-thunk";
 import { bindActionCreators } from "redux";
 import { Document } from "../../../types/Document";
+import NewItem from "../../../Portals/newModal/NewItem";
+import SOPCard from "./SOPCard/SOPCard";
 
 interface ListPannelProps {
   department: string;
@@ -16,7 +18,7 @@ interface ListPannelProps {
 }
 interface ListPannelState {
   search: string;
-  temp: Array<{}>;
+  modal: boolean;
 }
 
 type Props = ListPannelProps & LinkStateProps & LinkDispatchProps;
@@ -24,90 +26,30 @@ type Props = ListPannelProps & LinkStateProps & LinkDispatchProps;
 class ListPannel extends Component<Props, ListPannelState> {
   state = {
     search: "",
-    temp: [
-      {
-        id: 0,
-        dep: "Packing",
-        title: "Temp1",
-        cat: "Chemical"
-      },
-      {
-        id: 1,
-        dep: "Packing",
-        title: "Temp1",
-        cat: "Chemical"
-      },
-      {
-        id: 2,
-        dep: "Packing",
-        title: "Temp1",
-        cat: "Chemical"
-      },
-      {
-        id: 3,
-        dep: "Packing",
-        title: "Temp1",
-        cat: "Chemical"
-      },
-      {
-        id: 4,
-        dep: "Packing",
-        title: "Temp1",
-        cat: "Chemical"
-      },
-      {
-        id: 5,
-        dep: "Packing",
-        title: "Temp1",
-        cat: "Chemical"
-      },
-      {
-        id: 6,
-        dep: "Packing",
-        title: "Temp1",
-        cat: "Chemical"
-      },
-      {
-        id: 7,
-        dep: "Packing",
-        title: "Temp1",
-        cat: "Chemical"
-      },
-      {
-        id: 8,
-        dep: "Packing",
-        title: "Temp1",
-        cat: "Chemical"
-      },
-      {
-        id: 9,
-        dep: "Packing",
-        title: "Temp1",
-        cat: "Chemical"
-      },
-      {
-        id: 10,
-        dep: "Packing",
-        title: "Temp1",
-        cat: "Chemical"
-      },
-      {
-        id: 11,
-        dep: "Packing",
-        title: "Temp1",
-        cat: "Chemical"
-      }
-    ]
+    modal: false
   };
 
   componentDidMount() {
     this.props.getDocuments();
+    this.props.selectMenu("Document");
   }
+
+  removeModal = () => {
+    this.setState({ modal: false });
+  };
 
   render() {
     return (
       <div className="Container--ListPannel ListPannel">
-        <div className="ListPannel__header">SOP Index</div>
+        <div className="ListPannel__header">
+          <div>SOP Index</div>
+          <div
+            onClick={(): void => this.setState({ modal: true })}
+            className="logo--container"
+          >
+            <div className="addButton__logo">&nbsp;</div>
+          </div>
+        </div>
         <input
           className="ListPannel__search"
           type="text"
@@ -118,19 +60,20 @@ class ListPannel extends Component<Props, ListPannelState> {
 
         <div className="ListPannel__list">
           {this.props.Documents.map(item => (
-            <div
-              className="LPitem"
+            <SOPCard
               key={item.title}
-              onClick={(): void => this.props.setDocument(item.title)}
-            >
-              <div
-                className={`LPitem__sideColor LPitem__sideColor--${item.category}`}
-              ></div>
-              <div className="LPitem__header">{item.department}</div>
-              <div className="LPitem__title">{item.title}</div>
-            </div>
+              title={item.title}
+              category={item.category}
+              department={item.department}
+              setDocument={this.props.setDocument}
+            />
           ))}
         </div>
+        {this.state.modal ? (
+          <NewItem removeModal={this.removeModal} modal={this.state.modal} />
+        ) : (
+          ""
+        )}
       </div>
     );
   }
@@ -141,6 +84,7 @@ interface LinkStateProps {
 }
 interface LinkDispatchProps {
   getDocuments: () => void;
+  selectMenu: (item: string) => void;
 }
 
 const mapStateToProps = (
@@ -154,7 +98,8 @@ const mapDispatchToProps = (
   dispatch: ThunkDispatch<any, any, AppActions>,
   ownProps: ListPannelProps
 ): LinkDispatchProps => ({
-  getDocuments: bindActionCreators(getDocuments, dispatch)
+  getDocuments: bindActionCreators(getDocuments, dispatch),
+  selectMenu: bindActionCreators(selectMenu, dispatch)
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(ListPannel);

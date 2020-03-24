@@ -8,6 +8,7 @@ import DocumentPannel from "./DocumentPannel/DocumentPannel";
 export const Dashboard = () => {
   const [department, setdepartment] = useState("");
   const [document, setDocument] = useState("");
+  console.log(document);
 
   return (
     <div className="Container--Dashboard">

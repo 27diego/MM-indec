@@ -191,7 +191,7 @@ export const postDepartment = (department: string) => {
 
 export const getDocuments = () => {
   return async (dispatch: Dispatch<AppActions>, getState: () => AppState) => {
-    await fetch("http://localhost:3000/file/all", {
+    await fetch("http://localhost:3000/files", {
       method: "GET",
       headers: { "Content-Type": "application/json" }
     })

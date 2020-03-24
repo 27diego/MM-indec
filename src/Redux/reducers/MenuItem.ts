@@ -1,6 +1,6 @@
 import { MenuItemTypes } from "../../types/Actions";
 
-const MenuItemReducerDefaultState = "User";
+const MenuItemReducerDefaultState = "Document";
 
 export const MenuItemReducer = (
   state = MenuItemReducerDefaultState,
