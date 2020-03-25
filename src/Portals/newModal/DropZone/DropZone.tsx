@@ -217,6 +217,7 @@ class DropZone extends Component<Props, State> {
         >
           <option value="">categories</option>
           <option value="Chemical">Chemical</option>
+          <option value="Cleaning">Cleaning</option>
         </select>
         <select
           onChange={(e): void =>

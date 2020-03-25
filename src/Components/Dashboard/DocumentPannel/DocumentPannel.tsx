@@ -41,9 +41,9 @@ class DocumentPannel extends Component<
       <div className="Container--DocumentPannel DocumentPannel">
         <div className="DocumentPannel__document">
           <div className="Document">hello document</div>
-          {/* <Document file={pdffile} onLoadError={console.error}>
+          <Document file={this.state.fileURL} onLoadError={console.error}>
             <Page pageNumber={pageNumber} />
-          </Document> */}
+          </Document>
         </div>
       </div>
     );

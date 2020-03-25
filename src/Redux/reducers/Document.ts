@@ -18,8 +18,8 @@ export const DocumentReducer = (
     case "FILTER_DOCUMENTS":
       filteredArray = originalArray;
       return filteredArray.filter(item => {
-        let name = item.title.toLocaleLowerCase();
-        let chemical = item.category.toLocaleLowerCase();
+        let name = item.title.toLocaleLowerCase().replace(/_/g, " ");
+        let chemical = item.category.toLocaleLowerCase().replace(/_/g, " ");
         return (
           name.indexOf(action.payload.toLocaleLowerCase()) !== -1 ||
           chemical.indexOf(action.payload.toLocaleLowerCase()) !== -1
