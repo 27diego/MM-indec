@@ -40,9 +40,8 @@ class DocumentPannel extends Component<
     return (
       <div className="Container--DocumentPannel DocumentPannel">
         <div className="DocumentPannel__document">
-          <div className="Document">hello document</div>
-          <Document file={this.state.fileURL} onLoadError={console.error}>
-            <Page pageNumber={pageNumber} />
+          <Document file={pdffile} onLoadError={console.error}>
+            <Page pageNumber={pageNumber} scale={0.75} />
           </Document>
         </div>
       </div>

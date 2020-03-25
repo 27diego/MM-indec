@@ -5,6 +5,9 @@
 }
 
 .DocumentPannel {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   &__document {
     // width: 40vw;
     // height: 40vh;

@@ -5,7 +5,7 @@ import "./Overlay.scss";
 const over = document.querySelector("#overlay") as HTMLElement;
 
 interface Props {
-  removeModal: () => void;
+  removeModal?: () => void;
 }
 interface State {
   modal: boolean;
