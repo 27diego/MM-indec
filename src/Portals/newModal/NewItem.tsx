@@ -8,8 +8,11 @@ import NewDepartment from "./newDepartment/NewDepartment";
 
 //Redux import
 import { connect } from "react-redux";
+import { getDepartments } from "../../Redux/actions/index";
+import { AppActions } from "../../types/Actions";
 import { AppState } from "../../Redux/Store/configureStore";
-
+import { ThunkDispatch } from "redux-thunk";
+import { bindActionCreators } from "redux";
 const modal = document.querySelector("#modal") as HTMLElement;
 
 interface NewItemProps {
@@ -18,13 +21,14 @@ interface NewItemProps {
 }
 interface NewItemState {}
 
-type Props = NewItemProps & LinkStateProps;
+type Props = NewItemProps & LinkStateProps & LinkDispatchProps;
 
 class NewItem extends Component<Props, NewItemState> {
   portal: HTMLElement = document.createElement("div");
 
   componentDidMount() {
     modal.appendChild(this.portal);
+    this.props.getDepartments();
   }
 
   componentWillUnmount() {
@@ -45,6 +49,7 @@ class NewItem extends Component<Props, NewItemState> {
           <DropZone
             modal={this.props.modal}
             removeModal={this.props.removeModal}
+            departments={this.props.departments}
           />
         );
       case "Department":
@@ -64,13 +69,26 @@ class NewItem extends Component<Props, NewItemState> {
 
 interface LinkStateProps {
   MenuItem: string;
+  departments: string[];
+}
+
+interface LinkDispatchProps {
+  getDepartments: () => void;
 }
 
 const mapStateToProps = (
   state: AppState,
   ownProps: NewItemProps
 ): LinkStateProps => ({
-  MenuItem: state.MenuItemReducer
+  MenuItem: state.MenuItemReducer,
+  departments: state.GetDepartmentsReducer
 });
 
-export default connect(mapStateToProps, { null: null })(NewItem);
+const mapDispatchToProps = (
+  dispatch: ThunkDispatch<any, any, AppActions>,
+  ownProps: NewItemProps
+): LinkDispatchProps => ({
+  getDepartments: bindActionCreators(getDepartments, dispatch)
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(NewItem);

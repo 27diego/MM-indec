@@ -6,6 +6,7 @@ import Overlay from "../../Overlay/Overlay";
 interface Props {
   modal: boolean;
   removeModal: () => void;
+  departments: string[];
 }
 
 interface State {
@@ -227,7 +228,11 @@ class DropZone extends Component<Props, State> {
           className="documentModal__department"
         >
           <option value="">department</option>
-          <option value="QA">QA</option>
+          {this.props.departments.map(dep => (
+            <option key={dep} value={dep}>
+              {dep}
+            </option>
+          ))}
         </select>
 
         <button

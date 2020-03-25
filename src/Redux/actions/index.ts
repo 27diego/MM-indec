@@ -232,3 +232,10 @@ export const filterDocuments = (item: string) => {
     payload: item
   };
 };
+
+export const filterDocumentsByDepartment = (item: string) => {
+  return {
+    type: "FILTER_DOCUMENTS_DEPARTMENT",
+    payload: item
+  };
+};

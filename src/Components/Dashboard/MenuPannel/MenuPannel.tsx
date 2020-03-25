@@ -3,7 +3,11 @@ import "./MenuPannel.scss";
 
 //Redux imports
 import { connect } from "react-redux";
-import { signOut, selectMenu } from "../../../Redux/actions/index";
+import {
+  signOut,
+  selectMenu,
+  filterDocumentsByDepartment
+} from "../../../Redux/actions/index";
 import { AppActions } from "../../../types/Actions";
 import { AppState } from "../../../Redux/Store/configureStore";
 import { ThunkDispatch } from "redux-thunk";
@@ -33,6 +37,8 @@ class MenuPannel extends Component<Props, MenuPannelSTATE> {
     const { active } = this.state;
     const { toggleMenu } = this.props;
 
+    console.log(active);
+
     return (
       <div
         className="Container--MenuPannel MenuPannel"
@@ -49,6 +55,7 @@ class MenuPannel extends Component<Props, MenuPannelSTATE> {
                 active: prevState.active === "QA" ? "" : "QA"
               }));
               toggleMenu("QA");
+              this.props.filterDocumentsByDepartment("QA");
             }}
           >
             <div className="deps__title">QA</div>
@@ -86,6 +93,7 @@ class MenuPannel extends Component<Props, MenuPannelSTATE> {
                 active: prevState.active === "Packing" ? "" : "Packing"
               }));
               toggleMenu("Packing");
+              this.props.filterDocumentsByDepartment("Packing");
             }}
           >
             <div className="deps__title">Packing</div>
@@ -143,6 +151,7 @@ class MenuPannel extends Component<Props, MenuPannelSTATE> {
                 active: prevState.active === "Harvesting" ? "" : "Harvesting"
               }));
               toggleMenu("Harvesting");
+              this.props.filterDocumentsByDepartment("Harvesting");
             }}
           >
             <div className="deps__title">Harvesting</div>
@@ -186,6 +195,7 @@ class MenuPannel extends Component<Props, MenuPannelSTATE> {
                 active: prevState.active === "Growing" ? "" : "Growing"
               }));
               toggleMenu("Growing");
+              this.props.filterDocumentsByDepartment("Growing");
             }}
           >
             <div className="deps__title">Growing</div>
@@ -250,6 +260,7 @@ class MenuPannel extends Component<Props, MenuPannelSTATE> {
                 active: prevState.active === "Maintenance" ? "" : "Maintenance"
               }));
               toggleMenu("Maintenance");
+              this.props.filterDocumentsByDepartment("Maintenance");
             }}
           >
             <div className="deps__title">Maintenance</div>
@@ -293,6 +304,7 @@ class MenuPannel extends Component<Props, MenuPannelSTATE> {
                 active: prevState.active === "Safety" ? "" : "Safety"
               }));
               toggleMenu("Safety");
+              this.props.filterDocumentsByDepartment("Safety");
             }}
           >
             <div className="deps__title">Safety</div>
@@ -417,6 +429,7 @@ interface LinkStateProps {}
 interface LinkDispatchProps {
   signOut: () => void;
   selectMenu: (item: string) => void;
+  filterDocumentsByDepartment: (item: string) => void;
 }
 
 const mapDispatchToProps = (
@@ -424,7 +437,11 @@ const mapDispatchToProps = (
   ownProps: MenuPannelPROPS
 ): LinkDispatchProps => ({
   signOut: bindActionCreators(signOut, dispatch),
-  selectMenu: bindActionCreators(selectMenu, dispatch)
+  selectMenu: bindActionCreators(selectMenu, dispatch),
+  filterDocumentsByDepartment: bindActionCreators(
+    filterDocumentsByDepartment,
+    dispatch
+  )
 });
 
 export default connect(null, mapDispatchToProps)(MenuPannel);

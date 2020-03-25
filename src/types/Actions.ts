@@ -15,6 +15,7 @@ export const GET_DOCUMENT = "GET_DOCUMENT";
 export const GET_DOCUMENTS = "GET_DOCUMENTS";
 export const DELETE_DOCUMENT = "DELETE_DOCUMENT";
 export const FILTER_DOCUMENTS = "FILTER_DOCUMENTS";
+export const FILTER_DOCUMENTS_DEPARTMENT = "FILTER_DOCUMENTS_DEPARTMENT";
 
 export interface SignInUserAction {
   type: typeof SIGN_IN;
@@ -86,11 +87,17 @@ export interface filterDocumentsAction {
   payload: string;
 }
 
+export interface filterDocumentsByDepartment {
+  type: typeof FILTER_DOCUMENTS_DEPARTMENT;
+  payload: string;
+}
+
 export type UserAuthenticationTypes = SignInUserAction | SignOutUserAction;
 export type DocumentTypes =
   | getDocumentsAction
   | deleteDocumentAction
-  | filterDocumentsAction;
+  | filterDocumentsAction
+  | filterDocumentsByDepartment;
 export type UsersTypes =
   | getUsersActions
   | addUserAction

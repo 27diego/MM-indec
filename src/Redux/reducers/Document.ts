@@ -25,6 +25,12 @@ export const DocumentReducer = (
           chemical.indexOf(action.payload.toLocaleLowerCase()) !== -1
         );
       });
+    case "FILTER_DOCUMENTS_DEPARTMENT":
+      filteredArray = originalArray;
+      return filteredArray.filter(item => {
+        let department = item.department.toLocaleLowerCase();
+        return department === action.payload.toLocaleLowerCase();
+      });
     default:
       return state;
   }
