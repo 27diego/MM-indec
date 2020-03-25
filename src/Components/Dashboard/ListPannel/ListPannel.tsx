@@ -3,7 +3,12 @@ import "./ListPannel.scss";
 
 //Redux imports
 import { connect } from "react-redux";
-import { getDocuments, selectMenu } from "../../../Redux/actions/index";
+import {
+  getDocuments,
+  selectMenu,
+  deleteDocument,
+  filterDocuments
+} from "../../../Redux/actions/index";
 import { AppActions } from "../../../types/Actions";
 import { AppState } from "../../../Redux/Store/configureStore";
 import { ThunkDispatch } from "redux-thunk";
@@ -35,14 +40,22 @@ class ListPannel extends Component<Props, ListPannelState> {
   }
 
   removeModal = () => {
+    if (this.state.modal) {
+      this.props.getDocuments();
+    }
     this.setState({ modal: false });
+  };
+
+  onInputChange = (filter: string) => {
+    this.setState({ search: filter });
+    this.props.filterDocuments(filter);
   };
 
   render() {
     return (
       <div className="Container--ListPannel ListPannel">
         <div className="ListPannel__header">
-          <div>SOP Index</div>
+          <div className="ListPannel__header__title">SOP Index</div>
           <div
             onClick={(): void => this.setState({ modal: true })}
             className="logo--container"
@@ -54,7 +67,7 @@ class ListPannel extends Component<Props, ListPannelState> {
           className="ListPannel__search"
           type="text"
           value={this.state.search}
-          onChange={(e): void => this.setState({ search: e.target.value })}
+          onChange={(e): void => this.onInputChange(e.target.value)}
           placeholder="search"
         />
 
@@ -66,6 +79,7 @@ class ListPannel extends Component<Props, ListPannelState> {
               category={item.category}
               department={item.department}
               setDocument={this.props.setDocument}
+              deleteDocument={this.props.deleteDocument}
             />
           ))}
         </div>
@@ -85,6 +99,8 @@ interface LinkStateProps {
 interface LinkDispatchProps {
   getDocuments: () => void;
   selectMenu: (item: string) => void;
+  deleteDocument: (item: string) => void;
+  filterDocuments: (item: string) => void;
 }
 
 const mapStateToProps = (
@@ -99,7 +115,9 @@ const mapDispatchToProps = (
   ownProps: ListPannelProps
 ): LinkDispatchProps => ({
   getDocuments: bindActionCreators(getDocuments, dispatch),
-  selectMenu: bindActionCreators(selectMenu, dispatch)
+  selectMenu: bindActionCreators(selectMenu, dispatch),
+  deleteDocument: bindActionCreators(deleteDocument, dispatch),
+  filterDocuments: bindActionCreators(filterDocuments, dispatch)
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(ListPannel);

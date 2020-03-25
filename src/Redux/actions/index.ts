@@ -206,3 +206,29 @@ export const getDocuments = () => {
       });
   };
 };
+
+export const deleteDocument = (title: string) => {
+  return async (dispatch: Dispatch<AppActions>, getState: () => AppState) => {
+    await fetch("http://localhost:3000/file", {
+      method: "DELETE",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ title })
+    })
+      .then(res => res.json())
+      .then(data => {
+        if (data != null) {
+          dispatch({ type: "DELETE_DOCUMENT", payload: data });
+          dispatch({ type: "ERROR", payload: "" });
+        } else {
+          dispatch({ type: "ERROR", payload: data });
+        }
+      });
+  };
+};
+
+export const filterDocuments = (item: string) => {
+  return {
+    type: "FILTER_DOCUMENTS",
+    payload: item
+  };
+};

@@ -54,14 +54,6 @@ class AdminMenu extends Component<Props, AdminMenuState> {
             >
               Users
             </li>
-            <li
-              className={`menu__items--sop menu__items--single menu__items--single--${
-                this.props.MenuItem === "Document" ? "active" : ""
-              }`}
-              onClick={(): void => this.props.selectMenu("Document")}
-            >
-              Sop Documents
-            </li>
           </ul>
           <input
             value={this.props.filter}

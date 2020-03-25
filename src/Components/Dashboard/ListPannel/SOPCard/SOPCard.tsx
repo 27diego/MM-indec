@@ -1,10 +1,12 @@
 import React, { Component } from "react";
+import "./SOPCard.scss";
 
 interface Props {
   title: string;
   category: string;
   department: string;
   setDocument: (item: string) => void;
+  deleteDocument: (item: string) => void;
 }
 
 interface State {
@@ -46,7 +48,11 @@ class SOPCard extends Component<Props, State> {
               this.state.label ? "active" : ""
             }`}
           >
-            <div>Delete</div>
+            <div
+              onClick={(): void => this.props.deleteDocument(this.props.title)}
+            >
+              Delete
+            </div>
           </div>
         </div>
       </div>

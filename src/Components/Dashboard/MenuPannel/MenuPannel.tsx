@@ -34,7 +34,10 @@ class MenuPannel extends Component<Props, MenuPannelSTATE> {
     const { toggleMenu } = this.props;
 
     return (
-      <div className="Container--MenuPannel MenuPannel">
+      <div
+        className="Container--MenuPannel MenuPannel"
+        onClick={() => (this.state.menu ? this.setState({ menu: false }) : "")}
+      >
         <div className="MenuPannel__header">Departments</div>
         <div className="deps--container">
           <div
@@ -330,15 +333,6 @@ class MenuPannel extends Component<Props, MenuPannelSTATE> {
             className="MenuFooter__menu"
             style={{ display: this.state.menu ? "flex" : "none" }}
           >
-            <div
-              onClick={() => {
-                this.props.selectMenu("Document");
-                history.push("/Admin");
-              }}
-              className="MenuFooter__menu__sops"
-            >
-              Manage Documents
-            </div>
             <div
               onClick={() => {
                 this.props.selectMenu("User");

@@ -23,9 +23,11 @@
   color: $color-white;
   padding: 2rem;
   &__header {
-    font-size: 2rem;
     align-self: center;
     display: flex;
+    &__title {
+      font-size: 2rem;
+    }
 
     .logo--container {
       margin-left: auto;
@@ -51,50 +53,5 @@
   &__list {
     padding: 0 1rem;
     overflow-y: scroll;
-  }
-}
-
-.LPitem {
-  width: 100%;
-  height: 15%;
-  background-color: #2e52f7;
-  border-radius: 5px;
-  margin-bottom: 1rem;
-  cursor: pointer;
-  position: relative;
-
-  display: grid;
-  grid-template-columns: 7% 1fr;
-  grid-template-rows: 30% 1fr;
-
-  &__sideColor {
-    width: 40%;
-    height: 95%;
-    grid-area: 1/1/-1/2;
-    justify-self: center;
-    align-self: center;
-    // border-top-left-radius: 5px;
-    // border-bottom-left-radius: 5px;
-
-    &--Chemical {
-      background-color: #481380;
-    }
-    &--Cleaning {
-      background-color: #589636;
-    }
-  }
-  &__header {
-    font-size: 1.3rem;
-    align-self: center;
-  }
-  &__title {
-    font-size: 1.4rem;
-    padding-left: 0.2rem;
-  }
-
-  .userCard__menu {
-    position: absolute;
-    right: -1rem;
-    bottom: 0.2rem;
   }
 }
