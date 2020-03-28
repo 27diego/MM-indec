@@ -12,6 +12,12 @@ export const Dashboard = () => {
   const [document, setDocument] = useState("");
   const [PDFModal, setPDFModal] = useState(true);
 
+  // state = {
+  //   department: "",
+  //   document: "",
+  //   PDFModal: false
+  // }
+
   return (
     <div className="Container--Dashboard">
       <div className="container--MenuPannel">
