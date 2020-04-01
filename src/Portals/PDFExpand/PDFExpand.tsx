@@ -8,7 +8,9 @@ pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/$
 
 const modal = document.querySelector("#modal") as HTMLElement;
 
-interface DocumentPannelProps {}
+interface DocumentPannelProps {
+  removeModal: React.Dispatch<React.SetStateAction<boolean>>;
+}
 interface DocumentPannelState {
   pageNumber: number;
   fileURL: any;
@@ -30,16 +32,29 @@ class PDFExpand extends Component<DocumentPannelProps, DocumentPannelState> {
     modal.removeChild(this.portal);
   }
 
+  handleRemove = () => {
+    this.props.removeModal(false);
+  };
+
   render() {
     const { pageNumber } = this.state;
     return ReactDOM.createPortal(
       <div className="Container--DocumentModal DocumentModal">
-        <div className="DocumentModal__document">
-          <Document file={pdffile} onLoadError={console.error}>
-            <Page pageNumber={pageNumber} scale={1.3} />
-          </Document>
-        </div>
-        <Overlay />
+        <Document
+          file={pdffile}
+          onLoadError={console.error}
+          className="document"
+        >
+          <div className="DocumentModal__document">
+            <Page
+              pageNumber={pageNumber}
+              height={900}
+              width={900}
+              className="DocumentModal__img"
+            />
+          </div>
+        </Document>
+        <Overlay removeModal={this.handleRemove} />
       </div>,
       this.portal
     );

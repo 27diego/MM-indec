@@ -24,7 +24,7 @@ export const Dashboard = () => {
         <DocumentPannel setModal={setPDFModal} document={document} />
       </div>
 
-      {PDFModal ? <PDFExpand /> : ""}
+      {PDFModal ? <PDFExpand removeModal={setPDFModal} /> : ""}
     </div>
   );
 };

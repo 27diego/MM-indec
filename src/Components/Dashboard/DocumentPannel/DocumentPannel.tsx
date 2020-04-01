@@ -45,7 +45,7 @@ class DocumentPannel extends Component<
       >
         <div className="DocumentPannel__document">
           <Document file={pdffile} onLoadError={console.error}>
-            <Page pageNumber={pageNumber} scale={0.75} />
+            <Page pageNumber={pageNumber} height={670} />
           </Document>
         </div>
       </div>

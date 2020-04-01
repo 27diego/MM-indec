@@ -64,6 +64,11 @@ class Login extends React.Component<Props, LoginPageState> {
               onChange={(e): void => {
                 this.setState({ password: e.target.value });
               }}
+              onKeyDown={(e): void => {
+                if (e.keyCode === 13) {
+                  this.handleSubmit();
+                }
+              }}
               type="password"
               placeholder="Your Password"
               className="form__password"
