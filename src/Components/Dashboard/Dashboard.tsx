@@ -10,7 +10,7 @@ import PDFExpand from "../../Portals/PDFExpand/PDFExpand";
 export const Dashboard = () => {
   const [department, setdepartment] = useState("");
   const [document, setDocument] = useState("");
-  const [PDFModal, setPDFModal] = useState(true);
+  const [PDFModal, setPDFModal] = useState(false);
 
   return (
     <div className="Container--Dashboard">
@@ -21,7 +21,7 @@ export const Dashboard = () => {
         <ListPannel department={department} setDocument={setDocument} />
       </div>
       <div className="container--DocumentPannel">
-        <DocumentPannel document={document} />
+        <DocumentPannel setModal={setPDFModal} document={document} />
       </div>
 
       {PDFModal ? <PDFExpand /> : ""}

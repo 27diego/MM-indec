@@ -7,6 +7,7 @@ pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/$
 
 interface DocumentPannelProps {
   document: string;
+  setModal: (item: boolean) => void;
 }
 interface DocumentPannelState {
   pageNumber: number;
@@ -38,7 +39,10 @@ class DocumentPannel extends Component<
   render() {
     const { pageNumber } = this.state;
     return (
-      <div className="Container--DocumentPannel DocumentPannel">
+      <div
+        onClick={() => this.props.setModal(true)}
+        className="Container--DocumentPannel DocumentPannel"
+      >
         <div className="DocumentPannel__document">
           <Document file={pdffile} onLoadError={console.error}>
             <Page pageNumber={pageNumber} scale={0.75} />
