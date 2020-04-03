@@ -30,7 +30,6 @@ class DocumentPannel extends Component<
       .then((res: any) => {
         const file = new Blob([res.data], { type: "application/pdf" });
         const fileURL = URL.createObjectURL(file);
-        console.log(fileURL);
         this.setState({ fileURL: fileURL });
       })
       .catch(err => console.log(err));
@@ -45,8 +44,13 @@ class DocumentPannel extends Component<
       >
         <div className="DocumentPannel__document">
           <Document file={pdffile} onLoadError={console.error}>
-            <Page pageNumber={pageNumber} height={670} />
+            <Page
+              pageNumber={pageNumber}
+              scale={0.85}
+              className="DocumentPannel__page"
+            />
           </Document>
+          <a href={this.state.fileURL}>open pdf</a>
         </div>
       </div>
     );
