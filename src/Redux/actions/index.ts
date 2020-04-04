@@ -4,16 +4,17 @@ import { Dispatch } from "redux";
 import { AppState } from "../Store/configureStore";
 
 import { GET_DOCUMENTS } from "../../types/Actions";
+import { ThunkDispatch } from "redux-thunk";
 
 export const signIn = (username: string, password: string) => {
   return async (dispatch: Dispatch<AppActions>, getState: () => AppState) => {
     await fetch("http://localhost:3000/signIn", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ username, password })
+      body: JSON.stringify({ username, password }),
     })
-      .then(res => res.json())
-      .then(data => {
+      .then((res) => res.json())
+      .then((data) => {
         console.log(data);
 
         if (data != null && typeof data === "object") {
@@ -24,14 +25,14 @@ export const signIn = (username: string, password: string) => {
           dispatch({ type: "ERROR", payload: data });
         }
       })
-      .catch(err => console.log(err));
+      .catch((err) => console.log(err));
   };
 };
 
 export const signOut = () => {
   history.push("/");
   return {
-    type: "SIGN_OUT"
+    type: "SIGN_OUT",
   };
 };
 
@@ -39,10 +40,10 @@ export const getUsers = () => {
   return async (dispatch: Dispatch<AppActions>, getState: () => AppState) => {
     await fetch("http://localhost:3000/user/all", {
       method: "GET",
-      headers: { "Content-Type": "application/json" }
+      headers: { "Content-Type": "application/json" },
     })
-      .then(res => res.json())
-      .then(data => {
+      .then((res) => res.json())
+      .then((data) => {
         if (data != null && Array.isArray(data)) {
           dispatch({ type: "GET_USERS", payload: data });
           dispatch({ type: "ERROR", payload: "" });
@@ -50,14 +51,14 @@ export const getUsers = () => {
           dispatch({ type: "ERROR", payload: data });
         }
       })
-      .catch(err => console.log(err));
+      .catch((err) => console.log(err));
   };
 };
 
 export const filterUsers = (item: string) => {
   return {
     type: "FILTER_USERS",
-    payload: item
+    payload: item,
   };
 };
 
@@ -79,11 +80,11 @@ export const postUser = (
         username,
         password,
         admin,
-        department
-      })
+        department,
+      }),
     })
-      .then(res => res.json())
-      .then(data => {
+      .then((res) => res.json())
+      .then((data) => {
         if (data != null) {
           dispatch({ type: "ADD_USER", payload: data });
           dispatch({ type: "ERROR", payload: "" });
@@ -91,7 +92,7 @@ export const postUser = (
           dispatch({ type: "ERROR", payload: data });
         }
       })
-      .catch(err => console.log(err));
+      .catch((err) => console.log(err));
   };
 };
 
@@ -107,11 +108,11 @@ export const deleteUser = (
       body: JSON.stringify({
         first_name,
         last_name,
-        username
-      })
+        username,
+      }),
     })
-      .then(res => res.json())
-      .then(data => {
+      .then((res) => res.json())
+      .then((data) => {
         if (data != null) {
           dispatch({ type: "DELETE_USER", payload: data });
           dispatch({ type: "ERROR", payload: "" });
@@ -119,14 +120,14 @@ export const deleteUser = (
           dispatch({ type: "ERROR", payload: data });
         }
       })
-      .catch(err => console.log(err));
+      .catch((err) => console.log(err));
   };
 };
 
 export const selectMenu = (item: string) => {
   return {
     type: "SET_MENU_ITEM",
-    payload: item
+    payload: item,
   };
 };
 
@@ -134,10 +135,10 @@ export const getDepartments = () => {
   return async (dispatch: Dispatch<AppActions>, getState: () => AppState) => {
     await fetch("http://localhost:3000/department/all", {
       method: "GET",
-      headers: { "Content-Type": "application/json" }
+      headers: { "Content-Type": "application/json" },
     })
-      .then(res => res.json())
-      .then(data => {
+      .then((res) => res.json())
+      .then((data) => {
         if (data != null && Array.isArray(data)) {
           dispatch({ type: "GET_DEPARTMENTS", payload: data });
           dispatch({ type: "ERROR", payload: "" });
@@ -145,7 +146,7 @@ export const getDepartments = () => {
           dispatch({ type: "ERROR", payload: data });
         }
       })
-      .catch(err => console.log(err));
+      .catch((err) => console.log(err));
   };
 };
 
@@ -154,10 +155,10 @@ export const deleteDepartment = (department: string) => {
     await fetch("http://localhost:3000/department", {
       method: "DELETE",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ department })
+      body: JSON.stringify({ department }),
     })
-      .then(res => res.json())
-      .then(data => {
+      .then((res) => res.json())
+      .then((data) => {
         console.log("data from back end: ", data);
         if (data != null) {
           dispatch({ type: "REMOVE_DEPARTMENT", payload: data.department });
@@ -166,7 +167,7 @@ export const deleteDepartment = (department: string) => {
           dispatch({ type: "ERROR", payload: "" });
         }
       })
-      .catch(err => console.log(err));
+      .catch((err) => console.log(err));
   };
 };
 
@@ -175,10 +176,10 @@ export const postDepartment = (department: string) => {
     await fetch("http://localhost:3000/department", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ department })
+      body: JSON.stringify({ department }),
     })
-      .then(res => res.json())
-      .then(data => {
+      .then((res) => res.json())
+      .then((data) => {
         if (data != null) {
           dispatch({ type: "ADD_DEPARTMENT", payload: department });
           dispatch({ type: "ERROR", payload: "" });
@@ -193,10 +194,10 @@ export const getDocuments = () => {
   return async (dispatch: Dispatch<AppActions>, getState: () => AppState) => {
     await fetch("http://localhost:3000/files", {
       method: "GET",
-      headers: { "Content-Type": "application/json" }
+      headers: { "Content-Type": "application/json" },
     })
-      .then(res => res.json())
-      .then(data => {
+      .then((res) => res.json())
+      .then((data) => {
         if (data != null) {
           dispatch({ type: "GET_DOCUMENTS", payload: data });
           dispatch({ type: "ERROR", payload: "" });
@@ -212,10 +213,10 @@ export const deleteDocument = (title: string) => {
     await fetch("http://localhost:3000/file", {
       method: "DELETE",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ title })
+      body: JSON.stringify({ title }),
     })
-      .then(res => res.json())
-      .then(data => {
+      .then((res) => res.json())
+      .then((data) => {
         if (data != null) {
           dispatch({ type: "DELETE_DOCUMENT", payload: data });
           dispatch({ type: "ERROR", payload: "" });
@@ -229,13 +230,26 @@ export const deleteDocument = (title: string) => {
 export const filterDocuments = (item: string) => {
   return {
     type: "FILTER_DOCUMENTS",
-    payload: item
+    payload: item,
   };
 };
 
 export const filterDocumentsByDepartment = (item: string) => {
   return {
     type: "FILTER_DOCUMENTS_DEPARTMENT",
-    payload: item
+    payload: item,
+  };
+};
+
+export const setDocument = (item: string) => {
+  return async (dispatch: Dispatch<AppActions>, getState: () => AppState) => {
+    await fetch("http://localhost:3000/file/AIR_SOP", {
+      method: "GET",
+    })
+      .then((res) => res.blob())
+      .then((res) => {
+        const fileUrl = URL.createObjectURL(res);
+        dispatch({ type: "SET_DOCUMENT", payload: fileUrl });
+      });
   };
 };

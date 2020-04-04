@@ -7,24 +7,41 @@ import DocumentPannel from "./DocumentPannel/DocumentPannel";
 
 import PDFExpand from "../../Portals/PDFExpand/PDFExpand";
 
-export const Dashboard = () => {
-  const [department, setdepartment] = useState("");
-  const [document, setDocument] = useState("");
-  const [PDFModal, setPDFModal] = useState(false);
+class Dashboard extends React.Component {
+  state = {
+    department: "",
+    PDFModal: false,
+  };
 
-  return (
-    <div className="Container--Dashboard">
-      <div className="container--MenuPannel">
-        <MenuPannel toggleMenu={setdepartment} />
-      </div>
-      <div className="container--ListPannel">
-        <ListPannel department={department} setDocument={setDocument} />
-      </div>
-      <div className="container--DocumentPannel">
-        <DocumentPannel setModal={setPDFModal} document={document} />
-      </div>
+  setDepartment = (item: string) => {
+    this.setState({ department: item });
+  };
 
-      {PDFModal ? <PDFExpand removeModal={setPDFModal} /> : ""}
-    </div>
-  );
-};
+  setPDFModal = (item: boolean) => {
+    this.setState({ PDFModal: item });
+  };
+
+  render() {
+    return (
+      <div className="Container--Dashboard">
+        <div className="container--MenuPannel">
+          <MenuPannel toggleMenu={this.setDepartment} />
+        </div>
+        <div className="container--ListPannel">
+          <ListPannel department={this.state.department} />
+        </div>
+        <div className="container--DocumentPannel">
+          <DocumentPannel setModal={this.setPDFModal} />
+        </div>
+
+        {this.state.PDFModal ? (
+          <PDFExpand removeModal={this.setPDFModal} />
+        ) : (
+          ""
+        )}
+      </div>
+    );
+  }
+}
+
+export default Dashboard;

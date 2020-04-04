@@ -1,27 +1,33 @@
-import pdffile from "./Vega.pdf";
 import React, { Component } from "react";
 import ReactDOM from "react-dom";
 import "./PDFExpand.scss";
 import Overlay from "../Overlay/Overlay";
+
+//Redux imports
+import { connect } from "react-redux";
+import { AppState } from "../../Redux/Store/configureStore";
+
 import { Document, Page, pdfjs } from "react-pdf";
 pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.js`;
 
 const modal = document.querySelector("#modal") as HTMLElement;
 
-interface DocumentPannelProps {
-  removeModal: React.Dispatch<React.SetStateAction<boolean>>;
+interface PDFExpandProps {
+  removeModal: (item: boolean) => void;
 }
-interface DocumentPannelState {
+interface PDFExpandState {
   pageNumber: number;
   fileURL: any;
 }
 
-class PDFExpand extends Component<DocumentPannelProps, DocumentPannelState> {
+type Props = PDFExpandProps & LinkStateToProps;
+
+class PDFExpand extends Component<Props, PDFExpandState> {
   portal: HTMLElement = document.createElement("div");
 
   state = {
     pageNumber: 1,
-    fileURL: ""
+    fileURL: "",
   };
 
   componentDidMount() {
@@ -41,7 +47,7 @@ class PDFExpand extends Component<DocumentPannelProps, DocumentPannelState> {
     return ReactDOM.createPortal(
       <div className="Container--DocumentModal DocumentModal">
         <Document
-          file={pdffile}
+          file={this.props.document}
           onLoadError={console.error}
           className="document"
         >
@@ -61,4 +67,15 @@ class PDFExpand extends Component<DocumentPannelProps, DocumentPannelState> {
   }
 }
 
-export default PDFExpand;
+interface LinkStateToProps {
+  document: string;
+}
+
+const mapStateToProps = (
+  state: AppState,
+  ownProps: PDFExpandProps
+): LinkStateToProps => ({
+  document: state.DisplayDocumentReducer,
+});
+
+export default connect(mapStateToProps, { null: null })(PDFExpand);

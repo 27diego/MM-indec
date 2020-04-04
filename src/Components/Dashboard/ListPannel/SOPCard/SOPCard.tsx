@@ -1,21 +1,30 @@
 import React, { Component } from "react";
 import "./SOPCard.scss";
 
-interface Props {
+//Redux imports
+import { connect } from "react-redux";
+import { setDocument } from "../../../../Redux/actions/index";
+import { AppActions } from "../../../../types/Actions";
+import { AppState } from "../../../../Redux/Store/configureStore";
+import { ThunkDispatch } from "redux-thunk";
+import { bindActionCreators } from "redux";
+
+interface SOPProps {
   title: string;
   category: string;
   department: string;
-  setDocument: (item: string) => void;
   deleteDocument: (item: string) => void;
 }
 
-interface State {
+interface SOPState {
   label: boolean;
 }
 
-class SOPCard extends Component<Props, State> {
+type Props = SOPProps & LinkDispatchProps;
+
+class SOPCard extends Component<Props, SOPState> {
   state = {
-    label: false
+    label: false,
   };
 
   render() {
@@ -34,7 +43,7 @@ class SOPCard extends Component<Props, State> {
         </div>
         <div
           onClick={() =>
-            this.setState(prevState => ({ label: !prevState.label }))
+            this.setState((prevState) => ({ label: !prevState.label }))
           }
           className="userCard__menu"
         >
@@ -60,4 +69,15 @@ class SOPCard extends Component<Props, State> {
   }
 }
 
-export default SOPCard;
+interface LinkDispatchProps {
+  setDocument: (item: string) => void;
+}
+
+const mapDispatchToProps = (
+  dispatch: ThunkDispatch<any, any, AppActions>,
+  ownProps: SOPProps
+): LinkDispatchProps => ({
+  setDocument: bindActionCreators(setDocument, dispatch),
+});
+
+export default connect(null, mapDispatchToProps)(SOPCard);

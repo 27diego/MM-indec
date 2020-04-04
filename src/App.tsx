@@ -5,7 +5,7 @@ import history from "./history";
 import { Route, Router, Switch } from "react-router-dom";
 
 import Login from "./Components/Login/Login";
-import { Dashboard } from "./Components/Dashboard/Dashboard";
+import Dashboard from "./Components/Dashboard/Dashboard";
 import AdminDashboard from "./Components/Admin/AdminDashboard";
 
 import { Provider } from "react-redux";

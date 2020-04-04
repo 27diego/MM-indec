@@ -8,6 +8,7 @@ import { MenuItemReducer } from "../reducers/MenuItem";
 import { GetUsersReducer } from "../reducers/Users";
 import { GetDepartmentsReducer } from "../reducers/Departments";
 import { DocumentReducer } from "../reducers/Document";
+import { DisplayDocumentReducer } from "../reducers/DisplayDocument";
 
 export const rootReducer = combineReducers({
   AuthenticationReducer,
@@ -15,7 +16,8 @@ export const rootReducer = combineReducers({
   MenuItemReducer,
   GetUsersReducer,
   GetDepartmentsReducer,
-  DocumentReducer
+  DocumentReducer,
+  DisplayDocumentReducer,
 });
 
 const composeEnhanger =

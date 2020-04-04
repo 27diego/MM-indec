@@ -6,7 +6,7 @@ import { connect } from "react-redux";
 import {
   signOut,
   selectMenu,
-  filterDocumentsByDepartment
+  filterDocumentsByDepartment,
 } from "../../../Redux/actions/index";
 import { AppActions } from "../../../types/Actions";
 import { AppState } from "../../../Redux/Store/configureStore";
@@ -16,7 +16,7 @@ import { bindActionCreators } from "redux";
 import history from "../../../history";
 
 interface MenuPannelPROPS {
-  toggleMenu: React.Dispatch<React.SetStateAction<string>>;
+  toggleMenu: (item: string) => void;
 }
 interface MenuPannelSTATE {
   active: string;
@@ -30,7 +30,7 @@ class MenuPannel extends Component<Props, MenuPannelSTATE> {
   state = {
     active: "",
     menu: false,
-    tag: false
+    tag: false,
   };
 
   render() {
@@ -51,8 +51,8 @@ class MenuPannel extends Component<Props, MenuPannelSTATE> {
               active === "QA" ? "active" : ""
             }`}
             onClick={(): void => {
-              this.setState(prevState => ({
-                active: prevState.active === "QA" ? "" : "QA"
+              this.setState((prevState) => ({
+                active: prevState.active === "QA" ? "" : "QA",
               }));
               toggleMenu("QA");
               this.props.filterDocumentsByDepartment("QA");
@@ -72,7 +72,7 @@ class MenuPannel extends Component<Props, MenuPannelSTATE> {
                     fill: "#000",
                     stroke: "#fff",
                     strokeMiterlimit: 10,
-                    strokeWidth: "32px"
+                    strokeWidth: "32px",
                   }}
                 />
                 <path
@@ -89,8 +89,8 @@ class MenuPannel extends Component<Props, MenuPannelSTATE> {
               active === "Packing" ? "active" : ""
             }`}
             onClick={(): void => {
-              this.setState(prevState => ({
-                active: prevState.active === "Packing" ? "" : "Packing"
+              this.setState((prevState) => ({
+                active: prevState.active === "Packing" ? "" : "Packing",
               }));
               toggleMenu("Packing");
               this.props.filterDocumentsByDepartment("Packing");
@@ -112,7 +112,7 @@ class MenuPannel extends Component<Props, MenuPannelSTATE> {
                     stroke: "#fff",
                     strokeLinecap: "round",
                     strokeLinejoin: "round",
-                    strokeWidth: "32px"
+                    strokeWidth: "32px",
                   }}
                 />
                 <polyline
@@ -122,7 +122,7 @@ class MenuPannel extends Component<Props, MenuPannelSTATE> {
                     stroke: "#fff",
                     strokeLinecap: "round",
                     strokeLinejoin: "round",
-                    strokeWidth: "32px"
+                    strokeWidth: "32px",
                   }}
                 />
                 2
@@ -136,7 +136,7 @@ class MenuPannel extends Component<Props, MenuPannelSTATE> {
                     stroke: "#fff",
                     strokeLinecap: "round",
                     strokeLinejoin: "round",
-                    strokeWidth: "32px"
+                    strokeWidth: "32px",
                   }}
                 />
               </svg>
@@ -147,8 +147,8 @@ class MenuPannel extends Component<Props, MenuPannelSTATE> {
               active === "Harvesting" ? "active" : ""
             }`}
             onClick={(): void => {
-              this.setState(prevState => ({
-                active: prevState.active === "Harvesting" ? "" : "Harvesting"
+              this.setState((prevState) => ({
+                active: prevState.active === "Harvesting" ? "" : "Harvesting",
               }));
               toggleMenu("Harvesting");
               this.props.filterDocumentsByDepartment("Harvesting");
@@ -170,7 +170,7 @@ class MenuPannel extends Component<Props, MenuPannelSTATE> {
                     stroke: "#fff",
                     strokeLinecap: "round",
                     strokeLinejoin: "round",
-                    strokeWidth: "32px"
+                    strokeWidth: "32px",
                   }}
                 />
                 <path
@@ -180,7 +180,7 @@ class MenuPannel extends Component<Props, MenuPannelSTATE> {
                     stroke: "#fff",
                     strokeLinecap: "round",
                     strokeLinejoin: "round",
-                    strokeWidth: "32px"
+                    strokeWidth: "32px",
                   }}
                 />
               </svg>
@@ -191,8 +191,8 @@ class MenuPannel extends Component<Props, MenuPannelSTATE> {
               active === "Growing" ? "active" : ""
             }`}
             onClick={(): void => {
-              this.setState(prevState => ({
-                active: prevState.active === "Growing" ? "" : "Growing"
+              this.setState((prevState) => ({
+                active: prevState.active === "Growing" ? "" : "Growing",
               }));
               toggleMenu("Growing");
               this.props.filterDocumentsByDepartment("Growing");
@@ -214,7 +214,7 @@ class MenuPannel extends Component<Props, MenuPannelSTATE> {
                     stroke: "#fff",
                     strokeLinecap: "round",
                     strokeLinejoin: "round",
-                    strokeWidth: "32px"
+                    strokeWidth: "32px",
                   }}
                 />
                 <path
@@ -224,7 +224,7 @@ class MenuPannel extends Component<Props, MenuPannelSTATE> {
                     stroke: "#fff",
                     strokeLinecap: "round",
                     strokeLinejoin: "round",
-                    strokeWidth: "32px"
+                    strokeWidth: "32px",
                   }}
                 />
                 <path
@@ -234,7 +234,7 @@ class MenuPannel extends Component<Props, MenuPannelSTATE> {
                     stroke: "#fff",
                     strokeLinecap: "round",
                     strokeLinejoin: "round",
-                    strokeWidth: "32px"
+                    strokeWidth: "32px",
                   }}
                 />
                 <path
@@ -244,7 +244,7 @@ class MenuPannel extends Component<Props, MenuPannelSTATE> {
                     stroke: "#fff",
                     strokeLinecap: "round",
                     strokeLinejoin: "round",
-                    strokeWidth: "32px"
+                    strokeWidth: "32px",
                   }}
                 />
               </svg>
@@ -256,8 +256,8 @@ class MenuPannel extends Component<Props, MenuPannelSTATE> {
               active === "Maintenance" ? "active" : ""
             }`}
             onClick={(): void => {
-              this.setState(prevState => ({
-                active: prevState.active === "Maintenance" ? "" : "Maintenance"
+              this.setState((prevState) => ({
+                active: prevState.active === "Maintenance" ? "" : "Maintenance",
               }));
               toggleMenu("Maintenance");
               this.props.filterDocumentsByDepartment("Maintenance");
@@ -279,7 +279,7 @@ class MenuPannel extends Component<Props, MenuPannelSTATE> {
                     stroke: "#fff",
                     strokeLinecap: "round",
                     strokeLinejoin: "round",
-                    strokeWidth: "32px"
+                    strokeWidth: "32px",
                   }}
                 />
                 <path
@@ -289,7 +289,7 @@ class MenuPannel extends Component<Props, MenuPannelSTATE> {
                     stroke: "#fff",
                     strokeLinecap: "round",
                     strokeLinejoin: "round",
-                    strokeWidth: "32px"
+                    strokeWidth: "32px",
                   }}
                 />
               </svg>
@@ -300,8 +300,8 @@ class MenuPannel extends Component<Props, MenuPannelSTATE> {
               active === "Safety" ? "active" : ""
             }`}
             onClick={(): void => {
-              this.setState(prevState => ({
-                active: prevState.active === "Safety" ? "" : "Safety"
+              this.setState((prevState) => ({
+                active: prevState.active === "Safety" ? "" : "Safety",
               }));
               toggleMenu("Safety");
               this.props.filterDocumentsByDepartment("Safety");
@@ -323,7 +323,7 @@ class MenuPannel extends Component<Props, MenuPannelSTATE> {
                     stroke: "#fff",
                     strokeLinecap: "round",
                     strokeLinejoin: "round",
-                    strokeWidth: "32px"
+                    strokeWidth: "32px",
                   }}
                 />
                 <path
@@ -333,7 +333,7 @@ class MenuPannel extends Component<Props, MenuPannelSTATE> {
                     stroke: "#fff",
                     strokeLinecap: "round",
                     strokeLinejoin: "round",
-                    strokeWidth: "32px"
+                    strokeWidth: "32px",
                   }}
                 />
               </svg>
@@ -358,7 +358,7 @@ class MenuPannel extends Component<Props, MenuPannelSTATE> {
           <button
             className="MenuFooter__add"
             onClick={(): void =>
-              this.setState(prevState => ({ menu: !prevState.menu }))
+              this.setState((prevState) => ({ menu: !prevState.menu }))
             }
           >
             <div className="MenuFooter__add__icon">&nbsp;</div>
@@ -391,7 +391,7 @@ class MenuPannel extends Component<Props, MenuPannelSTATE> {
                   stroke: "#fff",
                   strokeLinecap: "round",
                   strokeLinejoin: "round",
-                  strokeWidth: "32px"
+                  strokeWidth: "32px",
                 }}
               />
               <polyline
@@ -401,7 +401,7 @@ class MenuPannel extends Component<Props, MenuPannelSTATE> {
                   stroke: "#fff",
                   strokeLinecap: "round",
                   strokeLinejoin: "round",
-                  strokeWidth: "32px"
+                  strokeWidth: "32px",
                 }}
               />
               <line
@@ -414,7 +414,7 @@ class MenuPannel extends Component<Props, MenuPannelSTATE> {
                   stroke: "#fff",
                   strokeLinecap: "round",
                   strokeLinejoin: "round",
-                  strokeWidth: "32px"
+                  strokeWidth: "32px",
                 }}
               />
             </svg>
@@ -441,7 +441,7 @@ const mapDispatchToProps = (
   filterDocumentsByDepartment: bindActionCreators(
     filterDocumentsByDepartment,
     dispatch
-  )
+  ),
 });
 
 export default connect(null, mapDispatchToProps)(MenuPannel);

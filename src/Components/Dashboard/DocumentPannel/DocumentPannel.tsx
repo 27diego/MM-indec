@@ -2,11 +2,14 @@ import React, { Component } from "react";
 import "./DocumentPannel.scss";
 import pdffile from "./Vega.pdf";
 
+//Redux imports
+import { connect } from "react-redux";
+import { AppState } from "../../../Redux/Store/configureStore";
+
 import { Document, Page, pdfjs } from "react-pdf";
 pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.js`;
 
 interface DocumentPannelProps {
-  document: string;
   setModal: (item: boolean) => void;
 }
 interface DocumentPannelState {
@@ -14,26 +17,13 @@ interface DocumentPannelState {
   fileURL: any;
 }
 
-class DocumentPannel extends Component<
-  DocumentPannelProps,
-  DocumentPannelState
-> {
+type Props = DocumentPannelProps & LinkStateProps;
+
+class DocumentPannel extends Component<Props, DocumentPannelState> {
   state = {
     pageNumber: 1,
-    fileURL: ""
+    fileURL: "",
   };
-
-  componentDidMount() {
-    fetch("http://localhost:3000/file/AIR_SOP", {
-      method: "GET"
-    })
-      .then((res: any) => {
-        const file = new Blob([res.data], { type: "application/pdf" });
-        const fileURL = URL.createObjectURL(file);
-        this.setState({ fileURL: fileURL });
-      })
-      .catch(err => console.log(err));
-  }
 
   render() {
     const { pageNumber } = this.state;
@@ -43,7 +33,7 @@ class DocumentPannel extends Component<
         className="Container--DocumentPannel DocumentPannel"
       >
         <div className="DocumentPannel__document">
-          <Document file={pdffile} onLoadError={console.error}>
+          <Document file={this.props.document} onLoadError={console.error}>
             <Page
               pageNumber={pageNumber}
               scale={0.85}
@@ -57,4 +47,15 @@ class DocumentPannel extends Component<
   }
 }
 
-export default DocumentPannel;
+interface LinkStateProps {
+  document: string;
+}
+
+const mapStateToProps = (
+  state: AppState,
+  ownProps: DocumentPannelProps
+): LinkStateProps => ({
+  document: state.DisplayDocumentReducer,
+});
+
+export default connect(mapStateToProps, { null: null })(DocumentPannel);

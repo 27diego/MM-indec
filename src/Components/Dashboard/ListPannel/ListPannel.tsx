@@ -7,7 +7,7 @@ import {
   getDocuments,
   selectMenu,
   deleteDocument,
-  filterDocuments
+  filterDocuments,
 } from "../../../Redux/actions/index";
 import { AppActions } from "../../../types/Actions";
 import { AppState } from "../../../Redux/Store/configureStore";
@@ -19,7 +19,6 @@ import SOPCard from "./SOPCard/SOPCard";
 
 interface ListPannelProps {
   department: string;
-  setDocument: (item: string) => void;
 }
 interface ListPannelState {
   search: string;
@@ -31,7 +30,7 @@ type Props = ListPannelProps & LinkStateProps & LinkDispatchProps;
 class ListPannel extends Component<Props, ListPannelState> {
   state = {
     search: "",
-    modal: false
+    modal: false,
   };
 
   componentDidMount() {
@@ -72,13 +71,12 @@ class ListPannel extends Component<Props, ListPannelState> {
         />
 
         <div className="ListPannel__list">
-          {this.props.Documents.map(item => (
+          {this.props.Documents.map((item) => (
             <SOPCard
               key={item.title}
               title={item.title}
               category={item.category}
               department={item.department}
-              setDocument={this.props.setDocument}
               deleteDocument={this.props.deleteDocument}
             />
           ))}
@@ -107,7 +105,7 @@ const mapStateToProps = (
   state: AppState,
   ownProps: ListPannelProps
 ): LinkStateProps => ({
-  Documents: state.DocumentReducer
+  Documents: state.DocumentReducer,
 });
 
 const mapDispatchToProps = (
@@ -117,7 +115,7 @@ const mapDispatchToProps = (
   getDocuments: bindActionCreators(getDocuments, dispatch),
   selectMenu: bindActionCreators(selectMenu, dispatch),
   deleteDocument: bindActionCreators(deleteDocument, dispatch),
-  filterDocuments: bindActionCreators(filterDocuments, dispatch)
+  filterDocuments: bindActionCreators(filterDocuments, dispatch),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(ListPannel);
