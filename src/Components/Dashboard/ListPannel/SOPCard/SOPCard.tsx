@@ -32,7 +32,9 @@ class SOPCard extends Component<Props, SOPState> {
       <div
         className="LPitem"
         key={this.props.title}
-        onClick={(): void => this.props.setDocument(this.props.title)}
+        onClick={(): void => {
+          this.props.setDocument(this.props.title);
+        }}
       >
         <div
           className={`LPitem__sideColor LPitem__sideColor--${this.props.category}`}

@@ -243,7 +243,7 @@ export const filterDocumentsByDepartment = (item: string) => {
 
 export const setDocument = (item: string) => {
   return async (dispatch: Dispatch<AppActions>, getState: () => AppState) => {
-    await fetch("http://localhost:3000/file/AIR_SOP", {
+    await fetch(`http://localhost:3000/file/${item}`, {
       method: "GET",
     })
       .then((res) => res.blob())

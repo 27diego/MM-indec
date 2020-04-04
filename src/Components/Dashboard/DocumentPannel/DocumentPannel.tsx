@@ -40,7 +40,6 @@ class DocumentPannel extends Component<Props, DocumentPannelState> {
               className="DocumentPannel__page"
             />
           </Document>
-          <a href={this.state.fileURL}>open pdf</a>
         </div>
       </div>
     );

@@ -36,9 +36,6 @@ class MenuPannel extends Component<Props, MenuPannelSTATE> {
   render() {
     const { active } = this.state;
     const { toggleMenu } = this.props;
-
-    console.log(active);
-
     return (
       <div
         className="Container--MenuPannel MenuPannel"

@@ -22,7 +22,7 @@ type Props = LoginPageProps & LinkDispatchProps & LinkStateProps;
 class Login extends React.Component<Props, LoginPageState> {
   state = {
     username: "",
-    password: ""
+    password: "",
   };
 
   handleSubmit = (): void => {
@@ -107,14 +107,14 @@ const mapStateToProps = (
   state: AppState,
   ownProps: LoginPageProps
 ): LinkStateProps => ({
-  error: state.ErrorReducer
+  error: state.ErrorReducer,
 });
 
 const mapDispatchToProps = (
   dispatch: ThunkDispatch<any, any, AppActions>,
   ownProps: LoginPageProps
 ): LinkDispatchProps => ({
-  signIn: bindActionCreators(signIn, dispatch)
+  signIn: bindActionCreators(signIn, dispatch),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Login);

@@ -1,11 +1,13 @@
 @import "../../styles/variables";
 
 .Container--Login {
-  background-color: $debug-red;
+  background-color: $color-light-grey;
   height: 100vh;
   display: grid;
   grid-template-columns: 50% 50%;
   grid-template-rows: 7% 93%;
+
+  overflow: hidden;
 }
 
 .border--container {
@@ -182,7 +184,7 @@
 .container--img {
   background-color: $color-light-grey;
   width: 150%;
-  transform: translateX(-26.2rem);
+  transform: translateX(-29.5rem);
   z-index: 1;
   position: relative;
 }
