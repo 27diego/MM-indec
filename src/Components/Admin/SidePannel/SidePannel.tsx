@@ -13,6 +13,7 @@ interface SidePannelProps {
   name: string;
   list: string;
   toggleList: (item: string) => void;
+  admin: boolean;
 }
 
 type Props = SidePannelProps & LinkStateProps;
@@ -24,29 +25,33 @@ class SidePannel extends Component<Props, SidePannelState> {
     super(props);
 
     this.state = {
-      activeSlider: "cards"
+      activeSlider: "cards",
     };
+  }
 
-    fetch(
-      `https://ui-avatars.com/api/?name=${this.props.firstName}+${this.props.lastName}&rounded=true&background=fff&color=0D8ABC`,
-      {
-        method: "GET"
-      }
-    ).then(response => {
-      response.arrayBuffer().then(buffer => {
-        var base64Flag = "data:image/jpeg;base64,";
-        var imageStr = this.arrayBufferToBase64(buffer);
+  componentDidMount() {
+    if (this.props.admin) {
+      fetch(
+        `https://ui-avatars.com/api/?name=${this.props.firstName}+${this.props.lastName}&rounded=true&background=fff&color=0D8ABC`,
+        {
+          method: "GET",
+        }
+      ).then((response) => {
+        response.arrayBuffer().then((buffer) => {
+          var base64Flag = "data:image/jpeg;base64,";
+          var imageStr = this.arrayBufferToBase64(buffer);
 
-        this.imgRef.current!.src = `${base64Flag}${imageStr}`;
+          this.imgRef.current!.src = `${base64Flag}${imageStr}`;
+        });
       });
-    });
+    }
   }
 
   arrayBufferToBase64 = (buffer: ArrayBuffer) => {
     var binary = "";
     var bytes = [].slice.call(new Uint8Array(buffer));
 
-    bytes.forEach(b => (binary += String.fromCharCode(b)));
+    bytes.forEach((b) => (binary += String.fromCharCode(b)));
 
     return window.btoa(binary);
   };
@@ -109,7 +114,7 @@ const mapStateToProps = (
   props: SidePannelProps
 ): LinkStateProps => ({
   firstName: state.AuthenticationReducer.first_name,
-  lastName: state.AuthenticationReducer.last_name
+  lastName: state.AuthenticationReducer.last_name,
 });
 
 export default connect(mapStateToProps, { null: null })(SidePannel);

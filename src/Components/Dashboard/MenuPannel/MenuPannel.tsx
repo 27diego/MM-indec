@@ -13,7 +13,10 @@ import { AppState } from "../../../Redux/Store/configureStore";
 import { ThunkDispatch } from "redux-thunk";
 import { bindActionCreators } from "redux";
 
+import NewItem from "../../../Portals/newModal/NewItem";
+
 import history from "../../../history";
+import { User } from "../../../types/User";
 
 interface MenuPannelPROPS {
   toggleMenu: (item: string) => void;
@@ -22,6 +25,7 @@ interface MenuPannelSTATE {
   active: string;
   menu: boolean;
   tag: boolean;
+  modal: boolean;
 }
 
 type Props = MenuPannelPROPS & LinkDispatchProps & LinkStateProps;
@@ -31,17 +35,45 @@ class MenuPannel extends Component<Props, MenuPannelSTATE> {
     active: "",
     menu: false,
     tag: false,
+    modal: false,
+  };
+
+  removeModal = () => {
+    this.setState({ modal: false });
   };
 
   render() {
     const { active } = this.state;
     const { toggleMenu } = this.props;
+
     return (
       <div
         className="Container--MenuPannel MenuPannel"
         onClick={() => (this.state.menu ? this.setState({ menu: false }) : "")}
       >
-        <div className="MenuPannel__header">Departments</div>
+        <div className="Mheader">
+          <div className="Mheader__container">
+            <div className="Mheader__title">Departments</div>
+            {this.props.user ? (
+              this.props.user.admin ? (
+                <div
+                  onClick={(): void => {
+                    this.props.selectMenu("Department");
+                    this.setState({ modal: true });
+                  }}
+                  className="logo--container"
+                >
+                  <div className="addButton__logo">&nbsp;</div>
+                </div>
+              ) : (
+                ""
+              )
+            ) : (
+              ""
+            )}
+          </div>
+        </div>
+
         <div className="deps--container">
           <div
             className={`deps deps--QA deps--QA--${
@@ -338,96 +370,119 @@ class MenuPannel extends Component<Props, MenuPannelSTATE> {
           </div>
         </div>
         <div className="MenuFooter">
-          <div
-            className="MenuFooter__menu"
-            style={{ display: this.state.menu ? "flex" : "none" }}
-          >
-            <div
-              onClick={() => {
-                this.props.selectMenu("User");
-                history.push("/Admin");
-              }}
-              className="MenuFooter__menu__users"
-            >
-              Manage Users
-            </div>
-          </div>
-          <button
-            className="MenuFooter__add"
-            onClick={(): void =>
-              this.setState((prevState) => ({ menu: !prevState.menu }))
-            }
-          >
-            <div className="MenuFooter__add__icon">&nbsp;</div>
-          </button>
+          {this.props.user.admin ? (
+            <React.Fragment>
+              <div
+                className="MenuFooter__menu"
+                style={{ display: this.state.menu ? "flex" : "none" }}
+              >
+                <div
+                  onClick={(): void => history.push("/Admin")}
+                  className="MenuFooter__menu__users"
+                >
+                  Manage Users
+                </div>
+              </div>
+              <button
+                className="MenuFooter__add"
+                onClick={(): void =>
+                  this.setState((prevState) => ({ menu: !prevState.menu }))
+                }
+              >
+                <div className="MenuFooter__add__icon">&nbsp;</div>
+              </button>
+            </React.Fragment>
+          ) : (
+            ""
+          )}
 
-          <div
-            className="MenuFooter__logOut__tag"
-            style={{ display: this.state.tag ? "block" : "none" }}
-          >
-            LogOut
-          </div>
+          {this.props.user.first_name ? (
+            <React.Fragment>
+              <div
+                className="MenuFooter__logOut__tag"
+                style={{ display: this.state.tag ? "block" : "none" }}
+              >
+                LogOut
+              </div>
 
-          <div
-            className="MenuFooter__logOut deps__icon"
-            onMouseOver={(): void => this.setState({ tag: true })}
-            onMouseLeave={(): void => this.setState({ tag: false })}
-            onClick={(): void => this.props.signOut()}
-          >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="512"
-              height="512"
-              viewBox="0 0 512 512"
-            >
-              <title>ionicons-v5-o</title>
-              <path
-                d="M304,336v40a40,40,0,0,1-40,40H104a40,40,0,0,1-40-40V136a40,40,0,0,1,40-40H256c22.09,0,48,17.91,48,40v40"
-                style={{
-                  fill: "none",
-                  stroke: "#fff",
-                  strokeLinecap: "round",
-                  strokeLinejoin: "round",
-                  strokeWidth: "32px",
-                }}
-              />
-              <polyline
-                points="368 336 448 256 368 176"
-                style={{
-                  fill: "none",
-                  stroke: "#fff",
-                  strokeLinecap: "round",
-                  strokeLinejoin: "round",
-                  strokeWidth: "32px",
-                }}
-              />
-              <line
-                x1="176"
-                y1="256"
-                x2="432"
-                y2="256"
-                style={{
-                  fill: "none",
-                  stroke: "#fff",
-                  strokeLinecap: "round",
-                  strokeLinejoin: "round",
-                  strokeWidth: "32px",
-                }}
-              />
-            </svg>
-          </div>
+              <div
+                className="MenuFooter__logOut deps__icon"
+                onMouseOver={(): void => this.setState({ tag: true })}
+                onMouseLeave={(): void => this.setState({ tag: false })}
+                onClick={(): void => this.props.signOut()}
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="512"
+                  height="512"
+                  viewBox="0 0 512 512"
+                >
+                  <title>ionicons-v5-o</title>
+                  <path
+                    d="M304,336v40a40,40,0,0,1-40,40H104a40,40,0,0,1-40-40V136a40,40,0,0,1,40-40H256c22.09,0,48,17.91,48,40v40"
+                    style={{
+                      fill: "none",
+                      stroke: "#fff",
+                      strokeLinecap: "round",
+                      strokeLinejoin: "round",
+                      strokeWidth: "32px",
+                    }}
+                  />
+                  <polyline
+                    points="368 336 448 256 368 176"
+                    style={{
+                      fill: "none",
+                      stroke: "#fff",
+                      strokeLinecap: "round",
+                      strokeLinejoin: "round",
+                      strokeWidth: "32px",
+                    }}
+                  />
+                  <line
+                    x1="176"
+                    y1="256"
+                    x2="432"
+                    y2="256"
+                    style={{
+                      fill: "none",
+                      stroke: "#fff",
+                      strokeLinecap: "round",
+                      strokeLinejoin: "round",
+                      strokeWidth: "32px",
+                    }}
+                  />
+                </svg>
+              </div>
+            </React.Fragment>
+          ) : (
+            ""
+          )}
         </div>
+        {this.state.modal ? (
+          <NewItem removeModal={this.removeModal} modal={this.state.modal} />
+        ) : (
+          ""
+        )}
       </div>
     );
   }
 }
 
-interface LinkStateProps {}
+interface LinkStateProps {
+  user: User;
+}
 interface LinkDispatchProps {
   signOut: () => void;
   selectMenu: (item: string) => void;
   filterDocumentsByDepartment: (item: string) => void;
 }
+
+const mapStateToProps = (
+  state: AppState,
+  ownProps: MenuPannelPROPS
+): LinkStateProps => ({
+  user: state.AuthenticationReducer,
+});
 
 const mapDispatchToProps = (
   dispatch: ThunkDispatch<any, any, AppActions>,
@@ -441,4 +496,4 @@ const mapDispatchToProps = (
   ),
 });
 
-export default connect(null, mapDispatchToProps)(MenuPannel);
+export default connect(mapStateToProps, mapDispatchToProps)(MenuPannel);

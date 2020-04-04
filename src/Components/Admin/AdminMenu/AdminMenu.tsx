@@ -39,14 +39,6 @@ class AdminMenu extends Component<Props, AdminMenuState> {
         <div className="menu">
           <ul className="menu__items">
             <li
-              className={`menu__items--dep menu__items--single menu__items--single--${
-                this.props.MenuItem === "Department" ? "active" : ""
-              }`}
-              onClick={(): void => this.props.selectMenu("Department")}
-            >
-              Departments
-            </li>
-            <li
               className={`menu__items--users menu__items--single menu__items--single--${
                 this.props.MenuItem === "User" ? "active" : ""
               }`}
@@ -57,7 +49,7 @@ class AdminMenu extends Component<Props, AdminMenuState> {
           </ul>
           <input
             value={this.props.filter}
-            onChange={e => this.props.setFilter(e.target.value)}
+            onChange={(e) => this.props.setFilter(e.target.value)}
             className="menu__search"
             placeholder={`Search ${this.props.MenuItem}s`}
             type="text"
@@ -79,14 +71,14 @@ const mapStateToProps = (
   state: AppState,
   ownProps: AdminMenuProps
 ): LinkStateProps => ({
-  MenuItem: state.MenuItemReducer
+  MenuItem: state.MenuItemReducer,
 });
 
 const mapDispatchToProps = (
   dispatch: ThunkDispatch<any, any, AppActions>,
   ownProps: AdminMenuProps
 ): LinkDispatchProps => ({
-  selectMenu: bindActionCreators(selectMenu, dispatch)
+  selectMenu: bindActionCreators(selectMenu, dispatch),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(AdminMenu);

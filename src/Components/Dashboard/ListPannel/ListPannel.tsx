@@ -16,6 +16,7 @@ import { bindActionCreators } from "redux";
 import { Document } from "../../../types/Document";
 import NewItem from "../../../Portals/newModal/NewItem";
 import SOPCard from "./SOPCard/SOPCard";
+import { User } from "../../../types/User";
 
 interface ListPannelProps {
   department: string;
@@ -55,12 +56,23 @@ class ListPannel extends Component<Props, ListPannelState> {
       <div className="Container--ListPannel ListPannel">
         <div className="ListPannel__header">
           <div className="ListPannel__header__title">SOP Index</div>
-          <div
-            onClick={(): void => this.setState({ modal: true })}
-            className="logo--container"
-          >
-            <div className="addButton__logo">&nbsp;</div>
-          </div>
+
+          {this.props.User.admin ? (
+            <React.Fragment>
+              {" "}
+              <div
+                onClick={(): void => {
+                  this.props.selectMenu("Document");
+                  this.setState({ modal: true });
+                }}
+                className="logo--container"
+              >
+                <div className="addButton__logo">&nbsp;</div>
+              </div>
+            </React.Fragment>
+          ) : (
+            ""
+          )}
         </div>
         <input
           className="ListPannel__search"
@@ -78,6 +90,7 @@ class ListPannel extends Component<Props, ListPannelState> {
               category={item.category}
               department={item.department}
               deleteDocument={this.props.deleteDocument}
+              admin={this.props.User.admin}
             />
           ))}
         </div>
@@ -93,6 +106,7 @@ class ListPannel extends Component<Props, ListPannelState> {
 
 interface LinkStateProps {
   Documents: Document[];
+  User: User;
 }
 interface LinkDispatchProps {
   getDocuments: () => void;
@@ -106,6 +120,7 @@ const mapStateToProps = (
   ownProps: ListPannelProps
 ): LinkStateProps => ({
   Documents: state.DocumentReducer,
+  User: state.AuthenticationReducer,
 });
 
 const mapDispatchToProps = (

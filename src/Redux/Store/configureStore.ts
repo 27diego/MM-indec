@@ -1,6 +1,8 @@
 import { createStore, combineReducers, applyMiddleware, compose } from "redux";
 import thunk, { ThunkMiddleware } from "redux-thunk";
 import { AppActions } from "../../types/Actions";
+import { persistReducer, persistStore } from "redux-persist";
+import storage from "redux-persist/lib/storage";
 
 import { AuthenticationReducer } from "../reducers/Authentication";
 import { ErrorReducer } from "../reducers/Errors";
@@ -20,14 +22,22 @@ export const rootReducer = combineReducers({
   DisplayDocumentReducer,
 });
 
+const persistConfig = {
+  blacklist: ["form"],
+  key: "reactreduxform",
+  storage,
+};
+
 const composeEnhanger =
   (window && (window as any).__REDUX_DEVTOOLS_EXTENSION_COMPOSE__) || compose;
 
 export type AppState = ReturnType<typeof rootReducer>;
 
-export const store = createStore(
-  rootReducer,
-  composeEnhanger(
-    applyMiddleware(thunk as ThunkMiddleware<AppState, AppActions>)
-  )
+const persistedReducer = persistReducer(persistConfig, rootReducer);
+
+const middleware = applyMiddleware(
+  thunk as ThunkMiddleware<AppState, AppActions>
 );
+const store: any = createStore(persistedReducer, composeEnhanger(middleware));
+const persistor = persistStore(store);
+export { store, persistor };

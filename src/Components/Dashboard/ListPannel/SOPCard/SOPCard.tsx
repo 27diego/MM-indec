@@ -14,6 +14,7 @@ interface SOPProps {
   category: string;
   department: string;
   deleteDocument: (item: string) => void;
+  admin: boolean;
 }
 
 interface SOPState {
@@ -43,29 +44,35 @@ class SOPCard extends Component<Props, SOPState> {
         <div className="LPitem__title">
           {this.props.title.replace(/_/g, " ")}
         </div>
-        <div
-          onClick={() =>
-            this.setState((prevState) => ({ label: !prevState.label }))
-          }
-          className="userCard__menu"
-        >
+        {this.props.admin ? (
           <div
-            className={`userCard__menu__lines userCard__menu__lines--${
-              this.state.label ? "active" : ""
-            }`}
-          ></div>
-          <div
-            className={`userCard__label userCard__label--${
-              this.state.label ? "active" : ""
-            }`}
+            onClick={() =>
+              this.setState((prevState) => ({ label: !prevState.label }))
+            }
+            className="userCard__menu"
           >
             <div
-              onClick={(): void => this.props.deleteDocument(this.props.title)}
+              className={`userCard__menu__lines userCard__menu__lines--${
+                this.state.label ? "active" : ""
+              }`}
+            ></div>
+            <div
+              className={`userCard__label userCard__label--${
+                this.state.label ? "active" : ""
+              }`}
             >
-              Delete
+              <div
+                onClick={(): void =>
+                  this.props.deleteDocument(this.props.title)
+                }
+              >
+                Delete
+              </div>
             </div>
           </div>
-        </div>
+        ) : (
+          ""
+        )}
       </div>
     );
   }

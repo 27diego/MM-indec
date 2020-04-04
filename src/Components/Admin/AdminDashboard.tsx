@@ -5,13 +5,16 @@ import AdminList from "./AdminList/AdminList";
 import NewItem from "../../Portals/newModal/NewItem";
 import SidePannel from "./SidePannel/SidePannel";
 
+import history from "../../history";
+
 //redux imports
 import { connect } from "react-redux";
-import { filterUsers } from "../../Redux/actions/index";
+import { filterUsers, selectMenu } from "../../Redux/actions/index";
 import { AppActions } from "../../types/Actions";
 import { AppState } from "../../Redux/Store/configureStore";
 import { ThunkDispatch } from "redux-thunk";
 import { bindActionCreators } from "redux";
+import { User } from "../../types/User";
 
 interface AdminDashboardProps {}
 interface AdminDashboardState {
@@ -26,18 +29,26 @@ class AdminDashboard extends Component<Props, AdminDashboardState> {
   state = {
     modal: false,
     list: "",
-    filter: ""
+    filter: "",
   };
 
+  componentDidMount() {
+    if (this.props.User.admin === false) {
+      history.push("/Dashboard");
+    }
+
+    this.props.selectMenu("User");
+  }
+
   toggleModal = () => {
-    this.setState(prevState => ({
-      modal: !prevState.modal
+    this.setState((prevState) => ({
+      modal: !prevState.modal,
     }));
   };
 
   toggleList = (item: string) => {
     this.setState({
-      list: item
+      list: item,
     });
   };
 
@@ -69,6 +80,7 @@ class AdminDashboard extends Component<Props, AdminDashboardState> {
             name={this.props.name}
             list={this.state.list}
             toggleList={this.toggleList}
+            admin={this.props.User.admin}
           />
         </div>
         <div className="container--menu">
@@ -100,9 +112,11 @@ class AdminDashboard extends Component<Props, AdminDashboardState> {
 interface LinkStateProps {
   MenuItem: string;
   name: string;
+  User: User;
 }
 interface LinkDispatchProps {
   filterUsers: (item: string) => void;
+  selectMenu: (item: string) => void;
 }
 
 const mapStateToProps = (
@@ -110,17 +124,19 @@ const mapStateToProps = (
   ownProps: AdminDashboardProps
 ): LinkStateProps => ({
   MenuItem: state.MenuItemReducer,
+  User: state.AuthenticationReducer,
   name:
     state.AuthenticationReducer.first_name +
     " " +
-    state.AuthenticationReducer.last_name
+    state.AuthenticationReducer.last_name,
 });
 
 const mapDispatchToProps = (
   dispatch: ThunkDispatch<any, any, AppActions>,
   ownProps: AdminDashboardProps
 ): LinkDispatchProps => ({
-  filterUsers: bindActionCreators(filterUsers, dispatch)
+  filterUsers: bindActionCreators(filterUsers, dispatch),
+  selectMenu: bindActionCreators(selectMenu, dispatch),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(AdminDashboard);
