@@ -73,6 +73,7 @@
   align-self: start;
 
   width: 70%;
+  height: 100%;
   padding: 3rem;
 
   border: dashed 2px $color-light-grey;
@@ -86,9 +87,26 @@
     background-color: rgba(#40464e, 0.5);
   }
 
+  &__file {
+    height: 15.5rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    span {
+      font-size: 1.2rem;
+      color: white;
+    }
+  }
+
   &__icon {
     height: 7rem;
     width: 7rem;
+
+    &--file {
+      height: 8rem;
+      width: 8rem;
+    }
   }
   &__prompt {
     font-size: 1.5rem;

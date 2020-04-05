@@ -36,14 +36,14 @@ class DropZone extends Component<Props, State> {
         files: null,
         title: "",
         category: "",
-        department: ""
+        department: "",
       },
       style: {
         transform: "",
         transition: "all .5s ease",
         bottom: "0",
-        opacity: "0"
-      }
+        opacity: "0",
+      },
     };
   }
 
@@ -53,8 +53,8 @@ class DropZone extends Component<Props, State> {
         style: {
           ...this.state.style,
           transform: "translateY(-20rem)",
-          opacity: "1"
-        }
+          opacity: "1",
+        },
       });
     }, 500);
   }
@@ -64,7 +64,7 @@ class DropZone extends Component<Props, State> {
     const array = this.fileToListArray(files);
     this.setState({
       disabled: true,
-      form: { ...this.state.form, files: array }
+      form: { ...this.state.form, files: array },
     });
   };
 
@@ -73,7 +73,10 @@ class DropZone extends Component<Props, State> {
     if (e.dataTransfer.files && e.dataTransfer.files[0]) {
       const files = e.dataTransfer.files;
       const array = this.fileToListArray(files);
-      this.setState({ form: { ...this.state.form, files: array } });
+      this.setState({
+        disabled: true,
+        form: { ...this.state.form, files: array },
+      });
     }
   };
 
@@ -113,8 +116,6 @@ class DropZone extends Component<Props, State> {
   };
 
   render() {
-    console.log(this.state.form);
-
     return (
       <div
         className={`modal modal--${
@@ -133,62 +134,84 @@ class DropZone extends Component<Props, State> {
           onDragLeave={(): void => this.setState({ highlight: false })}
           onDrop={this.onFileDrop}
         >
-          <svg
-            className="dropzone__icon"
-            xmlns="http://www.w3.org/2000/svg"
-            width="512"
-            height="512"
-            viewBox="0 0 512 512"
-          >
-            <path
-              d="M320,367.79h76c55,0,100-29.21,100-83.6s-53-81.47-96-83.6c-8.89-85.06-71-136.8-144-136.8-69,0-113.44,45.79-128,91.2-60,5.7-112,43.88-112,106.4s54,106.4,120,106.4h56"
-              style={{
-                fill: "none",
-                stroke: "#fff",
-                strokeLinecap: "round",
-                strokeLinejoin: "round",
-                strokeWidth: "32px"
-              }}
-            />
-            <polyline
-              points="320 255.79 256 191.79 192 255.79"
-              style={{
-                fill: "none",
-                stroke: "#fff",
-                strokeLinecap: "round",
-                strokeLinejoin: "round",
-                strokeWidth: "32px"
-              }}
-            />
-            <line
-              x1="256"
-              y1="448.21"
-              x2="256"
-              y2="207.79"
-              style={{
-                fill: "none",
-                stroke: "#fff",
-                strokeLinecap: "round",
-                strokeLinejoin: "round",
-                strokeWidth: "32px"
-              }}
-            />
-          </svg>
-          <input
-            type="file"
-            ref={this.myRef}
-            multiple
-            style={{ display: "none" }}
-            onChange={this.onFileAdd}
-          />
-          <div className="dropzone__prompt">Drag and drop your file here</div>
-          <div className="dropzone__or">OR</div>
-          <button
-            onClick={(): void => this.myRef.current?.click()}
-            className="dropzone__btn"
-          >
-            Browse Files
-          </button>
+          {this.state.disabled ? (
+            <div className="dropzone__file">
+              <span>
+                {this.state.form.files !== null
+                  ? this.state.form.files[0].name
+                  : ""}
+              </span>
+              <svg
+                className="dropzone__icon dropzone__icon--file"
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 512 512"
+              >
+                <path d="M428,224H288a48,48,0,0,1-48-48V36a4,4,0,0,0-4-4H144A64,64,0,0,0,80,96V416a64,64,0,0,0,64,64H368a64,64,0,0,0,64-64V228A4,4,0,0,0,428,224Z" />
+                <path d="M419.22,188.59,275.41,44.78A2,2,0,0,0,272,46.19V176a16,16,0,0,0,16,16H417.81A2,2,0,0,0,419.22,188.59Z" />
+              </svg>
+            </div>
+          ) : (
+            <React.Fragment>
+              <svg
+                className="dropzone__icon"
+                xmlns="http://www.w3.org/2000/svg"
+                width="512"
+                height="512"
+                viewBox="0 0 512 512"
+              >
+                <path
+                  d="M320,367.79h76c55,0,100-29.21,100-83.6s-53-81.47-96-83.6c-8.89-85.06-71-136.8-144-136.8-69,0-113.44,45.79-128,91.2-60,5.7-112,43.88-112,106.4s54,106.4,120,106.4h56"
+                  style={{
+                    fill: "none",
+                    stroke: "#fff",
+                    strokeLinecap: "round",
+                    strokeLinejoin: "round",
+                    strokeWidth: "32px",
+                  }}
+                />
+                <polyline
+                  points="320 255.79 256 191.79 192 255.79"
+                  style={{
+                    fill: "none",
+                    stroke: "#fff",
+                    strokeLinecap: "round",
+                    strokeLinejoin: "round",
+                    strokeWidth: "32px",
+                  }}
+                />
+                <line
+                  x1="256"
+                  y1="448.21"
+                  x2="256"
+                  y2="207.79"
+                  style={{
+                    fill: "none",
+                    stroke: "#fff",
+                    strokeLinecap: "round",
+                    strokeLinejoin: "round",
+                    strokeWidth: "32px",
+                  }}
+                />
+              </svg>
+              <input
+                type="file"
+                ref={this.myRef}
+                multiple
+                style={{ display: "none" }}
+                onChange={this.onFileAdd}
+              />
+              <div className="dropzone__prompt">
+                Drag and drop your file here
+              </div>
+              <div className="dropzone__or">OR</div>
+              <button
+                onClick={(): void => this.myRef.current?.click()}
+                className="dropzone__btn"
+              >
+                Browse Files
+              </button>
+            </React.Fragment>
+          )}
         </div>
         <input
           value={this.state.form.title}
@@ -197,8 +220,8 @@ class DropZone extends Component<Props, State> {
               ...this.state,
               form: {
                 ...this.state.form,
-                title: e.target.value
-              }
+                title: e.target.value,
+              },
             })
           }
           type="text"
@@ -210,7 +233,7 @@ class DropZone extends Component<Props, State> {
           onChange={(e): void =>
             this.setState({
               ...this.state,
-              form: { ...this.state.form, category: e.target.value }
+              form: { ...this.state.form, category: e.target.value },
             })
           }
           className="documentModal__category"
@@ -223,13 +246,13 @@ class DropZone extends Component<Props, State> {
           onChange={(e): void =>
             this.setState({
               ...this.state,
-              form: { ...this.state.form, department: e.target.value }
+              form: { ...this.state.form, department: e.target.value },
             })
           }
           className="documentModal__department"
         >
           <option value="">department</option>
-          {this.props.departments.map(dep => (
+          {this.props.departments.map((dep) => (
             <option key={dep} value={dep}>
               {dep}
             </option>
