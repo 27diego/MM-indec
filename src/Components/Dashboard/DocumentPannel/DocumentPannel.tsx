@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import "./DocumentPannel.scss";
-import pdffile from "./Vega.pdf";
 
 //Redux imports
 import { connect } from "react-redux";
@@ -29,11 +28,17 @@ class DocumentPannel extends Component<Props, DocumentPannelState> {
     const { pageNumber } = this.state;
     return (
       <div
-        onClick={() => this.props.setModal(true)}
+        onClick={() =>
+          this.props.document !== "" ? this.props.setModal(true) : ""
+        }
         className="Container--DocumentPannel DocumentPannel"
       >
         <div className="DocumentPannel__document">
-          <Document file={this.props.document} onLoadError={console.error}>
+          <Document
+            file={this.props.document}
+            onLoadError={console.error}
+            className="center"
+          >
             <Page
               pageNumber={pageNumber}
               scale={0.85}

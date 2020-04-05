@@ -33,7 +33,8 @@ class SOPCard extends Component<Props, SOPState> {
       <div
         className="LPitem"
         key={this.props.title}
-        onClick={(): void => {
+        onClick={(e): void => {
+          e.stopPropagation();
           this.props.setDocument(this.props.title);
         }}
       >
@@ -46,9 +47,10 @@ class SOPCard extends Component<Props, SOPState> {
         </div>
         {this.props.admin ? (
           <div
-            onClick={() =>
-              this.setState((prevState) => ({ label: !prevState.label }))
-            }
+            onClick={(e) => {
+              e.stopPropagation();
+              this.setState((prevState) => ({ label: !prevState.label }));
+            }}
             className="userCard__menu"
           >
             <div
@@ -62,9 +64,10 @@ class SOPCard extends Component<Props, SOPState> {
               }`}
             >
               <div
-                onClick={(): void =>
-                  this.props.deleteDocument(this.props.title)
-                }
+                onClick={(e): void => {
+                  e.stopPropagation();
+                  this.props.deleteDocument(this.props.title);
+                }}
               >
                 Delete
               </div>

@@ -44,4 +44,10 @@
     bottom: 0.2rem;
     z-index: 100;
   }
+  .userCard__label {
+    right: -1rem;
+  }
+  .userCard__label::after {
+    left: 67%;
+  }
 }

@@ -6,7 +6,7 @@ import { connect } from "react-redux";
 import {
   getDepartments,
   deleteDepartment,
-  postDepartment
+  postDepartment,
 } from "../../../Redux/actions/index";
 import { AppActions } from "../../../types/Actions";
 import { AppState } from "../../../Redux/Store/configureStore";
@@ -38,8 +38,8 @@ class NewDepartment extends Component<Props, NewDepartmentState> {
         transform: "",
         transition: "all .5s ease",
         bottom: "0",
-        opacity: "0"
-      }
+        opacity: "0",
+      },
     };
 
     this.props.getDepartments();
@@ -51,8 +51,8 @@ class NewDepartment extends Component<Props, NewDepartmentState> {
         style: {
           ...this.state.style,
           transform: "translateY(-20rem)",
-          opacity: "1"
-        }
+          opacity: "1",
+        },
       });
     }, 500);
   }
@@ -65,7 +65,7 @@ class NewDepartment extends Component<Props, NewDepartmentState> {
 
   removeItem = () => {
     this.setState({
-      activeKey: ""
+      activeKey: "",
     });
     this.props.deleteDepartment(this.state.activeKey);
   };
@@ -80,7 +80,7 @@ class NewDepartment extends Component<Props, NewDepartmentState> {
       >
         <div className="departmentModal__header">Departments</div>
         <div className="DPlist">
-          {this.props.departments.map(item => (
+          {this.props.departments.map((item) => (
             <div key={item} className="DPlist__item">
               <div
                 className={`DPlist__item__deleteConfirm DPlist__item__deleteConfirm--${
@@ -91,7 +91,11 @@ class NewDepartment extends Component<Props, NewDepartmentState> {
                 <div className="span">Confirm</div>
               </div>
               <div
-                onClick={(): void => this.setState({ activeKey: item })}
+                onClick={(): void =>
+                  this.setState((prevState) => ({
+                    activeKey: prevState.activeKey === item ? "" : item,
+                  }))
+                }
                 className="DPlist__item__delete"
               >
                 <div className="DPlist__item__delete--icon"></div>
@@ -163,7 +167,7 @@ const mapStateToProps = (
   state: AppState,
   ownProps: NewDepartmentProps
 ): LinkStateProps => ({
-  departments: state.GetDepartmentsReducer
+  departments: state.GetDepartmentsReducer,
 });
 
 const mapDispatchToProps = (
@@ -172,7 +176,7 @@ const mapDispatchToProps = (
 ): LinkDispatchProps => ({
   getDepartments: bindActionCreators(getDepartments, dispatch),
   deleteDepartment: bindActionCreators(deleteDepartment, dispatch),
-  postDepartment: bindActionCreators(postDepartment, dispatch)
+  postDepartment: bindActionCreators(postDepartment, dispatch),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(NewDepartment);

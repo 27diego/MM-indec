@@ -18,7 +18,7 @@ export const GetUsersReducer = (
       return [...state, action.payload];
     case "FILTER_USERS":
       filteredUsers = originalArray;
-      return filteredUsers.filter(item => {
+      return filteredUsers.filter((item) => {
         let name =
           item.first_name.toLocaleLowerCase() +
           item.last_name.toLocaleLowerCase();
@@ -26,9 +26,11 @@ export const GetUsersReducer = (
       });
     case "DELETE_USER":
       originalArray = originalArray.filter(
-        item => item.username !== action.payload
+        (item) => item.username !== action.payload
       );
-      return state.filter(item => item.username !== action.payload);
+      return state.filter((item) => item.username !== action.payload);
+    case "SIGN_OUT":
+      return GetUsersReducerDefaultState;
     default:
       return state;
   }

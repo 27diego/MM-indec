@@ -2,6 +2,7 @@
   width: 100%;
   height: 100%;
   background-color: rgba(9, 10, 15, 0.8);
+  overflow: hidden;
 }
 
 .DocumentPannel {
@@ -10,7 +11,17 @@
   align-items: center;
   cursor: pointer;
   &__page {
-    height: 50%;
-    width: 87%;
+    width: 89%;
   }
+}
+
+.DocumentPannel__page {
+  // transform: translateY(2rem);
+}
+
+.center {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }

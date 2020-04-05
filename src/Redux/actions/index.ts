@@ -243,6 +243,8 @@ export const filterDocumentsByDepartment = (item: string) => {
 
 export const setDocument = (item: string) => {
   return async (dispatch: Dispatch<AppActions>, getState: () => AppState) => {
+    const { DisplayDocumentReducer } = getState();
+
     await fetch(`http://localhost:3000/file/${item}`, {
       method: "GET",
     })

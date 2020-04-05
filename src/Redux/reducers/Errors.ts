@@ -9,6 +9,8 @@ export const ErrorReducer = (
   switch (action.type) {
     case "ERROR":
       return action.payload;
+    case "SIGN_OUT":
+      return ErrorsReducerDefaultState;
     default:
       return state;
   }

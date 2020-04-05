@@ -33,13 +33,28 @@ export interface ErrorAction {
   payload: string;
 }
 
+export interface RemoveErrorAction {
+  type: typeof SIGN_OUT;
+  payload: string;
+}
+
 export interface MenuItemAction {
   type: typeof SET_MENU_ITEM;
   payload: string;
 }
 
+export interface RemoveMenuItemAction {
+  type: typeof SIGN_OUT;
+  payload: string;
+}
+
 export interface getUsersActions {
   type: typeof GET_USERS;
+  payload: User[];
+}
+
+export interface removeUsersActions {
+  type: typeof SIGN_OUT;
   payload: User[];
 }
 
@@ -73,8 +88,18 @@ export interface addDepartmentAction {
   payload: string;
 }
 
+export interface removeDepartmentsAction {
+  type: typeof SIGN_OUT;
+  payload: string[];
+}
+
 export interface getDocumentsAction {
   type: typeof GET_DOCUMENTS;
+  payload: Document[];
+}
+
+export interface removeDocumentsAction {
+  type: typeof SIGN_OUT;
   payload: Document[];
 }
 
@@ -98,24 +123,32 @@ export interface setDocumentAction {
   payload: string;
 }
 
+export interface removeDocumentAction {
+  type: typeof SIGN_OUT;
+  payload: string;
+}
+
 export type UserAuthenticationTypes = SignInUserAction | SignOutUserAction;
 export type DocumentTypes =
   | getDocumentsAction
   | deleteDocumentAction
   | filterDocumentsAction
-  | filterDocumentsByDepartment;
+  | filterDocumentsByDepartment
+  | removeDocumentsAction;
 export type UsersTypes =
   | getUsersActions
   | addUserAction
   | deleteUserAction
-  | filterUsersAction;
-export type ErrorTypes = ErrorAction;
-export type MenuItemTypes = MenuItemAction;
+  | filterUsersAction
+  | removeUsersActions;
+export type ErrorTypes = ErrorAction | RemoveErrorAction;
+export type MenuItemTypes = MenuItemAction | RemoveMenuItemAction;
 export type DepartmentTypes =
   | getDepartmentsAction
   | removeDepartmentAction
-  | addDepartmentAction;
-export type DisplayDocumentType = setDocumentAction;
+  | addDepartmentAction
+  | removeDepartmentsAction;
+export type DisplayDocumentType = setDocumentAction | removeDocumentAction;
 
 export type AppActions =
   | UserAuthenticationTypes

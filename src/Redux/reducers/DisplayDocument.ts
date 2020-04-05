@@ -9,6 +9,8 @@ export const DisplayDocumentReducer = (
   switch (action.type) {
     case "SET_DOCUMENT":
       return action.payload;
+    case "SIGN_OUT":
+      return DisplayDocumentDefaultState;
     default:
       return state;
   }

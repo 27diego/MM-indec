@@ -6,8 +6,7 @@ import { connect } from "react-redux";
 import {
   getUsers,
   deleteUser,
-  deleteDepartment,
-  getDocuments
+  getDocuments,
 } from "../../../Redux/actions/index";
 import { AppActions } from "../../../types/Actions";
 import { AppState } from "../../../Redux/Store/configureStore";
@@ -38,23 +37,28 @@ class AdminList extends Component<Props, AdminListState> {
     this.props.getDocuments();
 
     this.state = {
-      label: ""
+      label: "",
     };
   }
 
   renderUsersCard = () => {
     return (
       <div className="Container--UserList Container--UserList--cards">
-        {this.props.Users.map(user => (
-          <UserCard
-            key={user.username}
-            firstName={user.first_name}
-            lastName={user.last_name}
-            userName={user.username}
-            department={user.department}
-            admin={user.admin}
-          />
-        ))}
+        {this.props.Users.map((user) => {
+          if (user.username === this.props.User.username) {
+            return "";
+          }
+          return (
+            <UserCard
+              key={user.username}
+              firstName={user.first_name}
+              lastName={user.last_name}
+              userName={user.username}
+              department={user.department}
+              admin={user.admin}
+            />
+          );
+        })}
       </div>
     );
   };
@@ -62,7 +66,7 @@ class AdminList extends Component<Props, AdminListState> {
   renderSOPList = () => {
     return (
       <div className="Container--UserList Container--UserList--cards">
-        {this.props.Documents.map(item => item.title)}
+        {this.props.Documents.map((item) => item.title)}
       </div>
     );
   };
@@ -71,7 +75,7 @@ class AdminList extends Component<Props, AdminListState> {
     return (
       <div className="Container--UserList">
         <ul className="user">
-          <li>img</li>
+          <li></li>
           <li className="user__name">Name</li>
           <li className="user__username">Username</li>
           <li className="user__admin">Admin</li>
@@ -83,10 +87,14 @@ class AdminList extends Component<Props, AdminListState> {
           </li>
         </ul>
 
-        {this.props.Users.map(user => {
+        {this.props.Users.map((user) => {
+          if (user.username === this.props.User.username) {
+            return "";
+          }
+
           return (
             <ul key={user.username} className="user">
-              <li>img</li>
+              <li></li>
               <li className="user__name">
                 {user.first_name + " " + user.last_name}
               </li>
@@ -96,8 +104,8 @@ class AdminList extends Component<Props, AdminListState> {
               <li>
                 <div
                   onClick={(): void =>
-                    this.setState(prevState => ({
-                      label: prevState.label === "" ? user.username : ""
+                    this.setState((prevState) => ({
+                      label: prevState.label === "" ? user.username : "",
                     }))
                   }
                   className="user__edit"
@@ -107,7 +115,7 @@ class AdminList extends Component<Props, AdminListState> {
                 <div
                   style={{
                     display:
-                      this.state.label === user.username ? "flex" : "none"
+                      this.state.label === user.username ? "flex" : "none",
                   }}
                   className="user__label"
                 >
@@ -158,6 +166,7 @@ interface LinkStateProps {
   MenuItem: string;
   Users: User[];
   Documents: Document[];
+  User: User;
 }
 
 interface LinkDispatchProps {
@@ -172,7 +181,8 @@ const mapStateToProps = (
 ): LinkStateProps => ({
   MenuItem: state.MenuItemReducer,
   Users: state.GetUsersReducer,
-  Documents: state.DocumentReducer
+  Documents: state.DocumentReducer,
+  User: state.AuthenticationReducer,
 });
 
 const mapDispatchToProps = (
@@ -181,7 +191,7 @@ const mapDispatchToProps = (
 ): LinkDispatchProps => ({
   getUsers: bindActionCreators(getUsers, dispatch),
   deleteUser: bindActionCreators(deleteUser, dispatch),
-  getDocuments: bindActionCreators(getDocuments, dispatch)
+  getDocuments: bindActionCreators(getDocuments, dispatch),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(AdminList);

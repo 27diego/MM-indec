@@ -10,9 +10,11 @@ export const GetDepartmentsReducer = (
     case "GET_DEPARTMENTS":
       return action.payload;
     case "REMOVE_DEPARTMENT":
-      return state.filter(item => item !== action.payload);
+      return state.filter((item) => item !== action.payload);
     case "ADD_DEPARTMENT":
       return [...state, action.payload];
+    case "SIGN_OUT":
+      return GetDepartmentsReducerInitialState;
     default:
       return state;
   }
