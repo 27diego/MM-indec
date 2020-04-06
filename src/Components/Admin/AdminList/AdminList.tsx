@@ -21,13 +21,7 @@ interface AdminListProps {
   filter: string;
   setFilter: (filter: string) => void;
   listMode: string;
-  editUser: (
-    name: string,
-    username: string,
-    password: string,
-    department: string,
-    admin: boolean
-  ) => void;
+
   toggleModal: () => void;
 }
 interface AdminListState {
@@ -130,13 +124,6 @@ class AdminList extends Component<Props, AdminListState> {
                   <div
                     onClick={() => {
                       this.props.toggleModal();
-                      this.props.editUser(
-                        user.first_name + " " + user.last_name,
-                        user.username,
-                        "",
-                        user.department,
-                        user.admin
-                      );
                     }}
                   >
                     Edit

@@ -21,7 +21,6 @@ interface AdminDashboardState {
   modal: boolean;
   list: string;
   filter: string;
-  editUser: {};
 }
 
 type Props = AdminDashboardProps & LinkStateProps & LinkDispatchProps;
@@ -31,18 +30,11 @@ class AdminDashboard extends Component<Props, AdminDashboardState> {
     modal: false,
     list: "",
     filter: "",
-    editUser: {
-      name: "",
-      username: "",
-      password: "",
-      department: "",
-      admin: false,
-    },
   };
 
   componentDidMount() {
     if (this.props.User.admin === false) {
-      history.push("/Dashboard");
+      history.push("/");
     }
 
     this.props.selectMenu("User");
@@ -53,26 +45,6 @@ class AdminDashboard extends Component<Props, AdminDashboardState> {
     this.setState((prevState) => ({
       modal: !prevState.modal,
     }));
-  };
-
-  editUserState = (
-    name: string,
-    username: string,
-    password: string,
-    department: string,
-    admin: boolean
-  ) => {
-    this.setState({
-      ...this.state,
-      editUser: {
-        name,
-        username,
-        password,
-        department,
-        admin,
-      },
-    });
-    console.log(this.state.editUser);
   };
 
   toggleList = (item: string) => {
@@ -125,7 +97,6 @@ class AdminDashboard extends Component<Props, AdminDashboardState> {
             filter={this.state.filter}
             setFilter={this.setFilter}
             listMode={this.state.list}
-            editUser={this.editUserState}
             toggleModal={this.toggleModal}
           />
         </div>
