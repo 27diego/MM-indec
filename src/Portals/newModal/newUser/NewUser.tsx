@@ -12,6 +12,11 @@ import { bindActionCreators } from "redux";
 interface NewUserProps {
   modal: boolean;
   removeModal: () => void;
+  name?: string;
+  username?: string;
+  password?: string;
+  department?: string;
+  admin?: boolean;
 }
 
 interface NewUserState {
@@ -39,8 +44,8 @@ class NewUser extends Component<Props, NewUserState> {
         transform: "",
         transition: "all .5s ease",
         bottom: "0",
-        opacity: "0"
-      }
+        opacity: "0",
+      },
     };
 
     this.props.getDepartments();
@@ -52,8 +57,8 @@ class NewUser extends Component<Props, NewUserState> {
         style: {
           ...this.state.style,
           transform: "translateY(-20rem)",
-          opacity: "1"
-        }
+          opacity: "1",
+        },
       });
     }, 500);
   }
@@ -114,7 +119,7 @@ class NewUser extends Component<Props, NewUserState> {
           className="userModal__department"
         >
           <option value="">Department</option>
-          {this.props.departments.map(dep => (
+          {this.props.departments.map((dep) => (
             <option key={dep} value={dep}>
               {dep}
             </option>
@@ -178,7 +183,7 @@ const mapStateToProps = (
   state: AppState,
   ownProps: NewUserProps
 ): LinkStateProps => ({
-  departments: state.GetDepartmentsReducer
+  departments: state.GetDepartmentsReducer,
 });
 
 const mapDispatchToProps = (
@@ -186,7 +191,7 @@ const mapDispatchToProps = (
   ownProps: NewUserProps
 ): LinkDispatchProps => ({
   getDepartments: bindActionCreators(getDepartments, dispatch),
-  postUser: bindActionCreators(postUser, dispatch)
+  postUser: bindActionCreators(postUser, dispatch),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(NewUser);

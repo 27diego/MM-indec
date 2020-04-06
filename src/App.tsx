@@ -17,8 +17,8 @@ function App() {
       <div className="App">
         <Router history={history}>
           <Switch>
-            <Route path="/" exact component={Login} />
-            <Route path="/Dashboard" exact component={Dashboard} />
+            <Route path="/Login" exact component={Login} />
+            <Route path="/" exact component={Dashboard} />
             <Route path="/Admin" exact component={AdminDashboard} />
           </Switch>
         </Router>

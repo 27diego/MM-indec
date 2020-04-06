@@ -2,6 +2,8 @@ import React from "react";
 import "./Login.scss";
 import mountain from "../../images/longTrees.jpg";
 
+import history from "../../history";
+
 //Redux imports
 import { connect } from "react-redux";
 import { signIn } from "../../Redux/actions/index";
@@ -84,6 +86,12 @@ class Login extends React.Component<Props, LoginPageState> {
             <p className="form__forgot">Forgot Password?</p>
             <button onClick={this.handleSubmit} className="btn--login">
               Sign In
+            </button>
+            <button
+              onClick={(): void => history.push("/")}
+              className="btn--noLogin"
+            >
+              No Account
             </button>
           </div>
         </div>

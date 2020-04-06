@@ -61,6 +61,7 @@ class NewDepartment extends Component<Props, NewDepartmentState> {
     if (this.state.departmentInput !== "") {
       this.props.postDepartment(this.state.departmentInput);
     }
+    this.setState({ departmentInput: "" });
   };
 
   removeItem = () => {

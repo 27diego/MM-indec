@@ -21,6 +21,14 @@ interface AdminListProps {
   filter: string;
   setFilter: (filter: string) => void;
   listMode: string;
+  editUser: (
+    name: string,
+    username: string,
+    password: string,
+    department: string,
+    admin: boolean
+  ) => void;
+  toggleModal: () => void;
 }
 interface AdminListState {
   label: string;
@@ -119,7 +127,20 @@ class AdminList extends Component<Props, AdminListState> {
                   }}
                   className="user__label"
                 >
-                  <div>Edit</div>
+                  <div
+                    onClick={() => {
+                      this.props.toggleModal();
+                      this.props.editUser(
+                        user.first_name + " " + user.last_name,
+                        user.username,
+                        "",
+                        user.department,
+                        user.admin
+                      );
+                    }}
+                  >
+                    Edit
+                  </div>
                   <div
                     onClick={() =>
                       this.props.deleteUser(

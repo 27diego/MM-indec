@@ -15,12 +15,10 @@ export const signIn = (username: string, password: string) => {
     })
       .then((res) => res.json())
       .then((data) => {
-        console.log(data);
-
         if (data != null && typeof data === "object") {
           dispatch({ type: "SIGN_IN", payload: data });
           dispatch({ type: "ERROR", payload: "" });
-          history.push("/Dashboard");
+          history.push("/");
         } else {
           dispatch({ type: "ERROR", payload: data });
         }
@@ -30,7 +28,7 @@ export const signIn = (username: string, password: string) => {
 };
 
 export const signOut = () => {
-  history.push("/");
+  history.push("/Login");
   return {
     type: "SIGN_OUT",
   };
@@ -159,7 +157,6 @@ export const deleteDepartment = (department: string) => {
     })
       .then((res) => res.json())
       .then((data) => {
-        console.log("data from back end: ", data);
         if (data != null) {
           dispatch({ type: "REMOVE_DEPARTMENT", payload: data.department });
           dispatch({ type: "ERROR", payload: "" });
