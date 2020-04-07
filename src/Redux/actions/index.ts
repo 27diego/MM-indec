@@ -60,6 +60,40 @@ export const filterUsers = (item: string) => {
   };
 };
 
+export const editUser = (
+  first_name: string,
+  last_name: string,
+  username: string,
+  password: string,
+  admin: boolean,
+  department: string
+) => {
+  return async (dispatch: Dispatch<AppActions>, getState: () => AppState) => {
+    await fetch("http://localhost:3000/user", {
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        first_name,
+        last_name,
+        username,
+        password,
+        admin,
+        department,
+      }),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        if (data != null) {
+          dispatch({ type: "EDIT_USER", payload: data });
+          dispatch({ type: "ERROR", payload: "" });
+        } else {
+          dispatch({ type: "ERROR", payload: data });
+        }
+      })
+      .catch((err) => console.log(err));
+  };
+};
+
 export const postUser = (
   first_name: string,
   last_name: string,

@@ -16,6 +16,11 @@ export const GetUsersReducer = (
     case "ADD_USER":
       originalArray = [...originalArray, action.payload];
       return [...state, action.payload];
+    case "EDIT_USER":
+      state = state
+        .filter((user) => user.username !== action.payload.username)
+        .concat(action.payload);
+      return state;
     case "FILTER_USERS":
       filteredUsers = originalArray;
       return filteredUsers.filter((item) => {

@@ -6,6 +6,7 @@ export const ERROR = "ERROR";
 export const GET_USERS = "GET_USERS";
 export const DELETE_USER = "DELETE_USER";
 export const ADD_USER = "ADD_USER";
+export const EDIT_USER = "EDIT_USER";
 export const FILTER_USERS = "FILTER_USERS";
 export const SET_MENU_ITEM = "SET_MENU_ITEM";
 export const GET_DEPARTMENTS = "GET_DEPARTMENTS";
@@ -60,6 +61,11 @@ export interface removeUsersActions {
 
 export interface addUserAction {
   type: typeof ADD_USER;
+  payload: User;
+}
+
+export interface editUserAction {
+  type: typeof EDIT_USER;
   payload: User;
 }
 
@@ -138,6 +144,7 @@ export type DocumentTypes =
 export type UsersTypes =
   | getUsersActions
   | addUserAction
+  | editUserAction
   | deleteUserAction
   | filterUsersAction
   | removeUsersActions;

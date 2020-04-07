@@ -1,9 +1,9 @@
 import React, { Component } from "react";
 import Overlay from "../../Overlay/Overlay";
-import "./NewUser.scss";
+import "./EditUser.scss";
 
 import { connect } from "react-redux";
-import { postUser, getDepartments } from "../../../Redux/actions/index";
+import { editUser, getDepartments } from "../../../Redux/actions/index";
 import { AppActions } from "../../../types/Actions";
 import { AppState } from "../../../Redux/Store/configureStore";
 import { ThunkDispatch } from "redux-thunk";
@@ -12,6 +12,10 @@ import { bindActionCreators } from "redux";
 interface NewUserProps {
   modal: boolean;
   removeModal: () => void;
+  name: string;
+  username: string;
+  admin: boolean;
+  department: string;
 }
 
 interface NewUserState {
@@ -30,11 +34,11 @@ class NewUser extends Component<Props, NewUserState> {
     super(props);
 
     this.state = {
-      name: "",
-      username: "",
+      name: this.props.name,
+      username: this.props.username,
       password: "",
-      department: "",
-      admin: false,
+      department: this.props.department,
+      admin: this.props.admin,
       style: {
         transform: "",
         transition: "all .5s ease",
@@ -69,7 +73,7 @@ class NewUser extends Component<Props, NewUserState> {
     const last_name = name.substr(name.indexOf(" ") + 1, name.length);
 
     // console.log(newUser);
-    this.props.postUser(
+    this.props.editUser(
       first_name,
       last_name,
       username,
@@ -87,7 +91,7 @@ class NewUser extends Component<Props, NewUserState> {
         } userModal`}
         style={this.state.style}
       >
-        <div className="userModal__header">New User</div>
+        <div className="userModal__header">Edit User</div>
         <input
           value={this.state.name}
           onChange={(e): void => this.setState({ name: e.target.value })}
@@ -96,11 +100,12 @@ class NewUser extends Component<Props, NewUserState> {
           className="userModal__name"
         />
         <input
+          disabled={true}
           value={this.state.username}
           onChange={(e): void => this.setState({ username: e.target.value })}
           type="text"
           placeholder="Username"
-          className="userModal__username"
+          className="userModal__username userModal__username--disabled"
         />
         <input
           value={this.state.password}
@@ -164,7 +169,7 @@ interface LinkStateProps {
 
 interface LinkDispatchProps {
   getDepartments: () => void;
-  postUser: (
+  editUser: (
     first_name: string,
     last_name: string,
     username: string,
@@ -186,7 +191,7 @@ const mapDispatchToProps = (
   ownProps: NewUserProps
 ): LinkDispatchProps => ({
   getDepartments: bindActionCreators(getDepartments, dispatch),
-  postUser: bindActionCreators(postUser, dispatch),
+  editUser: bindActionCreators(editUser, dispatch),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(NewUser);

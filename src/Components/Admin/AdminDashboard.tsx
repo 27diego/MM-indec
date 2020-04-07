@@ -97,7 +97,6 @@ class AdminDashboard extends Component<Props, AdminDashboardState> {
             filter={this.state.filter}
             setFilter={this.setFilter}
             listMode={this.state.list}
-            toggleModal={this.toggleModal}
           />
         </div>
         {this.state.modal ? (

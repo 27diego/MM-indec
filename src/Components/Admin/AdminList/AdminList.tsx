@@ -16,16 +16,21 @@ import { User } from "../../../types/User";
 import { Document } from "../../../types/Document";
 
 import UserCard from "./UserCard/UserCard";
+import EditUser from "../../../Portals/newModal/editUser/EditUser";
 
 interface AdminListProps {
   filter: string;
   setFilter: (filter: string) => void;
   listMode: string;
-
-  toggleModal: () => void;
 }
 interface AdminListState {
   label: string;
+  modal: boolean;
+  firstName: string;
+  lastName: string;
+  userName: string;
+  admin: boolean;
+  department: string;
 }
 
 type Props = AdminListProps & LinkStateProps & LinkDispatchProps;
@@ -40,8 +45,20 @@ class AdminList extends Component<Props, AdminListState> {
 
     this.state = {
       label: "",
+      modal: false,
+      firstName: "",
+      lastName: "",
+      userName: "",
+      admin: false,
+      department: "",
     };
   }
+
+  handleModal = () => {
+    this.setState((prevState) => ({
+      modal: !prevState.modal,
+    }));
+  };
 
   renderUsersCard = () => {
     return (
@@ -123,7 +140,14 @@ class AdminList extends Component<Props, AdminListState> {
                 >
                   <div
                     onClick={() => {
-                      this.props.toggleModal();
+                      this.setState({
+                        userName: user.username,
+                        firstName: user.first_name,
+                        lastName: user.last_name,
+                        admin: user.admin,
+                        department: user.department,
+                      });
+                      this.handleModal();
                     }}
                   >
                     Edit
@@ -144,6 +168,19 @@ class AdminList extends Component<Props, AdminListState> {
             </ul>
           );
         })}
+
+        {this.state.modal ? (
+          <EditUser
+            modal={this.state.modal}
+            removeModal={this.handleModal}
+            name={this.state.firstName + " " + this.state.lastName}
+            username={this.state.userName}
+            admin={this.state.admin}
+            department={this.state.department}
+          />
+        ) : (
+          ""
+        )}
       </div>
     );
   };
