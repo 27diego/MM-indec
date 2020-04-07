@@ -13,6 +13,14 @@ interface UserCardProps {
   userName: string;
   department: string;
   admin: boolean;
+  handleModal: () => void;
+  setUser: (
+    userName: string,
+    firstName: string,
+    lastName: string,
+    admin: boolean,
+    department: string
+  ) => void;
 }
 
 interface UserCardState {
@@ -28,16 +36,16 @@ class UserCard extends Component<Props, UserCardState> {
     super(props);
 
     this.state = {
-      label: false
+      label: false,
     };
 
     fetch(
       `https://ui-avatars.com/api/?name=${this.props.firstName}+${this.props.lastName}&rounded=true&background=fff&color=0D8ABC`,
       {
-        method: "GET"
+        method: "GET",
       }
-    ).then(response => {
-      response.arrayBuffer().then(buffer => {
+    ).then((response) => {
+      response.arrayBuffer().then((buffer) => {
         var base64Flag = "data:image/jpeg;base64,";
         var imageStr = this.arrayBufferToBase64(buffer);
 
@@ -50,7 +58,7 @@ class UserCard extends Component<Props, UserCardState> {
     var binary = "";
     var bytes = [].slice.call(new Uint8Array(buffer));
 
-    bytes.forEach(b => (binary += String.fromCharCode(b)));
+    bytes.forEach((b) => (binary += String.fromCharCode(b)));
 
     return window.btoa(binary);
   };
@@ -68,7 +76,7 @@ class UserCard extends Component<Props, UserCardState> {
         </div>
         <div
           onClick={() =>
-            this.setState(prevState => ({ label: !prevState.label }))
+            this.setState((prevState) => ({ label: !prevState.label }))
           }
           className="userCard__menu"
         >
@@ -82,7 +90,20 @@ class UserCard extends Component<Props, UserCardState> {
               this.state.label ? "active" : ""
             }`}
           >
-            <div>Edit</div>
+            <div
+              onClick={() => {
+                this.props.setUser(
+                  this.props.userName,
+                  this.props.firstName,
+                  this.props.lastName,
+                  this.props.admin,
+                  this.props.department
+                );
+                this.props.handleModal();
+              }}
+            >
+              Edit
+            </div>
             <div
               onClick={() =>
                 this.props.deleteUser(
@@ -109,7 +130,7 @@ const mapDispatchToProps = (
   dispatch: ThunkDispatch<any, any, AppActions>,
   ownProps: UserCardProps
 ): LinkDispatchProps => ({
-  deleteUser: bindActionCreators(deleteUser, dispatch)
+  deleteUser: bindActionCreators(deleteUser, dispatch),
 });
 
 export default connect(null, mapDispatchToProps)(UserCard);

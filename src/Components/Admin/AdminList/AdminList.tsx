@@ -60,6 +60,22 @@ class AdminList extends Component<Props, AdminListState> {
     }));
   };
 
+  setUser = (
+    userName: string,
+    firstName: string,
+    lastName: string,
+    admin: boolean,
+    department: string
+  ) => {
+    this.setState({
+      userName: userName,
+      firstName: firstName,
+      lastName: lastName,
+      admin: admin,
+      department: department,
+    });
+  };
+
   renderUsersCard = () => {
     return (
       <div className="Container--UserList Container--UserList--cards">
@@ -75,6 +91,8 @@ class AdminList extends Component<Props, AdminListState> {
               userName={user.username}
               department={user.department}
               admin={user.admin}
+              handleModal={this.handleModal}
+              setUser={this.setUser}
             />
           );
         })}
@@ -168,19 +186,6 @@ class AdminList extends Component<Props, AdminListState> {
             </ul>
           );
         })}
-
-        {this.state.modal ? (
-          <EditUser
-            modal={this.state.modal}
-            removeModal={this.handleModal}
-            name={this.state.firstName + " " + this.state.lastName}
-            username={this.state.userName}
-            admin={this.state.admin}
-            department={this.state.department}
-          />
-        ) : (
-          ""
-        )}
       </div>
     );
   };
@@ -202,6 +207,18 @@ class AdminList extends Component<Props, AdminListState> {
           : this.props.MenuItem === "Document"
           ? this.renderSOPList()
           : ""}
+        {this.state.modal ? (
+          <EditUser
+            modal={this.state.modal}
+            removeModal={this.handleModal}
+            name={this.state.firstName + " " + this.state.lastName}
+            username={this.state.userName}
+            admin={this.state.admin}
+            department={this.state.department}
+          />
+        ) : (
+          ""
+        )}
       </div>
     );
   }
