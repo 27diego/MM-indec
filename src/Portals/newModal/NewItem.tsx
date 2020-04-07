@@ -8,7 +8,7 @@ import NewDepartment from "./departments/Departments";
 
 //Redux import
 import { connect } from "react-redux";
-import { getDepartments } from "../../Redux/actions/index";
+import { getDepartments, getCategories } from "../../Redux/actions/index";
 import { AppActions } from "../../types/Actions";
 import { AppState } from "../../Redux/Store/configureStore";
 import { ThunkDispatch } from "redux-thunk";
@@ -29,6 +29,7 @@ class NewItem extends Component<Props, NewItemState> {
   componentDidMount() {
     modal.appendChild(this.portal);
     this.props.getDepartments();
+    this.props.getCategories();
   }
 
   componentWillUnmount() {
@@ -76,6 +77,7 @@ interface LinkStateProps {
 
 interface LinkDispatchProps {
   getDepartments: () => void;
+  getCategories: () => void;
 }
 
 const mapStateToProps = (
@@ -92,6 +94,7 @@ const mapDispatchToProps = (
   ownProps: NewItemProps
 ): LinkDispatchProps => ({
   getDepartments: bindActionCreators(getDepartments, dispatch),
+  getCategories: bindActionCreators(getCategories, dispatch),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(NewItem);
