@@ -274,8 +274,6 @@ export const filterDocumentsByDepartment = (item: string) => {
 
 export const setDocument = (item: string) => {
   return async (dispatch: Dispatch<AppActions>, getState: () => AppState) => {
-    const { DisplayDocumentReducer } = getState();
-
     await fetch(`http://localhost:3000/file/${item}`, {
       method: "GET",
     })
@@ -283,6 +281,64 @@ export const setDocument = (item: string) => {
       .then((res) => {
         const fileUrl = URL.createObjectURL(res);
         dispatch({ type: "SET_DOCUMENT", payload: fileUrl });
+      });
+  };
+};
+
+export const postCategory = (item: string) => {
+  return async (dispatch: Dispatch<AppActions>, getState: () => AppState) => {
+    await fetch("http://localhost:3000/category", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ category: item }),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        if (data !== null) {
+          dispatch({ type: "ADD_CATEGORY", payload: item });
+          dispatch({ type: "ERROR", payload: "" });
+        } else {
+          dispatch({ type: "ERROR", payload: data });
+        }
+      });
+  };
+};
+
+export const deleteCategory = (item: string) => {
+  return async (dispatch: Dispatch<AppActions>, getState: () => AppState) => {
+    await fetch("http://localhost:3000/category", {
+      method: "DELETE",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        category: item,
+      }),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        if (data !== null) {
+          dispatch({ type: "DELETE_CATEGORY", payload: item });
+          dispatch({ type: "ERROR", payload: "" });
+        } else {
+          dispatch({ type: "ERROR", payload: data });
+        }
+      });
+  };
+};
+
+export const getCategories = () => {
+  return async (dispatch: Dispatch<AppActions>, getState: () => AppState) => {
+    await fetch("http://localhost:3000/category/all", {
+      method: "GET",
+      headers: { "Content-Type": "application/json" },
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        if (data !== null) {
+          dispatch({ type: "GET_CATEGORIES", payload: data });
+          dispatch({ type: "ERROR", payload: "" });
+        } else {
+          dispatch({ type: "ERROR", payload: data });
+        }
       });
   };
 };

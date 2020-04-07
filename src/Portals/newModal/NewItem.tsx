@@ -4,7 +4,7 @@ import "./NewItem.scss";
 
 import DropZone from "./DropZone/DropZone";
 import NewUser from "./newUser/NewUser";
-import NewDepartment from "./newDepartment/NewDepartment";
+import NewDepartment from "./departments/Departments";
 
 //Redux import
 import { connect } from "react-redux";
@@ -50,6 +50,7 @@ class NewItem extends Component<Props, NewItemState> {
             modal={this.props.modal}
             removeModal={this.props.removeModal}
             departments={this.props.departments}
+            categories={this.props.categories}
           />
         );
       case "Department":
@@ -70,6 +71,7 @@ class NewItem extends Component<Props, NewItemState> {
 interface LinkStateProps {
   MenuItem: string;
   departments: string[];
+  categories: string[];
 }
 
 interface LinkDispatchProps {
@@ -81,14 +83,15 @@ const mapStateToProps = (
   ownProps: NewItemProps
 ): LinkStateProps => ({
   MenuItem: state.MenuItemReducer,
-  departments: state.GetDepartmentsReducer
+  departments: state.GetDepartmentsReducer,
+  categories: state.CategoriesReducer,
 });
 
 const mapDispatchToProps = (
   dispatch: ThunkDispatch<any, any, AppActions>,
   ownProps: NewItemProps
 ): LinkDispatchProps => ({
-  getDepartments: bindActionCreators(getDepartments, dispatch)
+  getDepartments: bindActionCreators(getDepartments, dispatch),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(NewItem);

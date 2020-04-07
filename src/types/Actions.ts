@@ -18,6 +18,9 @@ export const DELETE_DOCUMENT = "DELETE_DOCUMENT";
 export const FILTER_DOCUMENTS = "FILTER_DOCUMENTS";
 export const FILTER_DOCUMENTS_DEPARTMENT = "FILTER_DOCUMENTS_DEPARTMENT";
 export const SET_DOCUMENT = "SET_DOCUMENT";
+export const ADD_CATEGORY = "ADD_CATEGORY";
+export const DELETE_CATEGORY = "DELETE_CATEGORY";
+export const GET_CATEGORIES = "GET_CATEGORIES";
 
 export interface SignInUserAction {
   type: typeof SIGN_IN;
@@ -134,6 +137,31 @@ export interface removeDocumentAction {
   payload: string;
 }
 
+export interface getCategoriesAction {
+  type: typeof GET_CATEGORIES;
+  payload: string[];
+}
+
+export interface addCategoryAction {
+  type: typeof ADD_CATEGORY;
+  payload: string;
+}
+
+export interface deleteCategoryAction {
+  type: typeof DELETE_CATEGORY;
+  payload: string;
+}
+
+export interface removeCategoriesAction {
+  type: typeof SIGN_OUT;
+  payload: string[];
+}
+
+export type CategoryTypes =
+  | getCategoriesAction
+  | addCategoryAction
+  | deleteCategoryAction
+  | removeCategoriesAction;
 export type UserAuthenticationTypes = SignInUserAction | SignOutUserAction;
 export type DocumentTypes =
   | getDocumentsAction
@@ -164,4 +192,5 @@ export type AppActions =
   | MenuItemTypes
   | DepartmentTypes
   | DocumentTypes
-  | DisplayDocumentType;
+  | DisplayDocumentType
+  | CategoryTypes;

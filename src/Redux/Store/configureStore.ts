@@ -11,6 +11,7 @@ import { GetUsersReducer } from "../reducers/Users";
 import { GetDepartmentsReducer } from "../reducers/Departments";
 import { DocumentReducer } from "../reducers/Document";
 import { DisplayDocumentReducer } from "../reducers/DisplayDocument";
+import { CategoriesReducer } from "../reducers/Categories";
 
 export const rootReducer = combineReducers({
   AuthenticationReducer,
@@ -20,6 +21,7 @@ export const rootReducer = combineReducers({
   GetDepartmentsReducer,
   DocumentReducer,
   DisplayDocumentReducer,
+  CategoriesReducer,
 });
 
 const persistConfig = {

@@ -7,6 +7,7 @@ interface Props {
   modal: boolean;
   removeModal: () => void;
   departments: string[];
+  categories: string[];
 }
 
 interface State {
@@ -239,8 +240,12 @@ class DropZone extends Component<Props, State> {
           className="documentModal__category"
         >
           <option value="">categories</option>
-          <option value="Chemical">Chemical</option>
-          <option value="Cleaning">Cleaning</option>
+          {this.props.categories.map((item) => (
+            <option key={item} value={item}>
+              {item}
+            </option>
+          ))}
+          )}
         </select>
         <select
           onChange={(e): void =>

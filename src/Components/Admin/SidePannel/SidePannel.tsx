@@ -5,8 +5,11 @@ import "./SidePannel.scss";
 import { connect } from "react-redux";
 import { AppState } from "../../../Redux/Store/configureStore";
 
+import Categories from "../../../Portals/newModal/categories/Categories";
+
 interface SidePannelState {
   activeSlider: string;
+  modal: boolean;
 }
 
 interface SidePannelProps {
@@ -26,6 +29,7 @@ class SidePannel extends Component<Props, SidePannelState> {
 
     this.state = {
       activeSlider: "cards",
+      modal: false,
     };
   }
 
@@ -54,6 +58,12 @@ class SidePannel extends Component<Props, SidePannelState> {
     bytes.forEach((b) => (binary += String.fromCharCode(b)));
 
     return window.btoa(binary);
+  };
+
+  handleModal = () => {
+    this.setState((prevState) => ({
+      modal: !prevState.modal,
+    }));
   };
 
   render() {
@@ -99,6 +109,14 @@ class SidePannel extends Component<Props, SidePannelState> {
             </div>
           </div>
         </div>
+        <div onClick={this.handleModal} className="SidePannel__categories">
+          Categories
+        </div>
+        {this.state.modal ? (
+          <Categories modal={this.state.modal} removeModal={this.handleModal} />
+        ) : (
+          ""
+        )}
       </div>
     );
   }

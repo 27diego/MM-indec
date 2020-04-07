@@ -1,12 +1,12 @@
 import React, { Component } from "react";
 import Overlay from "../../Overlay/Overlay";
-import "./NewDepartment.scss";
+import "./Categories.scss";
 
 import { connect } from "react-redux";
 import {
-  getDepartments,
-  deleteDepartment,
-  postDepartment,
+  getCategories,
+  deleteCategory,
+  postCategory,
 } from "../../../Redux/actions/index";
 import { AppActions } from "../../../types/Actions";
 import { AppState } from "../../../Redux/Store/configureStore";
@@ -42,7 +42,7 @@ class NewDepartment extends Component<Props, NewDepartmentState> {
       },
     };
 
-    this.props.getDepartments();
+    this.props.getCategories();
   }
 
   componentDidMount() {
@@ -59,7 +59,7 @@ class NewDepartment extends Component<Props, NewDepartmentState> {
 
   onSubmit = () => {
     if (this.state.departmentInput !== "") {
-      this.props.postDepartment(this.state.departmentInput);
+      this.props.postCategory(this.state.departmentInput);
     }
     this.setState({ departmentInput: "" });
   };
@@ -68,7 +68,7 @@ class NewDepartment extends Component<Props, NewDepartmentState> {
     this.setState({
       activeKey: "",
     });
-    this.props.deleteDepartment(this.state.activeKey);
+    this.props.deleteCategory(this.state.activeKey);
   };
 
   render() {
@@ -81,7 +81,7 @@ class NewDepartment extends Component<Props, NewDepartmentState> {
       >
         <div className="departmentModal__header">Departments</div>
         <div className="DPlist">
-          {this.props.departments.map((item) => (
+          {this.props.categories.map((item) => (
             <div key={item} className="DPlist__item">
               <div
                 className={`DPlist__item__deleteConfirm DPlist__item__deleteConfirm--${
@@ -155,29 +155,29 @@ class NewDepartment extends Component<Props, NewDepartmentState> {
 }
 
 interface LinkStateProps {
-  departments: string[];
+  categories: string[];
 }
 
 interface LinkDispatchProps {
-  getDepartments: () => void;
-  deleteDepartment: (item: string) => void;
-  postDepartment: (item: string) => void;
+  getCategories: () => void;
+  deleteCategory: (item: string) => void;
+  postCategory: (item: string) => void;
 }
 
 const mapStateToProps = (
   state: AppState,
   ownProps: NewDepartmentProps
 ): LinkStateProps => ({
-  departments: state.GetDepartmentsReducer,
+  categories: state.CategoriesReducer,
 });
 
 const mapDispatchToProps = (
   dispatch: ThunkDispatch<any, any, AppActions>,
   ownProps: NewDepartmentProps
 ): LinkDispatchProps => ({
-  getDepartments: bindActionCreators(getDepartments, dispatch),
-  deleteDepartment: bindActionCreators(deleteDepartment, dispatch),
-  postDepartment: bindActionCreators(postDepartment, dispatch),
+  getCategories: bindActionCreators(getCategories, dispatch),
+  deleteCategory: bindActionCreators(deleteCategory, dispatch),
+  postCategory: bindActionCreators(postCategory, dispatch),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(NewDepartment);
