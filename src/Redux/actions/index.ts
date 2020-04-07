@@ -8,7 +8,7 @@ import { ThunkDispatch } from "redux-thunk";
 
 export const signIn = (username: string, password: string) => {
   return async (dispatch: Dispatch<AppActions>, getState: () => AppState) => {
-    await fetch("http://localhost:3000/signIn", {
+    await fetch("http://138.197.192.85:3000/signIn", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ username, password }),
@@ -36,7 +36,7 @@ export const signOut = () => {
 
 export const getUsers = () => {
   return async (dispatch: Dispatch<AppActions>, getState: () => AppState) => {
-    await fetch("http://localhost:3000/user/all", {
+    await fetch("http://138.197.192.85:3000/user/all", {
       method: "GET",
       headers: { "Content-Type": "application/json" },
     })
@@ -69,7 +69,7 @@ export const editUser = (
   department: string
 ) => {
   return async (dispatch: Dispatch<AppActions>, getState: () => AppState) => {
-    await fetch("http://localhost:3000/user", {
+    await fetch("http://138.197.192.85:3000/user", {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
@@ -103,7 +103,7 @@ export const postUser = (
   department: string
 ) => {
   return async (dispatch: Dispatch<AppActions>, getState: () => AppState) => {
-    await fetch("http://localhost:3000/user", {
+    await fetch("http://138.197.192.85:3000/user", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
@@ -134,7 +134,7 @@ export const deleteUser = (
   username: string
 ) => {
   return async (dispatch: Dispatch<AppActions>, getState: () => AppState) => {
-    await fetch("http://localhost:3000/user", {
+    await fetch("http://138.197.192.85:3000/user", {
       method: "DELETE",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
@@ -165,7 +165,7 @@ export const selectMenu = (item: string) => {
 
 export const getDepartments = () => {
   return async (dispatch: Dispatch<AppActions>, getState: () => AppState) => {
-    await fetch("http://localhost:3000/department/all", {
+    await fetch("http://138.197.192.85:3000/department/all", {
       method: "GET",
       headers: { "Content-Type": "application/json" },
     })
@@ -184,7 +184,7 @@ export const getDepartments = () => {
 
 export const deleteDepartment = (department: string) => {
   return async (dispatch: Dispatch<AppActions>, getState: () => AppState) => {
-    await fetch("http://localhost:3000/department", {
+    await fetch("http://138.197.192.85:3000/department", {
       method: "DELETE",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ department }),
@@ -204,7 +204,7 @@ export const deleteDepartment = (department: string) => {
 
 export const postDepartment = (department: string) => {
   return async (dispatch: Dispatch<AppActions>, getState: () => AppState) => {
-    await fetch("http://localhost:3000/department", {
+    await fetch("http://138.197.192.85:3000/department", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ department }),
@@ -223,7 +223,7 @@ export const postDepartment = (department: string) => {
 
 export const getDocuments = () => {
   return async (dispatch: Dispatch<AppActions>, getState: () => AppState) => {
-    await fetch("http://localhost:3000/files", {
+    await fetch("http://138.197.192.85:3000/files", {
       method: "GET",
       headers: { "Content-Type": "application/json" },
     })
@@ -241,7 +241,7 @@ export const getDocuments = () => {
 
 export const deleteDocument = (title: string) => {
   return async (dispatch: Dispatch<AppActions>, getState: () => AppState) => {
-    await fetch("http://localhost:3000/file", {
+    await fetch("http://138.197.192.85:3000/file", {
       method: "DELETE",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ title }),
@@ -274,7 +274,7 @@ export const filterDocumentsByDepartment = (item: string) => {
 
 export const setDocument = (item: string) => {
   return async (dispatch: Dispatch<AppActions>, getState: () => AppState) => {
-    await fetch(`http://localhost:3000/file/${item}`, {
+    await fetch(`http://138.197.192.85:3000/file/${item}`, {
       method: "GET",
     })
       .then((res) => res.blob())
@@ -287,7 +287,7 @@ export const setDocument = (item: string) => {
 
 export const postCategory = (item: string) => {
   return async (dispatch: Dispatch<AppActions>, getState: () => AppState) => {
-    await fetch("http://localhost:3000/category", {
+    await fetch("http://138.197.192.85:3000/category", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ category: item }),
@@ -306,7 +306,7 @@ export const postCategory = (item: string) => {
 
 export const deleteCategory = (item: string) => {
   return async (dispatch: Dispatch<AppActions>, getState: () => AppState) => {
-    await fetch("http://localhost:3000/category", {
+    await fetch("http://138.197.192.85:3000/category", {
       method: "DELETE",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
@@ -327,7 +327,7 @@ export const deleteCategory = (item: string) => {
 
 export const getCategories = () => {
   return async (dispatch: Dispatch<AppActions>, getState: () => AppState) => {
-    await fetch("http://localhost:3000/category/all", {
+    await fetch("http://138.197.192.85:3000/category/all", {
       method: "GET",
       headers: { "Content-Type": "application/json" },
     })
